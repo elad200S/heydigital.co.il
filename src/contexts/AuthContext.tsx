@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import type { Session } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabase';
 
 export interface SimpleUser {
   email: string;
@@ -7,43 +9,43 @@ export interface SimpleUser {
 interface AuthContextType {
   user: SimpleUser | null;
   loading: boolean;
-  login: (user: SimpleUser) => void;
-  signOut: () => void;
+  signOut: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
-  login: () => {},
-  signOut: () => {},
+  signOut: async () => {},
 });
 
-const STORAGE_KEY = 'eh_portal_session';
+const toUser = (session: Session | null): SimpleUser | null =>
+  session?.user?.email ? { email: session.user.email.toLowerCase() } : null;
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<SimpleUser | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) setUser(JSON.parse(saved));
-    } catch {}
-    setLoading(false);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(toUser(session));
+      setLoading(false);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(toUser(session));
+      setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  const login = (newUser: SimpleUser) => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(newUser));
-    setUser(newUser);
-  };
-
-  const signOut = () => {
-    localStorage.removeItem(STORAGE_KEY);
+  const signOut = async () => {
+    await supabase.auth.signOut();
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, signOut }}>
+    <AuthContext.Provider value={{ user, loading, signOut }}>
       {children}
     </AuthContext.Provider>
   );
