@@ -71,6 +71,7 @@ const BlogSupabaseVsBase44BackendGuide = lazy(() => import("./pages/blog/Supabas
 const BlogLovableVsFreelancerCostComparison = lazy(() => import("./pages/blog/LovableVsFreelancerCostComparison"));
 const BlogAutomationImplementerGuide = lazy(() => import("./pages/blog/AutomationImplementerGuide"));
 const BlogAccountantAutomation = lazy(() => import("./pages/blog/AccountantAutomation"));
+const BlogAiEcommerceVsShopify2026 = lazy(() => import("./pages/blog/AiEcommerceVsShopify2026"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -189,6 +190,7 @@ const RoutesWithTransition = () => {
           <Route path="/blog/lovable-vs-freelancer-cost-comparison" element={<BlogLovableVsFreelancerCostComparison />} />
           <Route path="/blog/automation-implementer-guide" element={<BlogAutomationImplementerGuide />} />
           <Route path="/blog/accountant-automation" element={<BlogAccountantAutomation />} />
+          <Route path="/blog/ai-ecommerce-vs-shopify-2026" element={<BlogAiEcommerceVsShopify2026 />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services/chatbots" element={<Chatbots />} />
