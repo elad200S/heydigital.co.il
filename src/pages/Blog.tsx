@@ -15,6 +15,13 @@ const categories = [
 
 const articles = [
   {
+    title: 'GitHub + Vercel + Lovable — הסטאק המלא לבניית מוצר דיגיטלי בלי צוות פיתוח',
+    category: 'כלי No-Code',
+    excerpt: 'סטאק GitHub Vercel Lovable מאפשר לבנות ולפרסם מוצר דיגיטלי בלי צוות פיתוח, בעלות של עשרות דולרים בחודש. איך זה עובד וכמה זה עולה ב-2026.',
+    readTime: '12 דקות קריאה',
+    href: '/blog/github-vercel-lovable-stack-guide',
+  },
+  {
     title: 'חנות איקומרס עם AI מול Shopify — מה משתלם ב-2026',
     category: 'כלי No-Code',
     excerpt: 'חנות איקומרס AI כמו Lovable זולה ומהירה יותר להקמה מ-Shopify, אבל לא מחליפה תשתית מסחר מלאה. השוואת מחיר, זמן הקמה ויכולות ל-2026.',
