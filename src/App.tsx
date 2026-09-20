@@ -75,6 +75,7 @@ const BlogAiEcommerceVsShopify2026 = lazy(() => import("./pages/blog/AiEcommerce
 const BlogGithubVercelLovableStackGuide = lazy(() => import("./pages/blog/GithubVercelLovableStackGuide"));
 const BlogInsuranceAgentAutomation = lazy(() => import("./pages/blog/InsuranceAgentAutomation"));
 const BlogAiWebsiteVsDevelopmentAgency = lazy(() => import("./pages/blog/AiWebsiteVsDevelopmentAgency"));
+const BlogCRMWhatsAppEmailIntegration = lazy(() => import("./pages/blog/CRMWhatsAppEmailIntegration"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -197,6 +198,7 @@ const RoutesWithTransition = () => {
           <Route path="/blog/github-vercel-lovable-stack-guide" element={<BlogGithubVercelLovableStackGuide />} />
           <Route path="/blog/insurance-agent-automation" element={<BlogInsuranceAgentAutomation />} />
           <Route path="/blog/ai-website-vs-development-agency" element={<BlogAiWebsiteVsDevelopmentAgency />} />
+          <Route path="/blog/crm-whatsapp-email-integration" element={<BlogCRMWhatsAppEmailIntegration />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services/chatbots" element={<Chatbots />} />
