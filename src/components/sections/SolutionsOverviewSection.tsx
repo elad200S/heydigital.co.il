@@ -129,16 +129,19 @@ const StaticCard = ({ solution: s }: { solution: Solution }) => (
 const STACK_TOP_BASE_PX = 88;
 // How much further down (px) each next card sticks, relative to the one
 // before it. This is also exactly how much of a covered card stays exposed —
-// sized to roughly the icon+title row's height, so only that "header" strip
-// peeks out and the description underneath it stays hidden, per the brief.
-const STACK_STEP_PX = 60;
+// sized for the icon+title row (title is forced to a single line via
+// line-clamp specifically so this number can be a reliable, known quantity —
+// see the comment on the title below) with a safety margin, so only that
+// "header" strip peeks out and the description underneath it stays hidden.
+const STACK_STEP_PX = 80;
 // Scroll distance consumed before each card (after the first) arrives —
-// this is what paces the stacking; the deck no longer needs per-card
-// dwell/release runway since cards don't release individually anymore
-// (see the comment on StackCard).
-const ENTRY_GAP_DVH = 240;
+// this is what paces the stacking. Kept short: once a card is stuck it
+// doesn't move or change until the next one arrives (no scroll-driven
+// size/opacity animation happens in between), so a long gap here just reads
+// as the page being stuck, not as anticipation.
+const ENTRY_GAP_DVH = 70;
 const FIRST_APPROACH_DVH = 50;
-const TAIL_RUNWAY_DVH = 130;
+const TAIL_RUNWAY_DVH = 90;
 
 /**
  * One card in the deck. Unlike a "one card fully replaces the next" stack,
@@ -155,29 +158,46 @@ const TAIL_RUNWAY_DVH = 130;
  * accordion look, entirely from layout, no scroll-driven size/opacity math
  * needed to fake "being covered."
  *
- * The peek interaction (`whileHover` / `whileTap`) needs to bump z-index on
- * the *sticky* element itself, not a descendant — z-index stacking order is
- * decided between the positioned siblings, so a transform on a child alone
- * can't paint it above a higher z-index sibling. That's why this component
- * IS the sticky element (a single `motion.div`), instead of wrapping an
- * inner motion.div the way a scroll-driven version would.
+ * The peek interaction is split across two nested elements on purpose:
+ *   - the OUTER motion.div is the actual `position: sticky` element, and its
+ *     hover/tap response only ever changes z-index — never a transform. Its
+ *     geometry is 100% static.
+ *   - the INNER motion.div is a plain (non-sticky) child that does the
+ *     `-15px` visual pop, and has no gesture listener of its own — it
+ *     inherits the outer's hover/tap state via matching `variants` labels.
+ * Both matter: animating `transform` directly on a `position: sticky`
+ * element is what caused the earlier "hover gets stuck and breaks the next
+ * card" bug — once a transform briefly touches a sticky element, some
+ * engines don't cleanly recompute its stuck offset afterward, plus the
+ * element's own bounding box moving out from under a stationary cursor can
+ * flip hover on/off rapidly (mouse leaves the spot it just moved away from,
+ * re-enters where it moved back to, repeat). Keeping the sticky element's
+ * box completely stationary and only moving an inner, non-sticky child
+ * removes both problems at once. z-index still has to live on the outer:
+ * stacking order is decided between the positioned siblings, so a moving
+ * inner child alone could never paint above a higher z-index sibling.
  */
 const StackCard = ({ solution: s, index, total }: { solution: Solution; index: number; total: number }) => {
   const top = STACK_TOP_BASE_PX + index * STACK_STEP_PX;
+  const outerVariants = { rest: { zIndex: index + 1 }, peek: { zIndex: total + 20 } };
+  const innerVariants = { rest: { y: 0 }, peek: { y: -15 } };
 
   return (
     <motion.div
       className="sticky px-4 sm:px-6"
-      style={{ top: `${top}px`, zIndex: index + 1, willChange: 'transform' }}
-      // Desktop: hover lifts a covered card so more of it peeks out.
-      // Mobile: whileTap fires on touch press for the same effect — no
-      // hover state exists on touch, so this is the mobile equivalent asked
-      // for, without a separate click handler needed.
-      whileHover={{ y: -15, zIndex: total + 20 }}
-      whileTap={{ y: -15, zIndex: total + 20 }}
-      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+      style={{ top: `${top}px` }}
+      variants={outerVariants}
+      initial="rest"
+      whileHover="peek"
+      whileTap="peek"
+      transition={{ duration: 0.3 }}
     >
-      <div className="relative w-full max-w-2xl mx-auto">
+      <motion.div
+        className="relative w-full max-w-2xl mx-auto"
+        variants={innerVariants}
+        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        style={{ willChange: 'transform' }}
+      >
         <Link
           to={s.href}
           // Solid flat fill on mobile — no blur, no border, no glow, so it
@@ -185,7 +205,7 @@ const StackCard = ({ solution: s, index, total }: { solution: Solution; index: n
           // title actually hides the one behind it (fully transparent here
           // would let a covered card's text bleed straight through the one
           // stacked in front of it). Desktop keeps the glass-card look.
-          className="group relative block w-full rounded-2xl sm:rounded-3xl overflow-hidden p-6 sm:p-10 bg-card sm:bg-black/40 sm:backdrop-blur-xl sm:border sm:border-white/10 shadow-[0_10px_24px_-8px_rgba(0,0,0,0.45)] sm:shadow-none"
+          className="group relative block w-full rounded-2xl sm:rounded-3xl overflow-hidden p-5 sm:p-10 bg-card sm:bg-black/40 sm:backdrop-blur-xl sm:border sm:border-white/10 shadow-[0_10px_24px_-8px_rgba(0,0,0,0.45)] sm:shadow-none"
         >
           {/* Accent glow + border glow — desktop only, part of the glass look */}
           <div
@@ -197,18 +217,23 @@ const StackCard = ({ solution: s, index, total }: { solution: Solution; index: n
             style={{ boxShadow: `inset 0 0 0 1px ${s.accent}40` }}
           />
 
-          <div className="relative flex items-start gap-4" dir="rtl">
-            <div className={cn('rounded-xl flex items-center justify-center flex-shrink-0 w-14 h-14', s.iconBg)}>
-              <s.icon className={cn('w-7 h-7', s.iconColor)} />
+          <div className="relative flex items-start gap-3 sm:gap-4" dir="rtl">
+            <div className={cn('rounded-xl flex items-center justify-center flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14', s.iconBg)}>
+              <s.icon className={cn('w-6 h-6 sm:w-7 sm:h-7', s.iconColor)} />
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">{s.title}</h3>
+              {/* line-clamp-1 keeps the title reliably one line tall — this is
+                  what STACK_STEP_PX is sized against, so a long title
+                  wrapping to 2 lines can never land in the zone the next
+                  card is already covering (that was the actual cause of
+                  titles reading as cut off mid-word). */}
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 line-clamp-1">{s.title}</h3>
               <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">{s.description}</p>
             </div>
             <ArrowLeft className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:-translate-x-1 transition-all duration-300 flex-shrink-0 mt-1" />
           </div>
         </Link>
-      </div>
+      </motion.div>
     </motion.div>
   );
 };
