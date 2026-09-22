@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Bot, Zap, MessageCircle, GitBranch, Workflow, BarChart3, Globe } from 'lucide-react';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import RevealText from '@/components/RevealText';
@@ -176,8 +176,27 @@ const TAIL_RUNWAY_DVH = 90;
  * removes both problems at once. z-index still has to live on the outer:
  * stacking order is decided between the positioned siblings, so a moving
  * inner child alone could never paint above a higher z-index sibling.
+ *
+ * `whileHover` is only wired up when `canHover` is true (a real mouse — see
+ * `(hover: hover)` in the parent). On touch, browsers commonly simulate a
+ * hover state on tap for compatibility with hover-styled sites, but never
+ * fire the matching "un-hover" — there's no pointer to leave. That's a real
+ * stuck-forever state, and it's exactly what a touch tap was hitting: two
+ * gestures (hover + tap) both trying to drive the same "peek" state, and the
+ * synthetic hover one never releasing. Touch is left to `whileTap` alone,
+ * which binds to actual press/release (and cancel) and always resolves.
  */
-const StackCard = ({ solution: s, index, total }: { solution: Solution; index: number; total: number }) => {
+const StackCard = ({
+  solution: s,
+  index,
+  total,
+  canHover,
+}: {
+  solution: Solution;
+  index: number;
+  total: number;
+  canHover: boolean;
+}) => {
   const top = STACK_TOP_BASE_PX + index * STACK_STEP_PX;
   const outerVariants = { rest: { zIndex: index + 1 }, peek: { zIndex: total + 20 } };
   const innerVariants = { rest: { y: 0 }, peek: { y: -15 } };
@@ -188,7 +207,7 @@ const StackCard = ({ solution: s, index, total }: { solution: Solution; index: n
       style={{ top: `${top}px` }}
       variants={outerVariants}
       initial="rest"
-      whileHover="peek"
+      {...(canHover ? { whileHover: 'peek' } : {})}
       whileTap="peek"
       transition={{ duration: 0.3 }}
     >
@@ -200,21 +219,31 @@ const StackCard = ({ solution: s, index, total }: { solution: Solution; index: n
       >
         <Link
           to={s.href}
-          // Solid flat fill on mobile — no blur, no border, no glow, so it
-          // still reads as "clean," but opaque enough that a covered card's
-          // title actually hides the one behind it (fully transparent here
-          // would let a covered card's text bleed straight through the one
-          // stacked in front of it). Desktop keeps the glass-card look.
-          className="group relative block w-full rounded-2xl sm:rounded-3xl overflow-hidden p-5 sm:p-10 bg-card sm:bg-black/40 sm:backdrop-blur-xl sm:border sm:border-white/10 shadow-[0_10px_24px_-8px_rgba(0,0,0,0.45)] sm:shadow-none"
+          // Solid flat fill on mobile — still no blur (that's what makes a
+          // covered card's title actually hide the one behind it — fully
+          // transparent would let it bleed through the card stacked in
+          // front of it) — but now with the same soft hairline border as
+          // desktop and a refined shadow, so it doesn't read as a flat plate.
+          // Desktop softens the glass itself (lower fill opacity, stronger
+          // blur) and gets its own elevated shadow instead of none.
+          className={cn(
+            'group relative block w-full overflow-hidden',
+            'rounded-[20px] sm:rounded-[28px]',
+            'p-5 sm:p-10',
+            'bg-card border border-white/[0.06]',
+            'sm:bg-black/25 sm:backdrop-blur-2xl sm:border-white/10',
+            'shadow-[0_16px_32px_-12px_rgba(0,0,0,0.5)]',
+            'sm:shadow-[0_24px_60px_-16px_rgba(0,0,0,0.55),0_2px_10px_-2px_rgba(0,0,0,0.25)]'
+          )}
         >
           {/* Accent glow + border glow — desktop only, part of the glass look */}
           <div
-            className="absolute inset-0 rounded-2xl sm:rounded-3xl pointer-events-none hidden sm:block"
-            style={{ background: `radial-gradient(ellipse at top right, ${s.accent}18, transparent 60%)` }}
+            className="absolute inset-0 rounded-[20px] sm:rounded-[28px] pointer-events-none hidden sm:block"
+            style={{ background: `radial-gradient(ellipse at top right, ${s.accent}16, transparent 62%)` }}
           />
           <div
-            className="absolute inset-0 rounded-2xl sm:rounded-3xl pointer-events-none hidden sm:block"
-            style={{ boxShadow: `inset 0 0 0 1px ${s.accent}40` }}
+            className="absolute inset-0 rounded-[20px] sm:rounded-[28px] pointer-events-none hidden sm:block"
+            style={{ boxShadow: `inset 0 0 0 1px ${s.accent}35` }}
           />
 
           <div className="relative flex items-start gap-3 sm:gap-4" dir="rtl">
@@ -227,8 +256,10 @@ const StackCard = ({ solution: s, index, total }: { solution: Solution; index: n
                   wrapping to 2 lines can never land in the zone the next
                   card is already covering (that was the actual cause of
                   titles reading as cut off mid-word). */}
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 line-clamp-1">{s.title}</h3>
-              <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">{s.description}</p>
+              <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground mb-2.5 line-clamp-1">
+                {s.title}
+              </h3>
+              <p className="text-muted-foreground/90 leading-relaxed text-sm sm:text-base">{s.description}</p>
             </div>
             <ArrowLeft className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:-translate-x-1 transition-all duration-300 flex-shrink-0 mt-1" />
           </div>
@@ -241,6 +272,12 @@ const StackCard = ({ solution: s, index, total }: { solution: Solution; index: n
 const SolutionsOverviewSection = () => {
   const stackRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  // Computed once here (not per-card) and passed down — see the note on
+  // StackCard for why whileHover is gated behind this.
+  const [canHover, setCanHover] = useState(false);
+  useEffect(() => {
+    setCanHover(window.matchMedia('(hover: hover) and (pointer: fine)').matches);
+  }, []);
 
   return (
     // Deliberately not using the shared `Section` wrapper or `CinematicReveal` here —
@@ -290,7 +327,7 @@ const SolutionsOverviewSection = () => {
             flatMap keeps them flat while still giving each a stable key.
           */}
           {solutions.flatMap((s, i) => [
-            <StackCard key={`card-${i}`} solution={s} index={i} total={solutions.length} />,
+            <StackCard key={`card-${i}`} solution={s} index={i} total={solutions.length} canHover={canHover} />,
             i < solutions.length - 1 ? (
               <div key={`gap-${i}`} style={{ height: `${ENTRY_GAP_DVH}dvh` }} aria-hidden="true" />
             ) : null,
