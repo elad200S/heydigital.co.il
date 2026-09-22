@@ -8,3 +8,6 @@ verify_jwt = false
 
 [functions.audit-scan]
 verify_jwt = false
+
+[functions.provision-client-account]
+verify_jwt = false
