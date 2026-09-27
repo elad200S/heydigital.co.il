@@ -78,6 +78,7 @@ const BlogAiWebsiteVsDevelopmentAgency = lazy(() => import("./pages/blog/AiWebsi
 const BlogCRMWhatsAppEmailIntegration = lazy(() => import("./pages/blog/CRMWhatsAppEmailIntegration"));
 const BlogSalesPersonAutomation = lazy(() => import("./pages/blog/SalesPersonAutomation"));
 const BlogAiLandingPageConversionTest = lazy(() => import("./pages/blog/AiLandingPageConversionTest"));
+const BlogLovableFormToCrmAutomation = lazy(() => import("./pages/blog/LovableFormToCrmAutomation"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -203,6 +204,7 @@ const RoutesWithTransition = () => {
           <Route path="/blog/crm-whatsapp-email-integration" element={<BlogCRMWhatsAppEmailIntegration />} />
           <Route path="/blog/sales-person-automation" element={<BlogSalesPersonAutomation />} />
           <Route path="/blog/ai-landing-page-conversion-test" element={<BlogAiLandingPageConversionTest />} />
+          <Route path="/blog/lovable-form-to-crm-automation" element={<BlogLovableFormToCrmAutomation />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services/chatbots" element={<Chatbots />} />
