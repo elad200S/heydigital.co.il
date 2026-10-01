@@ -80,6 +80,7 @@ const BlogSalesPersonAutomation = lazy(() => import("./pages/blog/SalesPersonAut
 const BlogAiLandingPageConversionTest = lazy(() => import("./pages/blog/AiLandingPageConversionTest"));
 const BlogLovableFormToCrmAutomation = lazy(() => import("./pages/blog/LovableFormToCrmAutomation"));
 const BlogDentalClinicAutomation = lazy(() => import("./pages/blog/DentalClinicAutomation"));
+const BlogBase44VsWordPressPlugins = lazy(() => import("./pages/blog/Base44VsWordPressPlugins"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -207,6 +208,7 @@ const RoutesWithTransition = () => {
           <Route path="/blog/ai-landing-page-conversion-test" element={<BlogAiLandingPageConversionTest />} />
           <Route path="/blog/lovable-form-to-crm-automation" element={<BlogLovableFormToCrmAutomation />} />
           <Route path="/blog/dental-clinic-automation" element={<BlogDentalClinicAutomation />} />
+          <Route path="/blog/base44-vs-wordpress-plugins" element={<BlogBase44VsWordPressPlugins />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services/chatbots" element={<Chatbots />} />

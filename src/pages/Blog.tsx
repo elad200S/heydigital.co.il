@@ -15,6 +15,13 @@ const categories = [
 
 const articles = [
   {
+    title: 'Base44 מול WordPress + Plugins — מתי לבנות ומתי לקנות תבנית',
+    category: 'כלי No-Code',
+    excerpt: 'Base44 מול WordPress: כמה עולה כל אפשרות בישראל ב-2026, 59,000 פלאגינים מול 20 אינטגרציות מובנות, ומתי כדאי לבנות אפליקציה עם AI ומתי לקנות תבנית WordPress מוכנה.',
+    readTime: '11 דקות קריאה',
+    href: '/blog/base44-vs-wordpress-plugins',
+  },
+  {
     title: 'אוטומציה לרופא שיניים — תזכורות, תורים ומעקב',
     category: 'אוטומציה-ענף',
     excerpt: 'אוטומציה לרופא שיניים מורידה no-show בכ-40% ומנהלת קביעת תור שיניים אוטומטית ב-WhatsApp. כמה זה עולה בישראל ב-2026, וכמה מרפאת שיניים ממוצעת חוסכת בשנה.',
