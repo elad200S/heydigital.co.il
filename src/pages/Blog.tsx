@@ -15,6 +15,13 @@ const categories = [
 
 const articles = [
   {
+    title: '5 אוטומציות שכל אתר Lovable או Base44 חייב ביום הראשון',
+    category: 'גשר',
+    excerpt: 'אוטומציות ל-Lovable ול-Base44 שחייבות לרוץ מהיום הראשון: מענה מיידי לליד, התראה לבעל העסק, סנכרון ל-CRM, פולו-אפ ודוח יומי — כולל מחירים ל-2026.',
+    readTime: '10 דקות קריאה',
+    href: '/blog/lovable-base44-day-one-automations',
+  },
+  {
     title: 'Base44 מול WordPress + Plugins — מתי לבנות ומתי לקנות תבנית',
     category: 'כלי No-Code',
     excerpt: 'Base44 מול WordPress: כמה עולה כל אפשרות בישראל ב-2026, 59,000 פלאגינים מול 20 אינטגרציות מובנות, ומתי כדאי לבנות אפליקציה עם AI ומתי לקנות תבנית WordPress מוכנה.',
