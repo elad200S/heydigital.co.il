@@ -1,10 +1,16 @@
 import { useState } from "react";
 import { ArrowLeft, CheckCircle2, Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase";
 
 const MAKE_WEBHOOK_URL = "https://hook.us2.make.com/mkf9676ndwn4v1s2cm6tllxyrlqxi2nj";
 const RATE_LIMIT_KEY = 'eh_contact_last_submit';
 const RATE_LIMIT_MS = 60000;
+
+// הטבלה ב-DB מקבלת רק את הערכים האלה (CHECK constraint) — זה שונה מהקטגוריות
+// שבתפריט הנפתח כאן, אז כל ערך אחר נופל ל-"custom".
+const DB_AUTOMATION_TYPES = new Set(['leads', 'quotes', 'scheduling', 'data', 'custom']);
+const toDbAutomationType = (value: string) => (DB_AUTOMATION_TYPES.has(value) ? value : 'custom');
 
 import { SEOHead, LocalBusinessSchema } from "@/lib/seo";
 import Navbar from "@/components/Navbar";
@@ -57,14 +63,30 @@ const Contact = () => {
 
     setIsSubmitting(true);
     try {
+      const normalizedPhone = normalizePhone(formData.phone);
+      const dbAutomationType = toDbAutomationType(formData.automationType);
+
+      // Save to database — this is what makes the lead show up in the admin panel
+      const { error: dbError } = await supabase.from('contact_submissions').insert({
+        name: trimmedName,
+        phone: normalizedPhone,
+        business: trimmedBusiness,
+        automation_type: dbAutomationType,
+      });
+      if (dbError) {
+        console.error('DB insert error:', dbError);
+        toast({ title: 'שגיאה בשמירת הפנייה', description: 'אנא נסה שוב או צור קשר בוואטסאפ.', variant: 'destructive' });
+        setIsSubmitting(false);
+        return;
+      }
+
       const payload: Record<string, string> = {
         full_name: formData.name.trim(),
-        phone: normalizePhone(formData.phone),
+        phone: normalizedPhone,
         form_type: "main_form",
         _token: "eh-auto-2024",
       };
-      const biz = formData.business.trim();
-      if (biz) payload.business_type = biz;
+      if (trimmedBusiness) payload.business_type = trimmedBusiness;
       if (formData.automationType) payload.automation_type = formData.automationType;
 
       const res = await fetch(MAKE_WEBHOOK_URL, {
