@@ -84,6 +84,7 @@ const BlogBase44VsWordPressPlugins = lazy(() => import("./pages/blog/Base44VsWor
 const BlogLovableBase44DayOneAutomations = lazy(() => import("./pages/blog/LovableBase44DayOneAutomations"));
 const BlogLeadManagementAutomation = lazy(() => import("./pages/blog/LeadManagementAutomation"));
 const BlogAiArchitectPortfolioWebsite = lazy(() => import("./pages/blog/AiArchitectPortfolioWebsite"));
+const BlogWebsiteAutomationCombinedRoi = lazy(() => import("./pages/blog/WebsiteAutomationCombinedRoi"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -215,6 +216,7 @@ const RoutesWithTransition = () => {
           <Route path="/blog/lovable-base44-day-one-automations" element={<BlogLovableBase44DayOneAutomations />} />
           <Route path="/blog/lead-management-automation" element={<BlogLeadManagementAutomation />} />
           <Route path="/blog/ai-architect-portfolio-website" element={<BlogAiArchitectPortfolioWebsite />} />
+          <Route path="/blog/website-automation-combined-roi" element={<BlogWebsiteAutomationCombinedRoi />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services/chatbots" element={<Chatbots />} />
