@@ -231,9 +231,9 @@ serve(async (req) => {
       lastMessage.content = lastMessage.content.slice(0, 1500);
     }
 
-    const ANTHROPIC_API_KEY = Deno.env.get("ANTHROPIC_API_KEY");
-    if (!ANTHROPIC_API_KEY) {
-      console.error("ANTHROPIC_API_KEY is not configured");
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    if (!LOVABLE_API_KEY) {
+      console.error("LOVABLE_API_KEY is not configured");
       return new Response(
         JSON.stringify({ error: "Service not configured" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -252,22 +252,23 @@ serve(async (req) => {
       systemPrompt += "\n\nThe user expressed buying intent or interest. Move toward suggesting a realistic automation direction and encourage scheduling a 15-minute discovery call via WhatsApp: https://wa.link/kw53y2";
     }
 
-    // Only user/assistant roles — system is passed separately
-    const apiMessages = messages
-      .slice(-20)
-      .filter((m: { role: string; content: string }) => m.role === 'user' || m.role === 'assistant')
-      .map((m: { role: string; content: string }) => ({ role: m.role, content: m.content }));
+    // Gateway is OpenAI-compatible: system goes as a system-role message
+    const apiMessages = [
+      { role: 'system', content: systemPrompt },
+      ...messages
+        .slice(-20)
+        .filter((m: { role: string; content: string }) => m.role === 'user' || m.role === 'assistant')
+        .map((m: { role: string; content: string }) => ({ role: m.role, content: m.content })),
+    ];
 
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
-        "x-api-key": ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01",
+        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "claude-haiku-4-5-20251001",
-        system: systemPrompt,
+        model: "google/gemini-3.1-flash-lite",
         messages: apiMessages,
         stream: true,
         max_tokens: 800,
@@ -276,7 +277,7 @@ serve(async (req) => {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Anthropic API error:", response.status, errorText);
+      console.error("AI Gateway error:", response.status, errorText);
 
       if (response.status === 429) {
         return new Response(
@@ -298,10 +299,8 @@ serve(async (req) => {
       );
     }
 
-    // Pipe Anthropic SSE through transformer → OpenAI-compatible SSE
-    const transformedStream = response.body!.pipeThrough(createAnthropicToOpenAITransform());
-
-    return new Response(transformedStream, {
+    // Gateway already returns OpenAI-compatible SSE — pipe through directly
+    return new Response(response.body, {
       headers: { ...corsHeaders, "Content-Type": "text/event-stream" },
     });
 
