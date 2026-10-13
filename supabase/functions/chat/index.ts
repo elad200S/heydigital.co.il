@@ -137,60 +137,6 @@ async function sendToWebhook(payload: Record<string, string>): Promise<void> {
   }
 }
 
-// Transform Anthropic SSE events to OpenAI-compatible SSE format
-function createAnthropicToOpenAITransform(): TransformStream<Uint8Array, Uint8Array> {
-  const encoder = new TextEncoder();
-  const decoder = new TextDecoder();
-  let buffer = '';
-
-  return new TransformStream<Uint8Array, Uint8Array>({
-    transform(chunk, controller) {
-      buffer += decoder.decode(chunk, { stream: true });
-
-      let newlineIndex: number;
-      while ((newlineIndex = buffer.indexOf('\n')) !== -1) {
-        const line = buffer.slice(0, newlineIndex).replace(/\r$/, '');
-        buffer = buffer.slice(newlineIndex + 1);
-
-        if (!line.startsWith('data: ')) continue;
-        const jsonStr = line.slice(6).trim();
-        if (!jsonStr) continue;
-
-        try {
-          const event = JSON.parse(jsonStr);
-          if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
-            const text = event.delta.text || '';
-            const openaiChunk = JSON.stringify({ choices: [{ delta: { content: text } }] });
-            controller.enqueue(encoder.encode(`data: ${openaiChunk}\n\n`));
-          } else if (event.type === 'message_stop') {
-            controller.enqueue(encoder.encode('data: [DONE]\n\n'));
-          }
-        } catch {
-          // ignore parse errors on incomplete lines
-        }
-      }
-    },
-    flush(controller) {
-      if (!buffer.trim()) return;
-      for (const raw of buffer.split('\n')) {
-        const line = raw.replace(/\r$/, '');
-        if (!line.startsWith('data: ')) continue;
-        const jsonStr = line.slice(6).trim();
-        if (!jsonStr) continue;
-        try {
-          const event = JSON.parse(jsonStr);
-          if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
-            const text = event.delta.text || '';
-            const openaiChunk = JSON.stringify({ choices: [{ delta: { content: text } }] });
-            controller.enqueue(encoder.encode(`data: ${openaiChunk}\n\n`));
-          } else if (event.type === 'message_stop') {
-            controller.enqueue(encoder.encode('data: [DONE]\n\n'));
-          }
-        } catch { /* ignore */ }
-      }
-    },
-  });
-}
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
