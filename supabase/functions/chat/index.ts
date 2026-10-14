@@ -137,60 +137,6 @@ async function sendToWebhook(payload: Record<string, string>): Promise<void> {
   }
 }
 
-// Transform Anthropic SSE events to OpenAI-compatible SSE format
-function createAnthropicToOpenAITransform(): TransformStream<Uint8Array, Uint8Array> {
-  const encoder = new TextEncoder();
-  const decoder = new TextDecoder();
-  let buffer = '';
-
-  return new TransformStream<Uint8Array, Uint8Array>({
-    transform(chunk, controller) {
-      buffer += decoder.decode(chunk, { stream: true });
-
-      let newlineIndex: number;
-      while ((newlineIndex = buffer.indexOf('\n')) !== -1) {
-        const line = buffer.slice(0, newlineIndex).replace(/\r$/, '');
-        buffer = buffer.slice(newlineIndex + 1);
-
-        if (!line.startsWith('data: ')) continue;
-        const jsonStr = line.slice(6).trim();
-        if (!jsonStr) continue;
-
-        try {
-          const event = JSON.parse(jsonStr);
-          if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
-            const text = event.delta.text || '';
-            const openaiChunk = JSON.stringify({ choices: [{ delta: { content: text } }] });
-            controller.enqueue(encoder.encode(`data: ${openaiChunk}\n\n`));
-          } else if (event.type === 'message_stop') {
-            controller.enqueue(encoder.encode('data: [DONE]\n\n'));
-          }
-        } catch {
-          // ignore parse errors on incomplete lines
-        }
-      }
-    },
-    flush(controller) {
-      if (!buffer.trim()) return;
-      for (const raw of buffer.split('\n')) {
-        const line = raw.replace(/\r$/, '');
-        if (!line.startsWith('data: ')) continue;
-        const jsonStr = line.slice(6).trim();
-        if (!jsonStr) continue;
-        try {
-          const event = JSON.parse(jsonStr);
-          if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
-            const text = event.delta.text || '';
-            const openaiChunk = JSON.stringify({ choices: [{ delta: { content: text } }] });
-            controller.enqueue(encoder.encode(`data: ${openaiChunk}\n\n`));
-          } else if (event.type === 'message_stop') {
-            controller.enqueue(encoder.encode('data: [DONE]\n\n'));
-          }
-        } catch { /* ignore */ }
-      }
-    },
-  });
-}
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -231,9 +177,9 @@ serve(async (req) => {
       lastMessage.content = lastMessage.content.slice(0, 1500);
     }
 
-    const ANTHROPIC_API_KEY = Deno.env.get("ANTHROPIC_API_KEY");
-    if (!ANTHROPIC_API_KEY) {
-      console.error("ANTHROPIC_API_KEY is not configured");
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    if (!LOVABLE_API_KEY) {
+      console.error("LOVABLE_API_KEY is not configured");
       return new Response(
         JSON.stringify({ error: "Service not configured" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -252,22 +198,23 @@ serve(async (req) => {
       systemPrompt += "\n\nThe user expressed buying intent or interest. Move toward suggesting a realistic automation direction and encourage scheduling a 15-minute discovery call via WhatsApp: https://wa.link/kw53y2";
     }
 
-    // Only user/assistant roles — system is passed separately
-    const apiMessages = messages
-      .slice(-20)
-      .filter((m: { role: string; content: string }) => m.role === 'user' || m.role === 'assistant')
-      .map((m: { role: string; content: string }) => ({ role: m.role, content: m.content }));
+    // Gateway is OpenAI-compatible: system goes as a system-role message
+    const apiMessages = [
+      { role: 'system', content: systemPrompt },
+      ...messages
+        .slice(-20)
+        .filter((m: { role: string; content: string }) => m.role === 'user' || m.role === 'assistant')
+        .map((m: { role: string; content: string }) => ({ role: m.role, content: m.content })),
+    ];
 
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
-        "x-api-key": ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01",
+        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "claude-haiku-4-5-20251001",
-        system: systemPrompt,
+        model: "google/gemini-3.1-flash-lite",
         messages: apiMessages,
         stream: true,
         max_tokens: 800,
@@ -276,7 +223,7 @@ serve(async (req) => {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Anthropic API error:", response.status, errorText);
+      console.error("AI Gateway error:", response.status, errorText);
 
       if (response.status === 429) {
         return new Response(
@@ -298,10 +245,8 @@ serve(async (req) => {
       );
     }
 
-    // Pipe Anthropic SSE through transformer → OpenAI-compatible SSE
-    const transformedStream = response.body!.pipeThrough(createAnthropicToOpenAITransform());
-
-    return new Response(transformedStream, {
+    // Gateway already returns OpenAI-compatible SSE — pipe through directly
+    return new Response(response.body, {
       headers: { ...corsHeaders, "Content-Type": "text/event-stream" },
     });
 
