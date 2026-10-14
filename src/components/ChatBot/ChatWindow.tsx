@@ -181,7 +181,7 @@ const ChatWindow = ({ messages, isLoading, onSendMessage, onClose, maxInputLengt
       <div
         ref={scrollContainerRef}
         onScroll={handleScroll}
-        className="flex-1 overflow-y-auto no-scrollbar p-4 scroll-smooth bg-background"
+        className="flex-1 overflow-y-auto overscroll-contain no-scrollbar p-4 scroll-smooth bg-background"
         style={{
           backgroundImage:
             'linear-gradient(to left, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)',
