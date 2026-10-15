@@ -15,6 +15,13 @@ const categories = [
 
 const articles = [
   {
+    title: 'מקרה בוחן: איך HEY Digital נבנתה על Lovable, Base44 ואוטומציה',
+    category: 'גשר',
+    excerpt: 'מקרה בוחן HEY Digital: האתר נבנה ב-Lovable, מערכת 0CAI הפנימית נבנתה ב-Base44, ואוטומציה מחברת ביניהם. ההחלטות, המחירים והטעויות האמיתיות שלנו מ-2026.',
+    readTime: '11 דקות קריאה',
+    href: '/blog/hey-digital-case-study-lovable-base44',
+  },
+  {
     title: 'Vibe Coding לבעלי עסקים — 5 דברים לדעת לפני שמתחילים לבד',
     category: 'מגמות AI',
     excerpt: 'Vibe Coding לעסקים נשמע קל, אבל יש מחיר חודשי אמיתי, סיכון אבטחה מתועד וטעויות נפוצות שכל בעל עסק חייב להכיר לפני שבונה אתר או מערכת לבד עם AI ב-2026.',
