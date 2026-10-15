@@ -16,6 +16,7 @@ const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
+    email: '',
     business: '',
     automationType: '',
   });
@@ -25,6 +26,8 @@ const ContactSection = () => {
     const phoneRegex = /^0[5-9][0-9]-?[0-9]{7}$/;
     return phoneRegex.test(phone.trim());
   };
+
+  const isValidEmail = (email: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 
   const normalizePhone = (phone: string): string => {
     return phone.trim().replace(/-/g, '');
@@ -44,9 +47,15 @@ const ContactSection = () => {
       toast({ title: 'מספר טלפון לא תקין', description: 'נא להזין מספר טלפון ישראלי תקין (לדוגמה: 050-1234567)', variant: 'destructive' });
       return;
     }
-    
+
+    const trimmedEmail = formData.email.trim();
+    if (trimmedEmail && !isValidEmail(trimmedEmail)) {
+      toast({ title: 'כתובת אימייל לא תקינה', variant: 'destructive' });
+      return;
+    }
+
     setIsSubmitting(true);
-    
+
     try {
       const normalizedPhone = normalizePhone(formData.phone);
       const business = formData.business.trim() || 'לא צוין';
@@ -56,6 +65,7 @@ const ContactSection = () => {
       const { error: dbError } = await supabase.from('contact_submissions').insert({
         name: formData.name.trim(),
         phone: normalizedPhone,
+        email: trimmedEmail || null,
         business,
         automation_type: automationType,
       });
@@ -74,6 +84,7 @@ const ContactSection = () => {
         business_type: business,
         automation_type: automationType,
       };
+      if (trimmedEmail) payload.email = trimmedEmail;
 
       fetch(MAKE_WEBHOOK_URL, {
         method: 'POST',
@@ -83,7 +94,7 @@ const ContactSection = () => {
 
 
       toast({ title: 'הטופס נשלח בהצלחה', description: 'ניצור איתך קשר בהקדם.' });
-      setFormData({ name: '', phone: '', business: '', automationType: '' });
+      setFormData({ name: '', phone: '', email: '', business: '', automationType: '' });
     } catch (error) {
       console.error('Contact form error:', error);
       toast({ title: 'שגיאה בשליחת הטופס', description: 'אנא נסה שוב מאוחר יותר.', variant: 'destructive' });
@@ -140,7 +151,22 @@ const ContactSection = () => {
                 dir="ltr"
               />
             </div>
-            
+
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                אימייל
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="w-full px-4 py-3 bg-background border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                placeholder="name@example.com"
+                dir="ltr"
+              />
+            </div>
+
             <div>
               <label htmlFor="business" className="block text-sm font-medium text-foreground mb-2">
                 מה היית רוצה לייעל בעסק?

@@ -14,6 +14,7 @@ const ContactPopup = () => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
+    email: '',
     business: '',
     automationType: '',
   });
@@ -24,6 +25,8 @@ const ContactPopup = () => {
     const phoneRegex = /^0[5-9][0-9]-?[0-9]{7}$/;
     return phoneRegex.test(phone.trim());
   };
+
+  const isValidEmail = (email: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 
   const normalizePhone = (phone: string): string => {
     return phone.trim().replace(/-/g, '');
@@ -58,6 +61,12 @@ const ContactPopup = () => {
       return;
     }
 
+    const trimmedEmail = formData.email.trim();
+    if (trimmedEmail && !isValidEmail(trimmedEmail)) {
+      toast({ title: 'כתובת אימייל לא תקינה', variant: 'destructive' });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -68,6 +77,7 @@ const ContactPopup = () => {
       const { error: dbError } = await supabase.from('contact_submissions').insert({
         name: formData.name.trim(),
         phone: normalizedPhone,
+        email: trimmedEmail || null,
         business: formData.business.trim(),
         automation_type: automationType,
       });
@@ -87,6 +97,7 @@ const ContactPopup = () => {
         business_type: formData.business.trim(),
         automation_type: automationType,
       };
+      if (trimmedEmail) payload.email = trimmedEmail;
 
       fetch(MAKE_WEBHOOK_URL, {
         method: 'POST',
@@ -97,7 +108,7 @@ const ContactPopup = () => {
 
       localStorage.setItem(RATE_LIMIT_KEY, Date.now().toString());
       toast({ title: 'הטופס נשלח בהצלחה', description: 'ניצור איתך קשר בהקדם.' });
-      setFormData({ name: '', phone: '', business: '', automationType: '' });
+      setFormData({ name: '', phone: '', email: '', business: '', automationType: '' });
       closePopup();
     } catch (error) {
       console.error('Contact form error:', error);
@@ -175,6 +186,21 @@ const ContactPopup = () => {
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 className="w-full px-4 py-3 bg-background border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                 placeholder="050-1234567"
+                dir="ltr"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="popup-email" className="block text-sm font-medium text-foreground mb-1.5">
+                אימייל
+              </label>
+              <input
+                type="email"
+                id="popup-email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="w-full px-4 py-3 bg-background border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                placeholder="name@example.com"
                 dir="ltr"
               />
             </div>

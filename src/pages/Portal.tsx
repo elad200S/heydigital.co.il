@@ -203,6 +203,7 @@ type Submission = {
   id: string;
   name: string;
   phone: string;
+  email: string | null;
   business: string;
   automation_type: string;
   created_at: string;
@@ -284,6 +285,7 @@ const LeadsTab = () => {
                 <tr className="text-right">
                   <th className="px-4 py-3 font-semibold text-foreground text-xs">שם</th>
                   <th className="px-4 py-3 font-semibold text-foreground text-xs">טלפון</th>
+                  <th className="px-4 py-3 font-semibold text-foreground text-xs">אימייל</th>
                   <th className="px-4 py-3 font-semibold text-foreground text-xs">עסק</th>
                   <th className="px-4 py-3 font-semibold text-foreground text-xs">סוג אוטומציה</th>
                   <th className="px-4 py-3 font-semibold text-foreground text-xs">תאריך</th>
@@ -309,6 +311,9 @@ const LeadsTab = () => {
                       </div>
                     </td>
 
+                    <td className="px-4 py-3 text-muted-foreground" dir="ltr">
+                      {s.email ? <a href={`mailto:${s.email}`} className="hover:text-primary transition-colors">{s.email}</a> : '—'}
+                    </td>
                     <td className="px-4 py-3 text-muted-foreground">{s.business}</td>
                     <td className="px-4 py-3">
                       <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
