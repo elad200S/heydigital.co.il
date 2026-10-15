@@ -19,7 +19,6 @@ export type Database = {
           automation_type: string
           business: string
           created_at: string
-          email: string | null
           id: string
           name: string
           phone: string
@@ -28,7 +27,6 @@ export type Database = {
           automation_type: string
           business: string
           created_at?: string
-          email?: string | null
           id?: string
           name: string
           phone: string
@@ -37,7 +35,6 @@ export type Database = {
           automation_type?: string
           business?: string
           created_at?: string
-          email?: string | null
           id?: string
           name?: string
           phone?: string
