@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1792090434423,
+      "tag": "0000_add_email_to_contact_submissions",
+      "breakpoints": true
+    }
+  ]
+}
