@@ -220,6 +220,34 @@ const AUTOMATION_LABELS: Record<string, string> = {
 const LeadsTab = () => {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
+  const [converting, setConverting] = useState<Submission | null>(null);
+  const [convertEmail, setConvertEmail] = useState('');
+  const [convertProject, setConvertProject] = useState('');
+  const [converted, setConverted] = useState<Set<string>>(new Set());
+  const [saving, setSaving] = useState(false);
+
+  const openConvert = (s: Submission) => {
+    setConverting(s);
+    setConvertEmail(s.email ?? '');
+    setConvertProject(s.business || AUTOMATION_LABELS[s.automation_type] || '');
+  };
+
+  const confirmConvert = async () => {
+    if (!converting) return;
+    setSaving(true);
+    const { error } = await (supabase as any).from('eh_clients').insert({
+      name: converting.name,
+      email: convertEmail || null,
+      project: convertProject,
+      status: 'בביצוע',
+      paid: false,
+    });
+    setSaving(false);
+    if (!error) {
+      setConverted(prev => new Set(prev).add(converting.id));
+      setConverting(null);
+    }
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -289,6 +317,7 @@ const LeadsTab = () => {
                   <th className="px-4 py-3 font-semibold text-foreground text-xs">עסק</th>
                   <th className="px-4 py-3 font-semibold text-foreground text-xs">סוג אוטומציה</th>
                   <th className="px-4 py-3 font-semibold text-foreground text-xs">תאריך</th>
+                  <th className="px-4 py-3 font-semibold text-foreground text-xs"></th>
                 </tr>
               </thead>
               <tbody>
@@ -321,10 +350,62 @@ const LeadsTab = () => {
                       </span>
                     </td>
                     <td className="px-4 py-3 text-muted-foreground text-xs whitespace-nowrap">{formatDate(s.created_at)}</td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      {converted.has(s.id) ? (
+                        <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">✓ הומר ללקוח</span>
+                      ) : (
+                        <button
+                          onClick={() => openConvert(s)}
+                          className="text-xs px-3 py-1 rounded-full border border-border text-muted-foreground hover:border-primary/50 hover:text-primary transition-colors"
+                        >
+                          הפוך ללקוח
+                        </button>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          </div>
+        </div>
+      )}
+
+      {converting && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4" onClick={() => setConverting(null)}>
+          <div className="bg-background border border-border rounded-xl p-6 w-full max-w-sm space-y-4" onClick={e => e.stopPropagation()}>
+            <h3 className="text-base font-bold text-foreground">הפוך את {converting.name} ללקוח</h3>
+            <div className="space-y-3">
+              <div>
+                <label className="text-xs text-muted-foreground block mb-1">שם הפרויקט</label>
+                <input
+                  value={convertProject}
+                  onChange={e => setConvertProject(e.target.value)}
+                  className="w-full text-sm px-3 py-2 rounded-lg bg-muted/30 border border-border text-foreground"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground block mb-1">אימייל (כדי שהלקוח יוכל להתחבר לפאנל שלו)</label>
+                <input
+                  value={convertEmail}
+                  onChange={e => setConvertEmail(e.target.value)}
+                  dir="ltr"
+                  placeholder="client@example.com"
+                  className="w-full text-sm px-3 py-2 rounded-lg bg-muted/30 border border-border text-foreground"
+                />
+              </div>
+            </div>
+            <div className="flex gap-2 justify-end pt-2">
+              <button onClick={() => setConverting(null)} className="text-sm px-4 py-2 rounded-lg text-muted-foreground hover:text-foreground transition-colors">
+                ביטול
+              </button>
+              <button
+                onClick={confirmConvert}
+                disabled={saving || !convertProject}
+                className="text-sm px-4 py-2 rounded-lg bg-primary text-primary-foreground font-medium disabled:opacity-50"
+              >
+                {saving ? 'שומר...' : 'אישור'}
+              </button>
+            </div>
           </div>
         </div>
       )}
