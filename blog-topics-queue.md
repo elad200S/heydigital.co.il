@@ -71,7 +71,7 @@
 | 2026-10-20 | אוטומציה לחינוך ומכירת קורסים (פורסם קודם בכתובת /blog/course-sales-automation — אין צורך בכפילות) | אוטומציה קורסים, שיווק קורסים אוטומטי, מכירת קורסים                | אוטומציה-ענף     | education-course-automation           | פורסם ✓  |
 | 2026-10-22 | Vibe Coding לבעלי עסקים — 5 דברים לדעת לפני שמתחילים לבד              | Vibe Coding לעסקים, וייב קודינג מדריך, בניית אתר לבד עם AI          | מגמות AI         | vibe-coding-business-owners-guide     | פורסם ✓  |
 | 2026-10-25 | מקרה בוחן: איך HEY Digital נבנתה על Lovable + Base44 + אוטומציה      | מקרה בוחן HEY Digital, Lovable Base44 מקרה בוחן                     | גשר              | hey-digital-case-study-lovable-base44 | פורסם ✓  |
-| 2026-10-27 | שיפור תהליכים עסקיים — 5 מקומות שכדאי להתחיל                        | שיפור תהליכים עסקיים, אופטימיזציה עסקית, יעילות עסקית              | אוטומציה         | business-process-improvement          | ממתין  |
+| 2026-10-27 | שיפור תהליכים עסקיים — 5 מקומות שכדאי להתחיל                        | שיפור תהליכים עסקיים, אופטימיזציה עסקית, יעילות עסקית              | אוטומציה         | business-process-improvement          | פורסם ✓  |
 | 2026-10-29 | בניית חנות איקומרס — AI מול Shopify מול WooCommerce, מדריך החלטה     | חנות איקומרס השוואה, Shopify מול WooCommerce מול AI                | כלי No-Code      | ecommerce-platform-decision-guide-2026 | ממתין  |
 
 ---
@@ -284,6 +284,7 @@
 
 | תאריך פרסום | נושא                                              | URL                                          |
 |-------------|---------------------------------------------------|----------------------------------------------|
+| 2026-10-18  | שיפור תהליכים עסקיים — 5 מקומות שכדאי להתחיל     | /blog/business-process-improvement           |
 | 2026-10-15  | מקרה בוחן: איך HEY Digital נבנתה על Lovable, Base44 ואוטומציה | /blog/hey-digital-case-study-lovable-base44  |
 | 2026-10-13  | Vibe Coding לבעלי עסקים — 5 דברים לדעת לפני שמתחילים לבד | /blog/vibe-coding-business-owners-guide      |
 | 2026-09-03  | אוטומציה לחינוך ומכירת קורסים — מהרשמה עד מכירה   | /blog/course-sales-automation                |
