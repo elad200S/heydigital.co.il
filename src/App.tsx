@@ -89,6 +89,8 @@ const BlogVibeCodingBusinessOwnersGuide = lazy(() => import("./pages/blog/VibeCo
 const BlogHeyDigitalCaseStudyLovableBase44 = lazy(() => import("./pages/blog/HeyDigitalCaseStudyLovableBase44"));
 const BlogBusinessProcessImprovement = lazy(() => import("./pages/blog/BusinessProcessImprovement"));
 const BlogEcommercePlatformDecisionGuide2026 = lazy(() => import("./pages/blog/EcommercePlatformDecisionGuide2026"));
+const BlogEcommerceStoreGuide2026 = lazy(() => import("./pages/blog/EcommerceStoreGuide2026"));
+const BlogBusinessWebsite2026 = lazy(() => import("./pages/blog/BusinessWebsite2026"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -233,6 +235,8 @@ const RoutesWithTransition = () => {
           <Route path="/blog/hey-digital-case-study-lovable-base44" element={<BlogHeyDigitalCaseStudyLovableBase44 />} />
           <Route path="/blog/business-process-improvement" element={<BlogBusinessProcessImprovement />} />
           <Route path="/blog/ecommerce-platform-decision-guide-2026" element={<BlogEcommercePlatformDecisionGuide2026 />} />
+          <Route path="/blog/ecommerce-store-guide-2026" element={<BlogEcommerceStoreGuide2026 />} />
+          <Route path="/blog/business-website-2026" element={<BlogBusinessWebsite2026 />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services/chatbots" element={<Chatbots />} />

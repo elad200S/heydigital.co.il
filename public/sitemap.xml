@@ -507,4 +507,18 @@
     <priority>0.75</priority>
   </url>
 
+  <url>
+    <loc>https://www.heydigital.co.il/blog/ecommerce-store-guide-2026</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <url>
+    <loc>https://www.heydigital.co.il/blog/business-website-2026</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
 </urlset>
