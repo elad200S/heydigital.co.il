@@ -107,6 +107,11 @@ const WorkflowAutomation = lazy(() => import("./pages/solutions/WorkflowAutomati
 // Solutions - web development
 const WebDevelopment = lazy(() => import("./pages/solutions/WebDevelopment"));
 
+// Solutions - agency services
+const SocialMediaManagement = lazy(() => import("./pages/solutions/SocialMediaManagement"));
+const CampaignManagement = lazy(() => import("./pages/solutions/CampaignManagement"));
+const SalesTraining = lazy(() => import("./pages/solutions/SalesTraining"));
+
 // Legacy service pages
 const Chatbots = lazy(() => import("./pages/services/Chatbots"));
 const CRM = lazy(() => import("./pages/services/CRM"));
@@ -166,6 +171,9 @@ const RoutesWithTransition = () => {
           <Route path="/solutions/crm-automation" element={<CRMAutomation />} />
           <Route path="/solutions/workflow-automation" element={<WorkflowAutomation />} />
           <Route path="/solutions/web-development" element={<WebDevelopment />} />
+          <Route path="/solutions/social-media-management" element={<SocialMediaManagement />} />
+          <Route path="/solutions/campaign-management" element={<CampaignManagement />} />
+          <Route path="/solutions/sales-training" element={<SalesTraining />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/5-automation-processes" element={<AutomationProcesses />} />
           <Route path="/blog/ai-agent-for-business" element={<AIAgentForBusiness />} />

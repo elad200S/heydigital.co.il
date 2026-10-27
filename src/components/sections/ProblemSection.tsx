@@ -54,8 +54,8 @@ const StatsRow = () => {
           <div
             className="text-5xl md:text-6xl font-bold tabular-nums leading-none mb-3 relative"
             style={{
-              color: 'hsl(160,84%,52%)',
-              textShadow: '0 0 40px hsl(160,84%,39%,0.5)',
+              color: 'hsl(24,100%,52%)',
+              textShadow: '0 0 40px hsl(24,100%,39%,0.5)',
               letterSpacing: '-0.03em',
             }}
           >

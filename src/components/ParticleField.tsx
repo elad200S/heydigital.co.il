@@ -85,7 +85,7 @@ const ParticleField = () => {
         // Draw dot
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(16, 185, 129, ${p.alpha})`;
+        ctx.fillStyle = `rgba(255, 94, 0, ${p.alpha})`;
         ctx.fill();
       }
 
@@ -100,7 +100,7 @@ const ParticleField = () => {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(16, 185, 129, ${alpha})`;
+            ctx.strokeStyle = `rgba(255, 94, 0, ${alpha})`;
             ctx.lineWidth = 0.6;
             ctx.stroke();
           }

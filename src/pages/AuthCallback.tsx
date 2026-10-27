@@ -24,8 +24,8 @@ const AuthCallback = () => {
           width: 36,
           height: 36,
           borderRadius: '50%',
-          border: '3px solid rgba(16,185,129,0.2)',
-          borderTopColor: 'hsl(160,84%,39%)',
+          border: '3px solid rgba(255, 94, 0,0.2)',
+          borderTopColor: 'hsl(24,100%,39%)',
           animation: 'spin 0.7s linear infinite',
           margin: '0 auto',
         }} />

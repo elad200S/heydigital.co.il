@@ -154,7 +154,7 @@ const HeroAutomationFlow = () => {
         pp.x, pp.y, pr * 2.5
       );
       pulseGrd.addColorStop(0, 'rgba(255,255,255,0.95)');
-      pulseGrd.addColorStop(0.3, 'rgba(16,185,129,0.8)');
+      pulseGrd.addColorStop(0.3, 'rgba(255, 94, 0,0.8)');
       pulseGrd.addColorStop(1, 'rgba(5,150,100,0)');
 
       ctx.beginPath();

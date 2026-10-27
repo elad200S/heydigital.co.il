@@ -96,7 +96,7 @@ const ProcessSection = () => {
                   {/* Watermark number */}
                   <div
                     className="absolute top-1 left-3 font-mono font-black pointer-events-none select-none"
-                    style={{ fontSize: 72, color: 'rgba(16,185,129,0.06)', lineHeight: 1 }}
+                    style={{ fontSize: 72, color: 'rgba(255, 94, 0,0.06)', lineHeight: 1 }}
                   >
                     {step.number}
                   </div>
@@ -104,7 +104,7 @@ const ProcessSection = () => {
                   {/* Top accent */}
                   <div
                     className="absolute top-0 left-6 right-6 h-px"
-                    style={{ background: 'linear-gradient(to right, transparent, hsl(160,84%,39%,0.45), transparent)' }}
+                    style={{ background: 'linear-gradient(to right, transparent, hsl(24,100%,39%,0.45), transparent)' }}
                   />
 
                   <div className="relative">

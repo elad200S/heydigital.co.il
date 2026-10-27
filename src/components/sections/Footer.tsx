@@ -24,6 +24,9 @@ const footerNav = [
       { label: 'אוטומציית CRM', href: '/solutions/crm-automation' },
       { label: 'אוטומציית תהליכי עבודה', href: '/solutions/workflow-automation' },
       { label: 'בניית אתרים', href: '/solutions/web-development' },
+      { label: 'ניהול סושיאל', href: '/solutions/social-media-management' },
+      { label: 'ניהול קמפיינים', href: '/solutions/campaign-management' },
+      { label: 'אימוני מכירות', href: '/solutions/sales-training' },
     ],
   },
 
@@ -112,7 +115,7 @@ const Footer = () => {
               HEY <span className="gradient-text">Digital</span>
             </Link>
             <p className="text-sm text-muted-foreground mt-3 max-w-sm leading-relaxed">
-              סטודיו לאוטומציה עסקית ובינה מלאכותית. אנחנו עוזרים לעסקים קטנים, סוכנויות ויועצים לבנות מערכות חכמות שעובדות בשבילם 24/7.
+              סוכנות דיגיטל וטכנולוגיה. מבינים עסק ואסטרטגיה לפני שמוכרים שיווק — פיתוח אתרים, סושיאל, קמפיינים, CRM ואוטומציות AI ואימוני מכירות.
             </p>
 
             {/* Contact */}
@@ -227,7 +230,7 @@ const Footer = () => {
         {/* CTA row */}
         <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            מוכנים לבנות מערכת אוטומציה חכמה?
+            מוכנים לבנות אסטרטגיה שעובדת?
           </p>
           <button
             onClick={openPopup}

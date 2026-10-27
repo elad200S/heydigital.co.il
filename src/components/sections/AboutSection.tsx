@@ -10,21 +10,21 @@ const AboutSection = () => {
 
           {/* ── Content side ── */}
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.14em] text-primary mb-4">מי אני</p>
+            <p className="font-mono text-xs uppercase tracking-[0.14em] text-primary mb-4">הפילוסופיה שלנו</p>
 
             <RevealText className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-              מומחה אוטומציה לעסקים ישראליים
+              מבינים עסק לפני שמוכרים שיווק
             </RevealText>
 
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                מתמקד בבניית אוטומציות פרקטיות לעסקים שרוצים סדר, מעקב ושליטה אמיתית על התהליכים שלהם.
+                לפני שבונים קמפיין, אתר או אוטומציה — אנחנו מבינים את העסק. בלי אסטרטגיה ברורה, גם הכלי הטוב בעולם לא יזיז מספרים.
               </p>
               <p>
-                לא בונה מערכות מסובכות סתם — אלא פתרונות פשוטים, ברורים ויציבים שבאמת משתמשים בהם ביום יום.
+                HEY Digital היא לא עוד סוכנות שיווק. פיתוח אתרים, ניהול סושיאל, קמפיינים, CRM ואוטומציות AI ואימוני מכירות — הכול בנוי על אסטרטגיה עסקית אחת, לא על טקטיקות מפוזרות.
               </p>
               <p>
-                המטרה היא להפוך תהליכים מורכבים לפשוטים, כך שהעסק יעבוד בצורה חלקה ויעילה יותר.
+                המטרה היא תמיד אחת: להפוך תהליכים מורכבים לפשוטים, כדי שהעסק שלכם יצמח בלי להסתבך.
               </p>
             </div>
           </div>
@@ -37,7 +37,7 @@ const AboutSection = () => {
               position: 'absolute',
               inset: -40,
               borderRadius: '50%',
-              background: 'radial-gradient(ellipse at center, hsl(160,84%,39%,0.10), transparent 65%)',
+              background: 'radial-gradient(ellipse at center, hsl(24,100%,39%,0.10), transparent 65%)',
               filter: 'blur(30px)',
               pointerEvents: 'none',
             }} />
@@ -48,7 +48,7 @@ const AboutSection = () => {
               style={{
                 inset: 0,
                 transform: 'translate(14px, 14px)',
-                border: '1px solid hsl(160,84%,39%,0.22)',
+                border: '1px solid hsl(24,100%,39%,0.22)',
                 borderRadius: '16px',
                 maxWidth: 340,
               }}
@@ -89,7 +89,7 @@ const AboutSection = () => {
                   }}
                 >
                   <p className="text-sm font-semibold text-foreground">אלעד חנינה</p>
-                  <p className="text-xs font-mono" style={{ color: 'hsl(160,84%,50%)' }}>
+                  <p className="text-xs font-mono" style={{ color: 'hsl(24,100%,50%)' }}>
                     Founder · HEY Digital
                   </p>
                 </div>

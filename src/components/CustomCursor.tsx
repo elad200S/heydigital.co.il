@@ -66,7 +66,7 @@ const SpotlightCursor = () => {
           transition: 'opacity 0.6s ease',
           background: `radial-gradient(
             circle 160px at var(--cx, -999px) var(--cy, -999px),
-            rgba(16, 185, 129, 0.09) 0%,
+            rgba(255, 94, 0, 0.09) 0%,
             rgba(6, 182, 212, 0.04) 50%,
             transparent 100%
           )`,

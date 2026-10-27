@@ -113,7 +113,7 @@ const DemoVideoSection = () => {
               className="absolute inset-0 opacity-[0.04]"
               style={{
                 backgroundImage:
-                  'linear-gradient(hsl(160,84%,39%) 1px, transparent 1px), linear-gradient(90deg, hsl(160,84%,39%) 1px, transparent 1px)',
+                  'linear-gradient(hsl(24,100%,39%) 1px, transparent 1px), linear-gradient(90deg, hsl(24,100%,39%) 1px, transparent 1px)',
                 backgroundSize: '44px 44px',
               }}
             />
@@ -151,13 +151,13 @@ const DemoVideoSection = () => {
                 <div
                   className="absolute inset-0 rounded-full blur-[10px] transition-opacity duration-300"
                   style={{
-                    background: 'hsl(160,84%,39%)',
+                    background: 'hsl(24,100%,39%)',
                     opacity: buttonGlow ? 0.45 : 0,
                   }}
                 />
                 <div
                   className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium cursor-default"
-                  style={{ background: 'hsl(160,84%,39%)', color: '#fff' }}
+                  style={{ background: 'hsl(24,100%,39%)', color: '#fff' }}
                 >
                   שיחת אסטרטגיה
                   <span
@@ -171,7 +171,7 @@ const DemoVideoSection = () => {
             {/* Mini hero content */}
             <div className="absolute inset-0 flex flex-col items-center justify-center px-8 select-none" style={{ paddingTop: 42 }}>
               <div className="text-center" style={{ opacity: showPopup ? 0.15 : 0.55, transition: 'opacity 0.5s' }}>
-                <div className="text-xs font-mono mb-2 tracking-widest" style={{ color: 'hsl(160,84%,39%)' }}>
+                <div className="text-xs font-mono mb-2 tracking-widest" style={{ color: 'hsl(24,100%,39%)' }}>
                   HEY DIGITAL
                 </div>
                 <div className="text-2xl font-bold mb-1" style={{ color: 'hsl(210,20%,98%)' }}>
@@ -251,7 +251,7 @@ const DemoVideoSection = () => {
                           <span>{value}</span>
                           {phase === 4 && !value && (
                             <span
-                              style={{ color: 'hsl(160,84%,39%)', animation: 'blink 0.9s step-end infinite' }}
+                              style={{ color: 'hsl(24,100%,39%)', animation: 'blink 0.9s step-end infinite' }}
                             >
                               |
                             </span>
@@ -262,7 +262,7 @@ const DemoVideoSection = () => {
                     <button
                       className="w-full py-2 rounded-lg text-xs font-semibold transition-all duration-200 cursor-default"
                       style={{
-                        background: 'hsl(160,84%,39%)',
+                        background: 'hsl(24,100%,39%)',
                         color: '#fff',
                         transform: submitClick ? 'scale(0.95)' : 'scale(1)',
                         opacity: submitClick ? 0.75 : 1,

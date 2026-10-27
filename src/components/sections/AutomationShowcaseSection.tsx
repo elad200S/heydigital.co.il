@@ -240,7 +240,7 @@ const AutomationShowcaseSection = () => {
                     key={i}
                     onClick={() => setActive(i)}
                     className="h-1.5 rounded-full transition-all duration-300"
-                    style={{ width: active === i ? 28 : 8, opacity: active === i ? 1 : 0.3, background: 'hsl(160,84%,39%)' }}
+                    style={{ width: active === i ? 28 : 8, opacity: active === i ? 1 : 0.3, background: 'hsl(24,100%,39%)' }}
                   />
                 ))}
               </div>
