@@ -96,7 +96,7 @@ const ToolsSection = () => {
                       : 'hsl(215,20%,52%)',
                     lineHeight: 1,
                   }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLSpanElement).style.color = 'hsl(24,100%,60%)'; }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLSpanElement).style.color = 'hsl(160,84%,60%)'; }}
                   onMouseLeave={e => {
                     (e.currentTarget as HTMLSpanElement).style.color = tool.weight >= 800
                       ? 'hsl(215,20%,88%)'

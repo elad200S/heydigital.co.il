@@ -70,7 +70,7 @@ const AiEnergyCore = forwardRef<HTMLDivElement>((_, ref) => {
         <div
           className="absolute inset-0 rounded-full"
           style={{
-            border: '1px dashed rgba(255, 94, 0,0.2)',
+            border: '1px dashed rgba(16,185,129,0.2)',
             animation: 'spinCW 30s linear infinite',
           }}
         >
@@ -87,8 +87,8 @@ const AiEnergyCore = forwardRef<HTMLDivElement>((_, ref) => {
                   width:  isCardinal ? 6 : 3,
                   height: isCardinal ? 6 : 3,
                   borderRadius: '50%',
-                  background: isCardinal ? 'hsl(24,100%,39%)' : 'rgba(255, 94, 0,0.4)',
-                  boxShadow: isCardinal ? '0 0 10px rgba(255, 94, 0,0.6)' : 'none',
+                  background: isCardinal ? 'hsl(160,84%,39%)' : 'rgba(16,185,129,0.4)',
+                  boxShadow: isCardinal ? '0 0 10px rgba(16,185,129,0.6)' : 'none',
                 }} />
               </div>
             );
@@ -103,7 +103,7 @@ const AiEnergyCore = forwardRef<HTMLDivElement>((_, ref) => {
             height: R_MID * 2,
             left: CORE_SIZE / 2 - R_MID,
             top:  CORE_SIZE / 2 - R_MID,
-            border: '1px solid rgba(255, 94, 0,0.13)',
+            border: '1px solid rgba(16,185,129,0.13)',
             animation: 'spinCCW 18s linear infinite',
           }}
         >
@@ -119,10 +119,10 @@ const AiEnergyCore = forwardRef<HTMLDivElement>((_, ref) => {
                 <div style={{
                   width: 8, height: 8,
                   borderRadius: '50%',
-                  background: isCyan ? '#06b6d4' : 'hsl(24,100%,39%)',
+                  background: isCyan ? '#06b6d4' : 'hsl(160,84%,39%)',
                   boxShadow: isCyan
                     ? '0 0 14px rgba(6,182,212,0.8), 0 0 4px rgba(6,182,212,1)'
-                    : '0 0 14px rgba(255, 94, 0,0.8), 0 0 4px rgba(255, 94, 0,1)',
+                    : '0 0 14px rgba(16,185,129,0.8), 0 0 4px rgba(16,185,129,1)',
                 }} />
               </div>
             );
@@ -137,7 +137,7 @@ const AiEnergyCore = forwardRef<HTMLDivElement>((_, ref) => {
             height: R_INNER * 2,
             left: CORE_SIZE / 2 - R_INNER,
             top:  CORE_SIZE / 2 - R_INNER,
-            border: '1.5px solid rgba(255, 94, 0,0.22)',
+            border: '1.5px solid rgba(16,185,129,0.22)',
             animation: 'spinCW 10s linear infinite',
           }}
         />
@@ -150,7 +150,7 @@ const AiEnergyCore = forwardRef<HTMLDivElement>((_, ref) => {
             style={{
               width: 1,
               height: 100,
-              background: 'linear-gradient(to bottom, rgba(255, 94, 0,0.28), transparent)',
+              background: 'linear-gradient(to bottom, rgba(16,185,129,0.28), transparent)',
               left: '50%',
               top: '50%',
               transformOrigin: '50% 0',
@@ -167,8 +167,8 @@ const AiEnergyCore = forwardRef<HTMLDivElement>((_, ref) => {
             height: 160,
             left: CORE_SIZE / 2 - 80,
             top:  CORE_SIZE / 2 - 80,
-            background: 'radial-gradient(circle at 42% 38%, rgba(6,182,212,0.28), rgba(255, 94, 0,0.14) 45%, transparent 70%)',
-            boxShadow: '0 0 70px rgba(255, 94, 0,0.35), 0 0 140px rgba(255, 94, 0,0.15), 0 0 200px rgba(6,182,212,0.08)',
+            background: 'radial-gradient(circle at 42% 38%, rgba(6,182,212,0.28), rgba(16,185,129,0.14) 45%, transparent 70%)',
+            boxShadow: '0 0 70px rgba(16,185,129,0.35), 0 0 140px rgba(16,185,129,0.15), 0 0 200px rgba(6,182,212,0.08)',
             animation: 'corePulse 3.5s ease-in-out infinite',
           }}
         >
@@ -176,8 +176,8 @@ const AiEnergyCore = forwardRef<HTMLDivElement>((_, ref) => {
             width: 56,
             height: 56,
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(6,182,212,0.85), rgba(255, 94, 0,0.65) 50%, transparent)',
-            boxShadow: '0 0 28px rgba(6,182,212,0.65), 0 0 56px rgba(255, 94, 0,0.4), 0 0 90px rgba(255, 94, 0,0.2)',
+            background: 'radial-gradient(circle, rgba(6,182,212,0.85), rgba(16,185,129,0.65) 50%, transparent)',
+            boxShadow: '0 0 28px rgba(6,182,212,0.65), 0 0 56px rgba(16,185,129,0.4), 0 0 90px rgba(16,185,129,0.2)',
           }} />
         </div>
 

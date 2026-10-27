@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Bot, Zap, MessageCircle, GitBranch, Workflow, Globe, Megaphone, Target, GraduationCap } from 'lucide-react';
+import { ArrowLeft, Bot, Zap, MessageCircle, GitBranch, Workflow } from 'lucide-react';
 import { useContactPopup } from '@/contexts/ContactPopupContext';
 import { SEOHead, BreadcrumbSchema } from '@/lib/seo';
 import Navbar from '@/components/Navbar';
@@ -41,34 +41,6 @@ const solutions = [
     description: 'מיפוי ואוטומציה של תהליכים פנימיים – דוחות, אישורים, הקצאת משימות ועדכוני סטטוס אוטומטיים.',
     href: '/solutions/workflow-automation',
     audiences: ['צוותים פנימיים', 'מנהלי פרויקטים', 'חברות שירות'],
-  },
-  {
-    icon: Globe,
-    title: 'בניית אתרים',
-    description: 'אתרים מודרניים, מהירים ומותאמים לעסק — מהתכנון ועד ההשקה. מחוברים לאוטומציות מהיום הראשון.',
-    href: '/solutions/web-development',
-    audiences: ['עסקים ללא אתר', 'מיתוג מחדש', 'דפי נחיתה'],
-  },
-  {
-    icon: Megaphone,
-    title: 'ניהול סושיאל',
-    description: 'ניהול רשתות חברתיות אסטרטגי — תוכן, קריאייטיב ודיווח חודשי שבונים סמכות ומובילים לפעולה עסקית.',
-    href: '/solutions/social-media-management',
-    audiences: ['מותגים', 'עסקים מקומיים', 'חברות B2B'],
-  },
-  {
-    icon: Target,
-    title: 'ניהול קמפיינים',
-    description: 'מדיה ממומנת ב-Meta, Google ו-TikTok שמתנהלת כמו עסק — תקציב, בדיקות ואופטימיזציה סביב ROI.',
-    href: '/solutions/campaign-management',
-    audiences: ['חנויות אונליין', 'עסקי שירות', 'השקות מוצר'],
-  },
-  {
-    icon: GraduationCap,
-    title: 'אימוני מכירות',
-    description: 'הכשרת צוותי מכירות ושירות לסגור יותר עסקאות — תסריטי שיחה מבוססי נתונים וליווי שוטף.',
-    href: '/solutions/sales-training',
-    audiences: ['צוותי מכירות', 'מנהלי צוות', 'צוותי שירות'],
   },
 ];
 

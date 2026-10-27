@@ -24,9 +24,6 @@ const solutions: NavChild[] = [
   { label: 'אוטומציית CRM', href: '/solutions/crm-automation' },
   { label: 'אוטומציית תהליכי עבודה', href: '/solutions/workflow-automation' },
   { label: 'בניית אתרים', href: '/solutions/web-development' },
-  { label: 'ניהול סושיאל', href: '/solutions/social-media-management' },
-  { label: 'ניהול קמפיינים', href: '/solutions/campaign-management' },
-  { label: 'אימוני מכירות', href: '/solutions/sales-training' },
 ];
 
 const navItems: NavItem[] = [

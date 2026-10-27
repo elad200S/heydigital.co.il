@@ -37,7 +37,7 @@ const FAQSection = () => {
       <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] rounded-full opacity-20"
-          style={{ background: 'radial-gradient(ellipse at center, hsl(24,100%,39%) 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(ellipse at center, hsl(160,84%,39%) 0%, transparent 70%)' }}
         />
       </div>
 
@@ -63,9 +63,9 @@ const FAQSection = () => {
                   key={index}
                   className="relative rounded-2xl overflow-hidden transition-all duration-300"
                   style={{
-                    border: `1px solid ${isOpen ? 'hsl(24,100%,39%,0.35)' : 'hsl(215,20%,18%)'}`,
+                    border: `1px solid ${isOpen ? 'hsl(160,84%,39%,0.35)' : 'hsl(215,20%,18%)'}`,
                     background: isOpen ? 'hsl(var(--card))' : 'hsl(var(--card)/0.5)',
-                    boxShadow: isOpen ? '0 0 24px hsl(24,100%,39%,0.08)' : 'none',
+                    boxShadow: isOpen ? '0 0 24px hsl(160,84%,39%,0.08)' : 'none',
                     transition: 'border-color 0.25s, box-shadow 0.25s, background 0.25s',
                   }}
                 >
@@ -73,7 +73,7 @@ const FAQSection = () => {
                   {isOpen && (
                     <div
                       className="absolute top-0 bottom-0 right-0 w-[3px] rounded-full"
-                      style={{ background: 'linear-gradient(to bottom, hsl(24,100%,39%,0.8), hsl(24,100%,39%,0.2))' }}
+                      style={{ background: 'linear-gradient(to bottom, hsl(160,84%,39%,0.8), hsl(160,84%,39%,0.2))' }}
                     />
                   )}
 
@@ -84,7 +84,7 @@ const FAQSection = () => {
                     {/* Number tag */}
                     <span
                       className="font-mono text-xs font-bold flex-shrink-0 tabular-nums"
-                      style={{ color: isOpen ? 'hsl(24,100%,50%)' : 'hsl(215,20%,40%)' }}
+                      style={{ color: isOpen ? 'hsl(160,84%,50%)' : 'hsl(215,20%,40%)' }}
                     >
                       {String(index + 1).padStart(2, '0')}
                     </span>
@@ -101,12 +101,12 @@ const FAQSection = () => {
                     <div
                       className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300"
                       style={{
-                        background: isOpen ? 'hsl(24,100%,39%,0.15)' : 'hsl(215,20%,18%)',
-                        border: `1px solid ${isOpen ? 'hsl(24,100%,39%,0.4)' : 'transparent'}`,
+                        background: isOpen ? 'hsl(160,84%,39%,0.15)' : 'hsl(215,20%,18%)',
+                        border: `1px solid ${isOpen ? 'hsl(160,84%,39%,0.4)' : 'transparent'}`,
                         transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)',
                       }}
                     >
-                      <Plus className="w-3.5 h-3.5" style={{ color: isOpen ? 'hsl(24,100%,50%)' : 'hsl(215,20%,55%)' }} />
+                      <Plus className="w-3.5 h-3.5" style={{ color: isOpen ? 'hsl(160,84%,50%)' : 'hsl(215,20%,55%)' }} />
                     </div>
                   </button>
 

@@ -169,7 +169,7 @@ const AutomationSolutionsSection = () => {
                   key={i}
                   ref={el => { dotRefs.current[i] = el; }}
                   className="h-1.5 rounded-full transition-none"
-                  style={{ width: i === 0 ? 20 : 6, opacity: i === 0 ? 1 : 0.25, background: 'hsl(24,100%,39%)' }}
+                  style={{ width: i === 0 ? 20 : 6, opacity: i === 0 ? 1 : 0.25, background: 'hsl(160,84%,39%)' }}
                 />
               ))}
             </div>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Compass, Zap, Globe, Megaphone, Target, GraduationCap } from 'lucide-react';
+import { ArrowLeft, Bot, Zap, MessageCircle, GitBranch, Workflow, BarChart3, Globe } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -8,58 +8,67 @@ import ScrambleText from '@/components/ScrambleText';
 
 const solutions = [
   {
-    icon: Compass,
-    title: 'אסטרטגיה עסקית',
-    description: 'כל פעולה שיווקית נגזרת ממטרה עסקית ברורה — לא להפך.',
-    href: '/about',
+    icon: Bot,
+    title: 'סוכני AI חכמים',
+    description: 'בוטים חכמים שעובדים 24/7 – מענה ללקוחות וטיפול בלידים.',
+    href: '/solutions/ai-agents',
     iconColor: 'text-primary',
     iconBg: 'bg-primary/15',
-    accent: '#FF5E00',
+    accent: 'hsl(160,84%,39%)',
   },
   {
     icon: Zap,
-    title: 'אוטומציות',
-    description: 'מערכות ואוטומציות AI שחוסכות שעות עבודה ולא מפילות לידים.',
-    href: '/solutions',
-    iconColor: 'text-amber-400',
-    iconBg: 'bg-amber-400/15',
-    accent: '#fbbf24',
+    title: 'אוטומציה עסקית',
+    description: 'ביטול משימות ידניות וייעול תהליכים בעסק.',
+    href: '/solutions/business-automation',
+    iconColor: 'text-yellow-400',
+    iconBg: 'bg-yellow-400/15',
+    accent: '#facc15',
+  },
+  {
+    icon: MessageCircle,
+    title: 'אוטומציית WhatsApp',
+    description: 'מענה אוטומטי, ניהול לידים ושליחת הודעות מותאמות.',
+    href: '/solutions/whatsapp-automation',
+    iconColor: 'text-green-400',
+    iconBg: 'bg-green-400/15',
+    accent: '#4ade80',
+  },
+  {
+    icon: GitBranch,
+    title: 'אוטומציית CRM',
+    description: 'תהליכי CRM שמוודאים שאף ליד לא נופל בין הכיסאות.',
+    href: '/solutions/crm-automation',
+    iconColor: 'text-sky-400',
+    iconBg: 'bg-sky-400/15',
+    accent: '#38bdf8',
+  },
+  {
+    icon: Workflow,
+    title: 'אוטומציית תהליכי עבודה',
+    description: 'מיפוי ואוטומציה של דוחות, אישורים ועדכונים.',
+    href: '/solutions/workflow-automation',
+    iconColor: 'text-orange-400',
+    iconBg: 'bg-orange-400/15',
+    accent: '#fb923c',
+  },
+  {
+    icon: BarChart3,
+    title: 'דוחות וניתוח נתונים',
+    description: 'מעקב אוטומטי אחרי ביצועים והפקת תובנות לעסק.',
+    href: '/solutions/business-automation',
+    iconColor: 'text-purple-400',
+    iconBg: 'bg-purple-400/15',
+    accent: '#c084fc',
   },
   {
     icon: Globe,
-    title: 'פיתוח אתרים',
-    description: 'אתרים מודרניים, מהירים ומחוברים לאוטומציות מהיום הראשון.',
+    title: 'בניית אתרים',
+    description: 'אתרים מודרניים, מהירים ומותאמים לעסק — מהתכנון ועד ההשקה. מחוברים לאוטומציות מהיום הראשון.',
     href: '/solutions/web-development',
     iconColor: 'text-blue-400',
     iconBg: 'bg-blue-400/15',
     accent: '#60a5fa',
-  },
-  {
-    icon: Megaphone,
-    title: 'ניהול סושיאל',
-    description: 'נוכחות דיגיטלית שבונה סמכות ומובילה לפעולה עסקית.',
-    href: '/solutions/social-media-management',
-    iconColor: 'text-pink-400',
-    iconBg: 'bg-pink-400/15',
-    accent: '#f472b6',
-  },
-  {
-    icon: Target,
-    title: 'ניהול קמפיינים',
-    description: 'מדיה ממומנת שמתנהלת כמו עסק — סביב ROI, לא סביב קליקים.',
-    href: '/solutions/campaign-management',
-    iconColor: 'text-red-400',
-    iconBg: 'bg-red-400/15',
-    accent: '#fb7185',
-  },
-  {
-    icon: GraduationCap,
-    title: 'אימוני מכירות',
-    description: 'מכשירים את הצוות שלכם לסגור יותר עסקאות, לא רק לדבר.',
-    href: '/solutions/sales-training',
-    iconColor: 'text-purple-400',
-    iconBg: 'bg-purple-400/15',
-    accent: '#c084fc',
   },
 ];
 
@@ -282,7 +291,7 @@ const SolutionsOverviewSection = () => {
               <ScrambleText text="מה אנחנו בונים" />
             </p>
             <RevealText className="text-4xl md:text-5xl font-bold text-foreground">
-              שישה תחומים, אסטרטגיה אחת
+              פתרונות אוטומציה לעסקים
             </RevealText>
           </div>
           <Link

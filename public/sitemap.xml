@@ -73,27 +73,6 @@
     <priority>0.85</priority>
   </url>
 
-  <url>
-    <loc>https://www.heydigital.co.il/solutions/social-media-management</loc>
-    <lastmod>2026-10-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://www.heydigital.co.il/solutions/campaign-management</loc>
-    <lastmod>2026-10-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://www.heydigital.co.il/solutions/sales-training</loc>
-    <lastmod>2026-10-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
   <!-- Blog -->
   <url>
     <loc>https://www.heydigital.co.il/blog</loc>

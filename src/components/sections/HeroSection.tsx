@@ -33,7 +33,7 @@ const LINES = [
   { text: 'Everything', weight: 800, color: 'inherit' },
   { text: 'works',      weight: 300, color: 'hsl(215,20%,58%)' },
   { text: 'even when',  weight: 800, color: 'inherit' },
-  { text: "you don't.", weight: 300, color: 'hsl(24,100%,52%)' },
+  { text: "you don't.", weight: 300, color: 'hsl(160,84%,52%)' },
 ];
 
 const duplicatedTicker = [...TICKER_ITEMS, ...TICKER_ITEMS];
@@ -138,24 +138,24 @@ const HeroSection = () => {
               <span
                 className="inline-flex items-center gap-2.5 font-mono text-[0.7rem] tracking-[0.14em] uppercase"
                 style={{
-                  border: '1px solid hsl(24,100%,39%,0.3)',
+                  border: '1px solid hsl(160,84%,39%,0.3)',
                   borderRadius: 100,
                   padding: '7px 18px',
-                  color: 'hsl(24,100%,62%)',
-                  background: 'hsl(24,100%,39%,0.05)',
-                  boxShadow: '0 0 22px hsl(24,100%,39%,0.1), inset 0 0 12px hsl(24,100%,39%,0.04)',
+                  color: 'hsl(160,84%,62%)',
+                  background: 'hsl(160,84%,39%,0.05)',
+                  boxShadow: '0 0 22px hsl(160,84%,39%,0.1), inset 0 0 12px hsl(160,84%,39%,0.04)',
                 }}
               >
                 <span
                   style={{
                     width: 7, height: 7, borderRadius: '50%',
-                    background: 'hsl(24,100%,50%)',
-                    boxShadow: '0 0 8px hsl(24,100%,50%)',
+                    background: 'hsl(160,84%,50%)',
+                    boxShadow: '0 0 8px hsl(160,84%,50%)',
                     display: 'inline-block',
                     animation: 'pulse 2s ease-in-out infinite',
                   }}
                 />
-                Strategy-First Digital Agency
+                AI Automation Studio
               </span>
             </div>
 
@@ -220,7 +220,7 @@ const HeroSection = () => {
               position: 'absolute',
               inset: -80,
               borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(255, 94, 0,0.13) 0%, rgba(6,182,212,0.07) 40%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(16,185,129,0.13) 0%, rgba(6,182,212,0.07) 40%, transparent 70%)',
               filter: 'blur(50px)',
               pointerEvents: 'none',
             }} />
@@ -274,7 +274,7 @@ const HeroSection = () => {
                 >
                   {item}
                 </span>
-                <span style={{ color: 'hsl(24,100%,35%)', fontSize: '0.45rem', flexShrink: 0 }}>◆</span>
+                <span style={{ color: 'hsl(160,84%,35%)', fontSize: '0.45rem', flexShrink: 0 }}>◆</span>
               </span>
             ))}
           </div>

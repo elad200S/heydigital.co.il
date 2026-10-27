@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 const STATES = [
   {
     id: 'hero',
-    borderColor: 'rgba(255, 94, 0,0.22)',
+    borderColor: 'rgba(16,185,129,0.22)',
     scale: 1,
     opacity: 0.9,
   },
@@ -25,7 +25,7 @@ const STATES = [
   },
   {
     id: 'showcase',
-    borderColor: 'rgba(255, 94, 0,0.26)',
+    borderColor: 'rgba(16,185,129,0.26)',
     scale: 1.08,
     opacity: 0.95,
   },
@@ -37,7 +37,7 @@ const STATES = [
   },
   {
     id: 'solutions-overview',
-    borderColor: 'rgba(255, 94, 0,0.22)',
+    borderColor: 'rgba(16,185,129,0.22)',
     scale: 1.02,
     opacity: 0.9,
   },
@@ -49,7 +49,7 @@ const STATES = [
   },
   {
     id: 'contact',
-    borderColor: 'rgba(255, 94, 0,0.3)',
+    borderColor: 'rgba(16,185,129,0.3)',
     scale: 1.14,
     opacity: 1,
   },
@@ -130,7 +130,7 @@ const ScrollOrb = () => {
           width: '100%',
           height: '100%',
           borderRadius: '50%',
-          border: '1px solid rgba(255, 94, 0,0.22)',
+          border: '1px solid rgba(16,185,129,0.22)',
           opacity: 0.9,
         }}
       >
@@ -140,7 +140,7 @@ const ScrollOrb = () => {
             position: 'absolute',
             inset: 68,
             borderRadius: '50%',
-            border: '1px solid rgba(255, 94, 0,0.1)',
+            border: '1px solid rgba(16,185,129,0.1)',
           }}
         />
 
@@ -151,8 +151,8 @@ const ScrollOrb = () => {
             width: 7,
             height: 7,
             borderRadius: '50%',
-            background: 'hsl(24 100% 39%)',
-            boxShadow: '0 0 14px hsl(24 100% 39% / 0.8)',
+            background: 'hsl(160 84% 39%)',
+            boxShadow: '0 0 14px hsl(160 84% 39% / 0.8)',
             top: 4,
             left: '50%',
             transform: 'translateX(-50%)',

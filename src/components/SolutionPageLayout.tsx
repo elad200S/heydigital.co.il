@@ -133,7 +133,7 @@ const SolutionPageLayout = ({ data }: { data: SolutionPageData }) => {
                   <div className="flex flex-col sm:flex-row gap-3 mt-6">
                     {backMessages.map((msg, i) => (
                       <div key={i} className="flex items-start gap-2.5 px-4 py-3 rounded-xl border"
-                        style={{ background: 'hsl(24,100%,39%,0.07)', borderColor: 'hsl(24,100%,39%,0.22)' }}>
+                        style={{ background: 'hsl(160,84%,39%,0.07)', borderColor: 'hsl(160,84%,39%,0.22)' }}>
                         <span className="text-primary text-xs mt-0.5 flex-shrink-0 font-bold">✦</span>
                         <p className="text-xs text-muted-foreground leading-relaxed" dir="rtl">{msg}</p>
                       </div>
@@ -160,7 +160,7 @@ const SolutionPageLayout = ({ data }: { data: SolutionPageData }) => {
                           <p
                             className="text-center text-lg font-semibold leading-relaxed transition-opacity duration-400"
                             style={{
-                              color: 'hsl(24 100% 55%)',
+                              color: 'hsl(160 84% 55%)',
                               opacity: msgVisible ? 1 : 0,
                               direction: 'rtl',
                             }}
@@ -206,9 +206,9 @@ const SolutionPageLayout = ({ data }: { data: SolutionPageData }) => {
             <div className="grid md:grid-cols-2 gap-5">
               {data.problems.items.map((item, i) => (
                 <div key={i} className="relative p-6 bg-card rounded-xl border border-border overflow-hidden"
-                  style={{ borderRight: '3px solid hsl(24,100%,39%)' }}>
+                  style={{ borderRight: '3px solid hsl(160,84%,39%)' }}>
                   <div className="absolute top-0 left-3 font-mono font-black pointer-events-none select-none leading-none"
-                    style={{ fontSize: 72, color: 'rgba(255, 94, 0,0.06)' }}>
+                    style={{ fontSize: 72, color: 'rgba(16,185,129,0.06)' }}>
                     {String(i + 1).padStart(2, '0')}
                   </div>
                   <div className="relative">
@@ -294,9 +294,9 @@ const SolutionPageLayout = ({ data }: { data: SolutionPageData }) => {
                   <div className="w-10 h-10 rounded-full flex items-center justify-center font-mono font-bold text-xs mb-3 flex-shrink-0"
                     style={{
                       background: 'hsl(var(--background))',
-                      border: '2px solid hsl(24,100%,39%)',
-                      color: 'hsl(24,100%,39%)',
-                      boxShadow: '0 0 14px hsl(24,100%,39%,0.18)',
+                      border: '2px solid hsl(160,84%,39%)',
+                      color: 'hsl(160,84%,39%)',
+                      boxShadow: '0 0 14px hsl(160,84%,39%,0.18)',
                     }}>
                     {String(i + 1).padStart(2, '0')}
                   </div>
@@ -311,7 +311,7 @@ const SolutionPageLayout = ({ data }: { data: SolutionPageData }) => {
                 <div key={i} className="flex items-start gap-4">
                   <div className="flex flex-col items-center flex-shrink-0">
                     <div className="w-9 h-9 rounded-full flex items-center justify-center font-mono font-bold text-xs"
-                      style={{ border: '2px solid hsl(24,100%,39%)', color: 'hsl(24,100%,39%)', background: 'hsl(var(--background))' }}>
+                      style={{ border: '2px solid hsl(160,84%,39%)', color: 'hsl(160,84%,39%)', background: 'hsl(var(--background))' }}>
                       {String(i + 1).padStart(2, '0')}
                     </div>
                     {i < data.process.steps.length - 1 && (
