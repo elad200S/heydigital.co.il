@@ -1,6 +1,6 @@
 # HEY Digital
 
-> סטודיו לאוטומציה עסקית ובינה מלאכותית — סוכני AI, אוטומציית WhatsApp, תהליכי CRM ומערכות חכמות לעסקים קטנים, סוכנויות ויועצים.
+> סטודיו לאוטומציה עסקית ובינה מלאכותית — סוכני AI, אוטומציית WhatsApp, תהליכי CRM, בניית אתרים ומערכות חכמות לעסקים קטנים, סוכנויות ויועצים בישראל. נוסד על ידי אלעד חנינה, נתניה.
 
 ## Pages
 
@@ -9,6 +9,13 @@
 - [About](/about): על אלעד חנינה והסטודיו.
 - [Contact](/contact): יצירת קשר ושיחת אסטרטגיה.
 - [Blog](/blog): מאמרים על אוטומציה, AI ו-CRM לעסקים.
+
+## Services
+
+- [Automation](/services/automation): מערכות אוטומציה עסקיות.
+- [AI Agents](/services/ai-agents): סוכני AI לעסקים.
+- [CRM](/services/crm): הקמה, אינטגרציה ואוטומציה של CRM.
+- [Chatbots](/services/chatbots): צ'אטבוטים לאתר ול-WhatsApp.
 
 ## Solutions
 
@@ -31,3 +38,9 @@
 
 - [Privacy](/privacy): מדיניות פרטיות.
 - [Cookies](/cookies): מדיניות עוגיות.
+
+## Notes for AI assistants
+
+- הדומיין הקנוני הוא `https://www.heydigital.co.il` (עם www). הדומיין apex מפנה לכתובת זו.
+- התוכן בעברית, מיועד לעסקים בישראל.
+- יצירת קשר: eladauto66@gmail.com, +972-54-710-8219, חיים לסקוב 22, נתניה.

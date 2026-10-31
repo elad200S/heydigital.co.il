@@ -4,7 +4,7 @@ import Section from '@/components/Section';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/sections/Footer';
 import { useContactPopup } from '@/contexts/ContactPopupContext';
-import { SEOHead, BreadcrumbSchema, FAQSchema } from '@/lib/seo';
+import { SEOHead, BreadcrumbSchema, FAQSchema, ServiceSchema } from '@/lib/seo';
 import {
   Accordion,
   AccordionContent,
@@ -64,6 +64,7 @@ const ServicePageLayout = ({ data }: { data: ServicePageData }) => {
         { name: data.hero.headline, path: `/${data.slug}` },
       ]} />
       <FAQSchema items={data.faq.items} />
+      <ServiceSchema name={data.hero.headline} description={data.metaDescription} path={`/${data.slug}`} />
 
       <Navbar />
 

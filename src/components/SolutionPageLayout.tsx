@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { SEOHead, BreadcrumbSchema, FAQSchema } from '@/lib/seo';
+import { SEOHead, BreadcrumbSchema, FAQSchema, ServiceSchema } from '@/lib/seo';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/sections/Footer';
@@ -101,6 +101,7 @@ const SolutionPageLayout = ({ data }: { data: SolutionPageData }) => {
         { name: data.hero.headline, path: `/${data.slug}` },
       ]} />
       <FAQSchema items={faqItems} />
+      <ServiceSchema name={data.hero.headline} description={data.metaDescription} path={`/${data.slug}`} />
 
       <Navbar />
 

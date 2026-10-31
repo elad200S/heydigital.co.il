@@ -153,6 +153,61 @@ export const ArticleSchema = ({ title, description, path, datePublished }: { tit
 );
 
 /**
+ * JSON-LD Service schema for service/solution pages.
+ */
+export const ServiceSchema = ({ name, description, path }: { name: string; description: string; path: string }) => (
+  <Helmet>
+    <script type="application/ld+json">{JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      serviceType: name,
+      name,
+      description,
+      url: `${SITE_URL}${path}`,
+      provider: {
+        '@type': 'LocalBusiness',
+        name: SITE_NAME,
+        url: SITE_URL,
+        telephone: '+972-54-710-8219',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'חיים לסקוב 22',
+          addressLocality: 'נתניה',
+          addressCountry: 'IL',
+        },
+      },
+      areaServed: { '@type': 'Country', name: 'Israel' },
+      inLanguage: 'he',
+    })}</script>
+  </Helmet>
+);
+
+/**
+ * JSON-LD Person schema for the founder — entity authority for E-E-A-T and AI answer engines.
+ */
+export const PersonSchema = () => (
+  <Helmet>
+    <script type="application/ld+json">{JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'אלעד חנינה',
+      jobTitle: 'מייסד, HEY Digital',
+      url: `${SITE_URL}/about`,
+      worksFor: {
+        '@type': 'Organization',
+        name: SITE_NAME,
+        url: SITE_URL,
+      },
+      knowsAbout: ['אוטומציה עסקית', 'בינה מלאכותית לעסקים', 'CRM', 'אוטומציית WhatsApp', 'בניית אתרים'],
+      sameAs: [
+        'https://www.linkedin.com/company/elad-automation',
+        'https://www.instagram.com/elad.archive',
+      ],
+    })}</script>
+  </Helmet>
+);
+
+/**
  * JSON-LD FAQPage schema.
  */
 export const FAQSchema = ({ items }: { items: { question: string; answer: string }[] }) => (

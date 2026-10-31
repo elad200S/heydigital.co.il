@@ -3,4 +3,30 @@ Allow: /
 Disallow: /privacy
 Disallow: /cookies
 
+# AI / generative-engine crawlers — explicitly allowed so answer engines
+# (ChatGPT, Perplexity, Google AI Overviews, Claude) can cite this site.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
 Sitemap: https://www.heydigital.co.il/sitemap.xml

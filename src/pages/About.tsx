@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { useContactPopup } from '@/contexts/ContactPopupContext';
-import { SEOHead, BreadcrumbSchema } from '@/lib/seo';
+import { SEOHead, BreadcrumbSchema, PersonSchema } from '@/lib/seo';
 import eladHeadshot from '@/assets/elad-headshot.png';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/sections/Footer';
@@ -47,6 +47,7 @@ const About = () => {
         { name: 'בית', path: '/' },
         { name: 'אודות', path: '/about' },
       ]} />
+      <PersonSchema />
 
       <Navbar />
 

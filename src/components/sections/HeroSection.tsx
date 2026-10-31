@@ -30,10 +30,10 @@ const TICKER_ITEMS = [
 ];
 
 const LINES = [
-  { text: 'Everything', weight: 800, color: 'inherit' },
-  { text: 'works',      weight: 300, color: 'hsl(215,20%,58%)' },
-  { text: 'even when',  weight: 800, color: 'inherit' },
-  { text: "you don't.", weight: 300, color: 'hsl(160,84%,52%)' },
+  { text: 'אוטומציה ואתרים', weight: 800, color: 'inherit' },
+  { text: 'שעובדים',         weight: 300, color: 'hsl(215,20%,58%)' },
+  { text: 'גם כש',           weight: 800, color: 'inherit' },
+  { text: 'אתם לא.',         weight: 300, color: 'hsl(160,84%,52%)' },
 ];
 
 const duplicatedTicker = [...TICKER_ITEMS, ...TICKER_ITEMS];
@@ -161,7 +161,7 @@ const HeroSection = () => {
 
             {/* Headline — line-by-line reveal */}
             <h1
-              dir="ltr"
+              dir="rtl"
               className="text-foreground mb-10"
               style={{
                 fontSize: 'clamp(3rem, 7.2vw, 6.6rem)',
