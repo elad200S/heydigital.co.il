@@ -79,7 +79,7 @@ const StepVisual = ({ steps, scenarioKey }: { steps: typeof scenarios[0]['steps'
         <div className="w-3 h-3 rounded-full bg-red-500/70" />
         <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
         <div className="w-3 h-3 rounded-full bg-green-500/70" />
-        <span className="text-muted-foreground text-xs font-mono ml-3">automation.run</span>
+        <span className="text-background/55 text-xs font-mono ml-3">automation.run</span>
       </div>
       <div className="p-5 space-y-3">
         {steps.map((step, i) => (
@@ -89,7 +89,7 @@ const StepVisual = ({ steps, scenarioKey }: { steps: typeof scenarios[0]['steps'
             className="flex items-center gap-3"
           >
             <div style={{ width: 10, height: 10, borderRadius: '50%', flexShrink: 0, background: step.color, boxShadow: `0 0 12px ${step.color}` }} />
-            <span className="text-sm text-foreground/85 font-mono flex-1">{step.label}</span>
+            <span className="text-sm text-background/85 font-mono flex-1">{step.label}</span>
             <span className="text-xs font-mono" style={{ color: '#10b981' }}>✓</span>
           </div>
         ))}

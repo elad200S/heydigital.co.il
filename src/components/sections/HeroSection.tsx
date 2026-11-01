@@ -30,10 +30,10 @@ const TICKER_ITEMS = [
 ];
 
 const LINES = [
-  { text: 'אוטומציה ואתרים', weight: 800, color: 'inherit' },
-  { text: 'שעובדים',         weight: 300, color: 'hsl(215,20%,58%)' },
-  { text: 'גם כש',           weight: 800, color: 'inherit' },
-  { text: 'אתם לא.',         weight: 300, color: 'hsl(160,84%,52%)' },
+  { text: 'Websites',      weight: 800, color: 'inherit' },
+  { text: '& social',      weight: 300, color: 'hsl(43,28%,95%,0.55)' },
+  { text: 'that actually', weight: 800, color: 'inherit' },
+  { text: 'convert.',      weight: 300, color: 'hsl(179,100%,44%)' },
 ];
 
 const duplicatedTicker = [...TICKER_ITEMS, ...TICKER_ITEMS];
@@ -119,6 +119,7 @@ const HeroSection = () => {
       id="hero"
       className="min-h-screen flex flex-col relative overflow-hidden"
       dir="rtl"
+      style={{ background: 'hsl(var(--background-secondary))' }}
     >
       {/* Background grid */}
       <div className="absolute inset-0 grid-pattern opacity-20 pointer-events-none" />
@@ -138,31 +139,31 @@ const HeroSection = () => {
               <span
                 className="inline-flex items-center gap-2.5 font-mono text-[0.7rem] tracking-[0.14em] uppercase"
                 style={{
-                  border: '1px solid hsl(160,84%,39%,0.3)',
+                  border: '1px solid hsl(174,78%,43%,0.3)',
                   borderRadius: 100,
                   padding: '7px 18px',
-                  color: 'hsl(160,84%,62%)',
-                  background: 'hsl(160,84%,39%,0.05)',
-                  boxShadow: '0 0 22px hsl(160,84%,39%,0.1), inset 0 0 12px hsl(160,84%,39%,0.04)',
+                  color: 'hsl(174,78%,58%)',
+                  background: 'hsl(174,78%,43%,0.08)',
+                  boxShadow: '0 0 22px hsl(174,78%,43%,0.1), inset 0 0 12px hsl(174,78%,43%,0.04)',
                 }}
               >
                 <span
                   style={{
                     width: 7, height: 7, borderRadius: '50%',
-                    background: 'hsl(160,84%,50%)',
-                    boxShadow: '0 0 8px hsl(160,84%,50%)',
+                    background: 'hsl(174,78%,50%)',
+                    boxShadow: '0 0 8px hsl(174,78%,50%)',
                     display: 'inline-block',
                     animation: 'pulse 2s ease-in-out infinite',
                   }}
                 />
-                AI Automation Studio
+                סטודיו אוטומציה ובינה מלאכותית
               </span>
             </div>
 
             {/* Headline — line-by-line reveal */}
             <h1
-              dir="rtl"
-              className="text-foreground mb-10"
+              dir="ltr"
+              className="text-background mb-10"
               style={{
                 fontSize: 'clamp(3rem, 7.2vw, 6.6rem)',
                 letterSpacing: '-0.045em',
@@ -190,7 +191,7 @@ const HeroSection = () => {
             <div ref={subtitleRef} className="overflow-hidden mb-12" dir="rtl">
               <p
                 key={subtitleKey}
-                className="text-lg md:text-xl text-muted-foreground max-w-md leading-relaxed"
+                className="text-lg md:text-xl text-background/70 max-w-md leading-relaxed"
                 style={{ animation: 'subtitle-reveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) both' }}
               >
                 {SUBTITLES[subtitleIdx]}
@@ -220,13 +221,27 @@ const HeroSection = () => {
               position: 'absolute',
               inset: -80,
               borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(16,185,129,0.13) 0%, rgba(6,182,212,0.07) 40%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(24,198,181,0.16) 0%, rgba(0,222,217,0.08) 40%, transparent 70%)',
               filter: 'blur(50px)',
               pointerEvents: 'none',
             }} />
             <Suspense fallback={null}>
               <EnergyCore />
             </Suspense>
+
+            {/* Brand signature accent — small orange square, per brand book (sparing accent, ~2% max) */}
+            <span
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                bottom: '6%',
+                left: '2%',
+                width: 14,
+                height: 14,
+                background: 'hsl(var(--accent))',
+                borderRadius: 3,
+              }}
+            />
           </div>
 
           {/* Mobile: orb behind text */}
@@ -244,8 +259,8 @@ const HeroSection = () => {
       {/* ── Ticker strip ── */}
       <div
         style={{
-          borderTop: '1px solid hsl(220,15%,16%)',
-          background: 'hsla(220,15%,10%,0.55)',
+          borderTop: '1px solid hsl(174,40%,16%)',
+          background: 'hsla(174,86%,5%,0.55)',
           backdropFilter: 'blur(8px)',
           padding: '11px 0',
           position: 'relative',
@@ -262,11 +277,11 @@ const HeroSection = () => {
               <span key={i} style={{ display: 'inline-flex', alignItems: 'center' }}>
                 <span
                   style={{
-                    fontFamily: '"IBM Plex Mono", monospace',
+                    fontFamily: 'Assistant, monospace',
                     fontSize: '0.72rem',
                     fontWeight: 400,
                     letterSpacing: '0.1em',
-                    color: 'hsl(215,20%,52%)',
+                    color: 'hsl(174,15%,65%)',
                     whiteSpace: 'nowrap',
                     padding: '0 28px',
                     textTransform: 'uppercase',
@@ -274,7 +289,7 @@ const HeroSection = () => {
                 >
                   {item}
                 </span>
-                <span style={{ color: 'hsl(160,84%,35%)', fontSize: '0.45rem', flexShrink: 0 }}>◆</span>
+                <span style={{ color: 'hsl(174,78%,43%)', fontSize: '0.45rem', flexShrink: 0 }}>◆</span>
               </span>
             ))}
           </div>

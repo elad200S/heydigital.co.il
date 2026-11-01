@@ -14,10 +14,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        primary: ['Heebo', 'Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
-        display: ['Heebo', 'Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
-        serif: ['Heebo', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        mono: ['IBM Plex Mono', 'ui-monospace', 'monospace'],
+        primary: ['Assistant', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        display: ['Heebo', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        serif: ['Heebo', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['Assistant', 'ui-monospace', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -48,6 +48,7 @@ export default {
           foreground: "hsl(var(--accent-foreground))",
           light: "hsl(var(--accent-light))",
         },
+        "emphasis-teal": "hsl(var(--emphasis-teal))",
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",

@@ -88,7 +88,7 @@ const AboutSection = () => {
                     boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
                   }}
                 >
-                  <p className="text-sm font-semibold text-foreground">אלעד חנינה</p>
+                  <p className="text-sm font-semibold text-background">אלעד חנינה</p>
                   <p className="text-xs font-mono" style={{ color: 'hsl(160,84%,50%)' }}>
                     Founder · HEY Digital
                   </p>

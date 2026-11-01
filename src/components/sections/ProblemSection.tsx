@@ -210,7 +210,8 @@ const ProblemSection = () => {
   return (
     <Section id="problem">
       <div ref={sectionRef} className="max-w-3xl mx-auto text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.14em] text-primary mb-4 text-center">
+        <p className="font-mono text-xs uppercase tracking-[0.14em] text-primary mb-4 text-center inline-flex items-center gap-2 justify-center w-full">
+          <span aria-hidden="true" className="inline-block w-1.5 h-1.5 rounded-sm bg-accent" />
           האמת המספרית
         </p>
         <RevealText className="text-4xl md:text-5xl font-bold text-foreground mb-8 text-center">

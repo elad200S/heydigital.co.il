@@ -102,36 +102,37 @@ const Footer = () => {
   };
 
   return (
-    <footer className="border-t border-border" style={{ background: 'hsl(220,15%,8%)' }}>
+    <footer className="border-t border-background/10" style={{ background: 'hsl(var(--background-secondary))' }}>
 
       <div ref={ref} style={style} className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 md:gap-8">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link to="/" className="text-xl font-bold text-foreground">
+            <Link to="/" className="text-xl font-bold text-background inline-flex items-center gap-2">
               HEY <span className="gradient-text">Digital</span>
+              <span aria-hidden="true" className="inline-block w-2 h-2 rounded-sm bg-accent" />
             </Link>
-            <p className="text-sm text-muted-foreground mt-3 max-w-sm leading-relaxed">
+            <p className="text-sm text-background/65 mt-3 max-w-sm leading-relaxed">
               סטודיו לאוטומציה עסקית ובינה מלאכותית. אנחנו עוזרים לעסקים קטנים, סוכנויות ויועצים לבנות מערכות חכמות שעובדות בשבילם 24/7.
             </p>
 
             {/* Contact */}
             <ul className="mt-5 space-y-2">
               <li>
-                <a href="tel:0547108219" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                <a href="tel:0547108219" className="flex items-center gap-2 text-sm text-background/65 hover:text-primary transition-colors">
                   <Phone className="w-4 h-4 flex-shrink-0" />
                   <span dir="ltr">054-710-8219</span>
                 </a>
               </li>
               <li>
-                <a href="mailto:eladauto66@gmail.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                <a href="mailto:eladauto66@gmail.com" className="flex items-center gap-2 text-sm text-background/65 hover:text-primary transition-colors">
                   <Mail className="w-4 h-4 flex-shrink-0" />
                   <span>eladauto66@gmail.com</span>
                 </a>
               </li>
-              <li className="flex items-start gap-2 text-sm text-muted-foreground">
+              <li className="flex items-start gap-2 text-sm text-background/65">
                 <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                <a href="https://maps.app.goo.gl/tLz26QNqvV2kMKsG8" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">חיים לסקוב 22, נתניה</a>
+                <a href="https://maps.app.goo.gl/tLz26QNqvV2kMKsG8" target="_blank" rel="noopener noreferrer" className="hover:text-background transition-colors">חיים לסקוב 22, נתניה</a>
               </li>
             </ul>
 
@@ -143,7 +144,7 @@ const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 flex items-center justify-center rounded-lg bg-background border border-border text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
+                  className="w-9 h-9 flex items-center justify-center rounded-lg bg-background border border-background/10 text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
                   aria-label={social.name}
                 >
                   {social.icon}
@@ -156,13 +157,13 @@ const Footer = () => {
           {/* Nav columns */}
           {footerNav.map((group) => (
             <div key={group.title}>
-              <h4 className="text-sm font-semibold text-foreground mb-4">{group.title}</h4>
+              <h4 className="text-sm font-semibold text-background mb-4">{group.title}</h4>
               <nav className="flex flex-col gap-2">
                 {group.links.map((link) => (
                   <Link
                     key={link.href}
                     to={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    className="text-sm text-background/65 hover:text-primary transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -182,8 +183,8 @@ const Footer = () => {
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
                   <div className="relative z-10">
                     <div className="text-3xl mb-2 animate-bounce">🎉</div>
-                    <p className="text-base font-bold text-foreground">Welcome!</p>
-                    <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                    <p className="text-base font-bold text-background">Welcome!</p>
+                    <p className="text-xs text-background/65 mt-1 leading-relaxed">
                       אתה חלק מהמשפחה.<br />נשלח לך רק את הטוב ביותר.
                     </p>
                     <div className="mt-3 flex justify-center gap-1">
@@ -225,8 +226,8 @@ const Footer = () => {
         </div>
 
         {/* CTA row */}
-        <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">
+        <div className="mt-10 pt-6 border-t border-background/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-background/65">
             מוכנים לבנות מערכת אוטומציה חכמה?
           </p>
           <button
@@ -238,11 +239,11 @@ const Footer = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-6 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">
+        <div className="mt-6 pt-6 border-t border-background/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-background/65">
             © {new Date().getFullYear()} HEY Digital. כל הזכויות שמורות.
           </p>
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+          <div className="flex items-center gap-4 text-sm text-background/65">
             <Link to="/privacy" className="hover:text-primary transition-colors">מדיניות פרטיות</Link>
             <Link to="/cookies" className="hover:text-primary transition-colors">מדיניות Cookies</Link>
           </div>

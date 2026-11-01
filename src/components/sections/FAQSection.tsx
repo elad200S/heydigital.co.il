@@ -63,7 +63,7 @@ const FAQSection = () => {
                   key={index}
                   className="relative rounded-2xl overflow-hidden transition-all duration-300"
                   style={{
-                    border: `1px solid ${isOpen ? 'hsl(160,84%,39%,0.35)' : 'hsl(215,20%,18%)'}`,
+                    border: `1px solid ${isOpen ? 'hsl(160,84%,39%,0.35)' : 'hsl(var(--border))'}`,
                     background: isOpen ? 'hsl(var(--card))' : 'hsl(var(--card)/0.5)',
                     boxShadow: isOpen ? '0 0 24px hsl(160,84%,39%,0.08)' : 'none',
                     transition: 'border-color 0.25s, box-shadow 0.25s, background 0.25s',
@@ -84,7 +84,7 @@ const FAQSection = () => {
                     {/* Number tag */}
                     <span
                       className="font-mono text-xs font-bold flex-shrink-0 tabular-nums"
-                      style={{ color: isOpen ? 'hsl(160,84%,50%)' : 'hsl(215,20%,40%)' }}
+                      style={{ color: isOpen ? 'hsl(160,84%,50%)' : 'hsl(var(--muted-foreground))' }}
                     >
                       {String(index + 1).padStart(2, '0')}
                     </span>
@@ -101,12 +101,12 @@ const FAQSection = () => {
                     <div
                       className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300"
                       style={{
-                        background: isOpen ? 'hsl(160,84%,39%,0.15)' : 'hsl(215,20%,18%)',
+                        background: isOpen ? 'hsl(160,84%,39%,0.15)' : 'hsl(var(--muted))',
                         border: `1px solid ${isOpen ? 'hsl(160,84%,39%,0.4)' : 'transparent'}`,
                         transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)',
                       }}
                     >
-                      <Plus className="w-3.5 h-3.5" style={{ color: isOpen ? 'hsl(160,84%,50%)' : 'hsl(215,20%,55%)' }} />
+                      <Plus className="w-3.5 h-3.5" style={{ color: isOpen ? 'hsl(160,84%,50%)' : 'hsl(var(--muted-foreground))' }} />
                     </div>
                   </button>
 

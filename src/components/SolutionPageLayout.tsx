@@ -240,7 +240,7 @@ const SolutionPageLayout = ({ data }: { data: SolutionPageData }) => {
                       <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
                       <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
                     </div>
-                    <span className="text-[10px] font-mono text-muted-foreground mr-2">
+                    <span className="text-[10px] font-mono text-background/55 mr-2">
                       case_{String(i + 1).padStart(2, '0')}.run
                     </span>
                   </div>
