@@ -1,6 +1,6 @@
 # HEY Digital
 
-> סטודיו לאוטומציה עסקית ובינה מלאכותית — סוכני AI, אוטומציית WhatsApp, תהליכי CRM, בניית אתרים ומערכות חכמות לעסקים קטנים, סוכנויות ויועצים בישראל. נוסד על ידי אלעד חנינה, נתניה.
+> סטודיו לבניית וקידום אתרים, אוטומציה עסקית ובינה מלאכותית — בניית אתרים, קידום אתרים אורגני (SEO) ו-GEO, סוכני AI, אוטומציית WhatsApp, תהליכי CRM ומערכות חכמות לעסקים קטנים, סוכנויות ויועצים בישראל. נוסד על ידי אלעד חנינה, נתניה.
 
 ## Pages
 
@@ -25,14 +25,19 @@
 - [CRM Automation](/solutions/crm-automation): אוטומציה של תהליכי CRM ומעקב לקוחות.
 - [Workflow Automation](/solutions/workflow-automation): חיבור מערכות ואוטומציה של תהליכי עבודה פנימיים.
 - [Web Development](/solutions/web-development): בניית אתרים ומערכות מותאמים אישית.
+- [SEO & Organic Marketing](/solutions/seo-marketing): קידום אתרים אורגני (SEO) וקידום במנועי AI (GEO) — מחקר מילות מפתח, תוכן, קידום מקומי ומעקב מיקומים.
 
 ## Blog
+
+מאמרים על בניית אתרים, קידום אורגני (SEO/GEO), אוטומציה, AI ו-CRM לעסקים. הרשימה המלאה והמעודכנת נמצאת ב-[Blog](/blog) וב-[sitemap.xml](/sitemap.xml). מבחר:
 
 - [5 Automation Processes](/blog/5-automation-processes): 5 תהליכים שכל עסק קטן צריך לאטמט.
 - [AI Agent for Business](/blog/ai-agent-for-business): מתי סוכן AI שווה לעסק ומתי לא.
 - [How to Choose a CRM](/blog/how-to-choose-crm): איך לבחור CRM שבאמת ישתמשו בו.
 - [WhatsApp Automation](/blog/whatsapp-automation): מה לאטמט ב-WhatsApp ומה להשאיר אנושי.
 - [Lead Follow-up](/blog/lead-follow-up): למה לידים לא סוגרים ואיך פולו-אפ אוטומטי עוזר.
+- [GEO — Generative Engine Optimization](/blog/geo-generative-engine-optimization-guide): איך לקדם עסק בתשובות של ChatGPT וג׳מיני, לא רק בגוגל.
+- [Business Website 2026](/blog/business-website-2026): מה הופך אתר עסקי לכזה שממיר, לא רק נראה טוב.
 
 ## Optional
 

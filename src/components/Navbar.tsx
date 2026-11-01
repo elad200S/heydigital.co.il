@@ -24,12 +24,13 @@ const solutions: NavChild[] = [
   { label: 'אוטומציית CRM', href: '/solutions/crm-automation' },
   { label: 'אוטומציית תהליכי עבודה', href: '/solutions/workflow-automation' },
   { label: 'בניית אתרים', href: '/solutions/web-development' },
+  { label: 'קידום אתרים (SEO)', href: '/solutions/seo-marketing' },
 ];
 
 const navItems: NavItem[] = [
   { label: 'בית', href: '/' },
   { label: 'פתרונות', href: '/solutions', children: solutions },
-  { label: 'SEO', href: '/blog' },
+  { label: 'SEO', href: '/solutions/seo-marketing' },
   { label: 'אודות', href: '/about' },
   { label: 'צור קשר', href: '/contact' },
 ];

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Bot, Zap, MessageCircle, GitBranch, Workflow } from 'lucide-react';
+import { ArrowLeft, Bot, Zap, MessageCircle, GitBranch, Workflow, Globe, Search } from 'lucide-react';
 import { useContactPopup } from '@/contexts/ContactPopupContext';
 import { SEOHead, BreadcrumbSchema } from '@/lib/seo';
 import Navbar from '@/components/Navbar';
@@ -42,6 +42,20 @@ const solutions = [
     href: '/solutions/workflow-automation',
     audiences: ['צוותים פנימיים', 'מנהלי פרויקטים', 'חברות שירות'],
   },
+  {
+    icon: Globe,
+    title: 'בניית אתרים',
+    description: 'אתרים מודרניים, מהירים ומותאמים לעסק — מהתכנון ועד ההשקה, מחוברים לאוטומציות מהיום הראשון.',
+    href: '/solutions/web-development',
+    audiences: ['עסקים בלי אתר', 'מיתוג מחדש', 'חנויות אונליין'],
+  },
+  {
+    icon: Search,
+    title: 'קידום אתרים (SEO)',
+    description: 'קידום אורגני שמביא לידים בלי תלות בפרסום — מחקר מילות מפתח, תוכן, קידום מקומי ונראות במנועי AI.',
+    href: '/solutions/seo-marketing',
+    audiences: ['עסקים תלויים בפרסום ממומן', 'עסקים מקומיים', 'אתרי תוכן ובלוגים'],
+  },
 ];
 
 const Solutions = () => {
@@ -49,8 +63,8 @@ const Solutions = () => {
   return (
     <>
       <SEOHead
-        title="פתרונות אוטומציה עסקית | HEY Digital"
-        description="פתרונות אוטומציה עסקית ובינה מלאכותית: סוכני AI, אוטומציית WhatsApp, CRM, תהליכי עבודה ומערכות עסקיות מותאמות."
+        title="בניית אתרים, קידום אתרים ואוטומציה עסקית | HEY Digital"
+        description="פתרונות בניית אתרים, קידום אתרים אורגני (SEO) ואוטומציה עסקית ובינה מלאכותית: אתרים, SEO/GEO, סוכני AI, אוטומציית WhatsApp, CRM ותהליכי עבודה מותאמים."
         path="/solutions"
       />
       <BreadcrumbSchema items={[
@@ -68,10 +82,10 @@ const Solutions = () => {
             <div className="max-w-3xl">
               <p className="text-sm font-medium text-primary mb-3">פתרונות</p>
               <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-                מערכות אוטומציה שעובדות בשבילכם
+                אתרים, קידום אורגני ומערכות שעובדות בשבילכם
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-                כל פתרון מותאם אישית לעסק שלכם. אנחנו לא מוכרים תוכנה – אנחנו בונים מערכות חכמות שמחליפות תהליכים ידניים ומאפשרות צמיחה.
+                כל פתרון מותאם אישית לעסק שלכם. אנחנו בונים אתרים, מקדמים אותם אורגנית בגוגל ובמנועי AI, ובונים מערכות חכמות שמחליפות תהליכים ידניים ומאפשרות צמיחה.
               </p>
             </div>
           </div>

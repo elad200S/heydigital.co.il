@@ -56,7 +56,7 @@ export const OrganizationSchema = () => (
       '@type': 'Organization',
       name: SITE_NAME,
       url: SITE_URL,
-      description: 'סטודיו לאוטומציה עסקית ובינה מלאכותית',
+      description: 'סטודיו לבניית וקידום אתרים, אוטומציה עסקית ובינה מלאכותית',
       founder: {
         '@type': 'Person',
         name: 'אלעד חנינה',
@@ -198,7 +198,7 @@ export const PersonSchema = () => (
         name: SITE_NAME,
         url: SITE_URL,
       },
-      knowsAbout: ['אוטומציה עסקית', 'בינה מלאכותית לעסקים', 'CRM', 'אוטומציית WhatsApp', 'בניית אתרים'],
+      knowsAbout: ['בניית אתרים', 'קידום אתרים', 'אוטומציה עסקית', 'בינה מלאכותית לעסקים', 'CRM', 'אוטומציית WhatsApp'],
       sameAs: [
         'https://www.linkedin.com/company/elad-automation',
         'https://www.instagram.com/elad.archive',

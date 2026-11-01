@@ -24,6 +24,7 @@ const footerNav = [
       { label: 'אוטומציית CRM', href: '/solutions/crm-automation' },
       { label: 'אוטומציית תהליכי עבודה', href: '/solutions/workflow-automation' },
       { label: 'בניית אתרים', href: '/solutions/web-development' },
+      { label: 'קידום אתרים (SEO)', href: '/solutions/seo-marketing' },
     ],
   },
 

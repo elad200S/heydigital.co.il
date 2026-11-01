@@ -27,9 +27,9 @@ const values = [
 ];
 
 const highlights = [
-  'מתמחה באוטומציה עסקית ובינה מלאכותית',
+  'בונה ומקדם אתרים לעסקים — מהתכנון ועד קידום אורגני',
+  'מתמחה גם באוטומציה עסקית ובינה מלאכותית',
   'עובד עם עסקים B2B, סוכנויות ויועצים',
-  'מתמקד בבניית מערכות שעובדות לאורך זמן',
   'מלווה מאפיון ועד הטמעה בבהירות מלאה',
   'בונה פתרונות מותאמים, לא תבניות גנריות',
 ];
@@ -39,8 +39,8 @@ const About = () => {
   return (
     <>
       <SEOHead
-        title="אודות HEY Digital | סטודיו לאוטומציה עסקית"
-        description="הכירו את HEY Digital – סטודיו לאוטומציה עסקית ובינה מלאכותית. בונים מערכות שחוסכות זמן, מטפלות בלידים ומגדילות הכנסות לעסקים ישראלים."
+        title="אודות HEY Digital | בניית וקידום אתרים, אוטומציה עסקית"
+        description="הכירו את HEY Digital – סטודיו לבניית וקידום אתרים, אוטומציה עסקית ובינה מלאכותית. בונים אתרים, מקדמים אותם אורגנית, ובונים מערכות שחוסכות זמן ומגדילות הכנסות לעסקים ישראלים."
         path="/about"
       />
       <BreadcrumbSchema items={[
@@ -58,10 +58,10 @@ const About = () => {
             <div className="max-w-3xl">
               <p className="text-sm font-medium text-primary mb-3">אודות</p>
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-                סטודיו לאוטומציה עסקית ובינה מלאכותית
+                סטודיו לבניית וקידום אתרים, אוטומציה ובינה מלאכותית
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                עסק לא אמור להישען על משימות ידניות. HEY Digital מחליפה את הניהול הסיזיפי במערכות אוטומטיות חכמות שמפנות לכם זמן למה שבאמת מביא כסף
+                עסק צריך אתר שעובד, נראות אורגנית בגוגל, ומערכות שלא נשענות על עבודה ידנית. HEY Digital בונה אתרים, מקדמת אותם אורגנית, ובונה אוטומציות חכמות שמפנות לכם זמן למה שבאמת מביא כסף
               </p>
             </div>
           </div>
@@ -74,9 +74,9 @@ const About = () => {
                 <p className="font-medium text-primary mb-2 text-center text-xl font-serif">Co-founder</p>
                 <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-6 font-serif text-center">אלעד חנינה</h2>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  פועל בעולמות ה-B2B ועוזר לעסקים לבנות תשתית אוטומטית יציבה.
-                  הגישה פשוטה: לבנות אוטומציות חכמות שמחליפות תהליכים ידניים,
-                  חוסכות זמן וכסף, ומורידות מהעסק את הפעולות שהוא לא צריך להתעסק בהן.
+                  בונה ומקדם אתרים לעסקים, ופועל בעולמות ה-B2B כדי לעזור להם לבנות תשתית דיגיטלית יציבה.
+                  הגישה פשוטה: לבנות אתר שעובד, לקדם אותו אורגנית כדי שיביא תנועה בלי תלות בפרסום,
+                  ולבנות אוטומציות חכמות שמחליפות תהליכים ידניים וחוסכות זמן וכסף.
                 </p>
                 <ul className="space-y-3 text-center">
                   {highlights.map((item, index) => (
@@ -90,7 +90,7 @@ const About = () => {
               <div className="order-2">
                 <div className="relative">
                   <div className="aspect-square max-w-[320px] mx-auto rounded-2xl bg-muted border border-border overflow-hidden shadow-lg">
-                    <img src={eladHeadshot} alt="אלעד חנינה - מייסד HEY Digital, סטודיו לאוטומציה עסקית" className="w-full h-full object-cover object-top" loading="lazy" />
+                    <img src={eladHeadshot} alt="אלעד חנינה - מייסד HEY Digital, בונה ומקדם אתרים וסטודיו לאוטומציה עסקית" className="w-full h-full object-cover object-top" loading="lazy" />
                   </div>
                   <div className="absolute -bottom-3 -left-3 w-full h-full rounded-2xl border border-primary/20 -z-10" />
                 </div>

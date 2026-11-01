@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Bot, Zap, MessageCircle, GitBranch, Workflow, BarChart3, Globe } from 'lucide-react';
+import { ArrowLeft, Bot, Zap, MessageCircle, GitBranch, Workflow, BarChart3, Globe, Search } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -69,6 +69,15 @@ const solutions = [
     iconColor: 'text-blue-400',
     iconBg: 'bg-blue-400/15',
     accent: '#60a5fa',
+  },
+  {
+    icon: Search,
+    title: 'קידום אתרים (SEO)',
+    description: 'קידום אורגני שמביא לידים בלי תלות בפרסום — מחקר מילות מפתח, תוכן ממיר, קידום מקומי ונראות במנועי AI.',
+    href: '/solutions/seo-marketing',
+    iconColor: 'text-pink-400',
+    iconBg: 'bg-pink-400/15',
+    accent: '#f472b6',
   },
 ];
 
@@ -291,7 +300,7 @@ const SolutionsOverviewSection = () => {
               <ScrambleText text="מה אנחנו בונים" />
             </p>
             <RevealText className="text-4xl md:text-5xl font-bold text-foreground">
-              פתרונות אוטומציה לעסקים
+              אתרים, קידום ואוטומציה לעסקים
             </RevealText>
           </div>
           <Link
