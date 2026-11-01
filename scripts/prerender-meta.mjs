@@ -42,6 +42,20 @@ function extractSeoEntries() {
         entries.push({ title, description, path, type, file });
       }
     }
+
+    // Layout-driven pages (Solutions/Services/Industries) don't call <SEOHead>
+    // directly — they pass a `data` object with slug/metaTitle/metaDescription
+    // into a shared *PageLayout component, which forwards them as JSX
+    // expressions the regex above can't see. Pick those up straight off the
+    // data object instead.
+    if (seoBlocks.length === 0) {
+      const slug = content.match(/slug:\s*['"]([^'"]*)['"]/)?.[1];
+      const title = content.match(/metaTitle:\s*['"]([^'"]*)['"]/)?.[1];
+      const description = content.match(/metaDescription:\s*['"]([^'"]*)['"]/)?.[1];
+      if (slug && title && description) {
+        entries.push({ title, description, path: `/${slug}`, type: 'website', file });
+      }
+    }
   }
   return entries;
 }
