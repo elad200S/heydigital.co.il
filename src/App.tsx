@@ -94,6 +94,7 @@ const BlogBusinessWebsite2026 = lazy(() => import("./pages/blog/BusinessWebsite2
 const BlogOnlineVsPhysicalStore = lazy(() => import("./pages/blog/OnlineVsPhysicalStore"));
 const BlogMakeComAutomationGuide = lazy(() => import("./pages/blog/MakeComAutomationGuide"));
 const BlogLawFirmWebsite = lazy(() => import("./pages/blog/LawFirmWebsite"));
+const BlogDigitalSolutionsBusiness = lazy(() => import("./pages/blog/DigitalSolutionsBusiness"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -239,6 +240,7 @@ const RoutesWithTransition = () => {
           <Route path="/blog/online-vs-physical-store" element={<BlogOnlineVsPhysicalStore />} />
           <Route path="/blog/make-com-automation-guide" element={<BlogMakeComAutomationGuide />} />
           <Route path="/blog/law-firm-website" element={<BlogLawFirmWebsite />} />
+          <Route path="/blog/digital-solutions-business" element={<BlogDigitalSolutionsBusiness />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services/chatbots" element={<Chatbots />} />
