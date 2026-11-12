@@ -549,4 +549,11 @@
     <priority>0.75</priority>
   </url>
 
+  <url>
+    <loc>https://www.heydigital.co.il/blog/landing-page-conversion-guide</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
 </urlset>

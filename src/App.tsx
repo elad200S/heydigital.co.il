@@ -97,6 +97,7 @@ const BlogLawFirmWebsite = lazy(() => import("./pages/blog/LawFirmWebsite"));
 const BlogDigitalSolutionsBusiness = lazy(() => import("./pages/blog/DigitalSolutionsBusiness"));
 const BlogShopifyIsraelGuide = lazy(() => import("./pages/blog/ShopifyIsraelGuide"));
 const BlogWhatsappMarketingStrategies = lazy(() => import("./pages/blog/WhatsappMarketingStrategies"));
+const BlogLandingPageConversionGuide = lazy(() => import("./pages/blog/LandingPageConversionGuide"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -245,6 +246,7 @@ const RoutesWithTransition = () => {
           <Route path="/blog/digital-solutions-business" element={<BlogDigitalSolutionsBusiness />} />
           <Route path="/blog/shopify-israel-guide" element={<BlogShopifyIsraelGuide />} />
           <Route path="/blog/whatsapp-marketing-strategies" element={<BlogWhatsappMarketingStrategies />} />
+          <Route path="/blog/landing-page-conversion-guide" element={<BlogLandingPageConversionGuide />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services/chatbots" element={<Chatbots />} />
