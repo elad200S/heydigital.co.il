@@ -109,9 +109,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 md:gap-8">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link to="/" className="text-xl font-bold text-background inline-flex items-center gap-2">
-              HEY <span className="gradient-text">Digital</span>
-              <span aria-hidden="true" className="inline-block w-2 h-2 rounded-sm bg-accent" />
+            <Link to="/" className="inline-flex items-center rounded-xl bg-background px-3 py-2">
+              <img src="/logo-hey.png" alt="HEY Digital" className="h-8 w-auto" />
             </Link>
             <p className="text-sm text-background/65 mt-3 max-w-sm leading-relaxed">
               סטודיו לאוטומציה עסקית ובינה מלאכותית. אנחנו עוזרים לעסקים קטנים, סוכנויות ויועצים לבנות מערכות חכמות שעובדות בשבילם 24/7.
