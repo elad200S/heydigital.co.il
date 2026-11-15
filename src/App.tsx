@@ -98,6 +98,7 @@ const BlogDigitalSolutionsBusiness = lazy(() => import("./pages/blog/DigitalSolu
 const BlogShopifyIsraelGuide = lazy(() => import("./pages/blog/ShopifyIsraelGuide"));
 const BlogWhatsappMarketingStrategies = lazy(() => import("./pages/blog/WhatsappMarketingStrategies"));
 const BlogLandingPageConversionGuide = lazy(() => import("./pages/blog/LandingPageConversionGuide"));
+const BlogSmartAiAgentVsBot = lazy(() => import("./pages/blog/SmartAiAgentVsBot"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -247,6 +248,7 @@ const RoutesWithTransition = () => {
           <Route path="/blog/shopify-israel-guide" element={<BlogShopifyIsraelGuide />} />
           <Route path="/blog/whatsapp-marketing-strategies" element={<BlogWhatsappMarketingStrategies />} />
           <Route path="/blog/landing-page-conversion-guide" element={<BlogLandingPageConversionGuide />} />
+          <Route path="/blog/smart-ai-agent-vs-bot" element={<BlogSmartAiAgentVsBot />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services/chatbots" element={<Chatbots />} />
