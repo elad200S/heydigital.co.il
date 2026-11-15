@@ -556,4 +556,11 @@
     <priority>0.75</priority>
   </url>
 
+  <url>
+    <loc>https://www.heydigital.co.il/blog/smart-ai-agent-vs-bot</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
 </urlset>
