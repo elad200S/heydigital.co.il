@@ -6,6 +6,7 @@ import ChatMessage from './ChatMessage';
 import TypingIndicator from './TypingIndicator';
 import type { Message } from './useChatBot';
 import { supabase } from '@/lib/supabase';
+import { trackLead } from '@/lib/analytics';
 
 const WHATSAPP_NUMBER = '972547108219';
 
@@ -120,6 +121,7 @@ const ChatWindow = ({ messages, isLoading, onSendMessage, onClose, maxInputLengt
       if (error) console.error('DB insert error (chatbot lead):', error);
     });
 
+    trackLead('chatbot');
 
     // Also open WhatsApp with pre-filled message
     const text = encodeURIComponent(`שלום אלעד, שמי ${name}. מספרי ${phone}. דיברתי עם הבוט שלך ואשמח לשמוע עוד!`);

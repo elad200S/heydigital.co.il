@@ -99,6 +99,14 @@ const BlogShopifyIsraelGuide = lazy(() => import("./pages/blog/ShopifyIsraelGuid
 const BlogWhatsappMarketingStrategies = lazy(() => import("./pages/blog/WhatsappMarketingStrategies"));
 const BlogLandingPageConversionGuide = lazy(() => import("./pages/blog/LandingPageConversionGuide"));
 const BlogSmartAiAgentVsBot = lazy(() => import("./pages/blog/SmartAiAgentVsBot"));
+// Industries
+const Industries = lazy(() => import("./pages/Industries"));
+const IndustryAgencies = lazy(() => import("./pages/industries/Agencies"));
+const IndustryCoaches = lazy(() => import("./pages/industries/Coaches"));
+const IndustryConsultants = lazy(() => import("./pages/industries/Consultants"));
+const IndustryEcommerce = lazy(() => import("./pages/industries/Ecommerce"));
+const IndustryRealEstate = lazy(() => import("./pages/industries/RealEstate"));
+
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -249,6 +257,12 @@ const RoutesWithTransition = () => {
           <Route path="/blog/whatsapp-marketing-strategies" element={<BlogWhatsappMarketingStrategies />} />
           <Route path="/blog/landing-page-conversion-guide" element={<BlogLandingPageConversionGuide />} />
           <Route path="/blog/smart-ai-agent-vs-bot" element={<BlogSmartAiAgentVsBot />} />
+          <Route path="/industries" element={<Industries />} />
+          <Route path="/industries/agencies" element={<IndustryAgencies />} />
+          <Route path="/industries/coaches" element={<IndustryCoaches />} />
+          <Route path="/industries/consultants" element={<IndustryConsultants />} />
+          <Route path="/industries/ecommerce" element={<IndustryEcommerce />} />
+          <Route path="/industries/real-estate" element={<IndustryRealEstate />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services/chatbots" element={<Chatbots />} />

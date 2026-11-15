@@ -4,6 +4,7 @@ import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { supabase } from '@/lib/supabase';
+import { trackLead } from '@/lib/analytics';
 
 
 const MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/mkf9676ndwn4v1s2cm6tllxyrlqxi2nj';
@@ -92,6 +93,7 @@ const ContactSection = () => {
         body: JSON.stringify(payload),
       }).catch((err) => console.error('Make webhook error:', err));
 
+      trackLead('main_form');
 
       toast({ title: 'הטופס נשלח בהצלחה', description: 'ניצור איתך קשר בהקדם.' });
       setFormData({ name: '', phone: '', email: '', business: '', automationType: '' });

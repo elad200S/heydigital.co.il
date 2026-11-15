@@ -27,6 +27,15 @@
 - [Web Development](/solutions/web-development): בניית אתרים ומערכות מותאמים אישית.
 - [SEO & Organic Marketing](/solutions/seo-marketing): קידום אתרים אורגני (SEO) וקידום במנועי AI (GEO) — מחקר מילות מפתח, תוכן, קידום מקומי ומעקב מיקומים.
 
+## Industries
+
+- [Industries overview](/industries): פתרונות אוטומציה מותאמים לפי תעשייה.
+- [Agencies](/industries/agencies): אוטומציה לסוכנויות דיגיטל ושיווק.
+- [Coaches](/industries/coaches): אוטומציה למאמנים ומנטורים.
+- [Consultants](/industries/consultants): אוטומציה ליועצים עסקיים.
+- [Ecommerce](/industries/ecommerce): אוטומציה למסחר אלקטרוני.
+- [Real Estate](/industries/real-estate): אוטומציה לנדל"ן.
+
 ## Blog
 
 מאמרים על בניית אתרים, קידום אורגני (SEO/GEO), אוטומציה, AI ו-CRM לעסקים. הרשימה המלאה והמעודכנת נמצאת ב-[Blog](/blog) וב-[sitemap.xml](/sitemap.xml). מבחר:

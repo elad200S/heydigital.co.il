@@ -33,6 +33,7 @@ const footerNav = [
     links: [
       { label: 'אודות', href: '/about' },
       { label: 'בלוג', href: '/blog' },
+      { label: 'תעשיות', href: '/industries' },
       { label: 'צור קשר', href: '/contact' },
     ],
   },

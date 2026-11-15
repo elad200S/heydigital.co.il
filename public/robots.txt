@@ -2,6 +2,11 @@ User-agent: *
 Allow: /
 Disallow: /privacy
 Disallow: /cookies
+Disallow: /login
+Disallow: /portal
+Disallow: /dashboard
+Disallow: /auth
+Disallow: /reset-password
 
 # AI / generative-engine crawlers — explicitly allowed so answer engines
 # (ChatGPT, Perplexity, Google AI Overviews, Claude) can cite this site.

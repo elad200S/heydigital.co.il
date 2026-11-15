@@ -57,6 +57,7 @@ const ServicePageLayout = ({ data }: { data: ServicePageData }) => {
         title={data.metaTitle}
         description={data.metaDescription}
         path={`/${data.slug}`}
+        noindex
       />
       <BreadcrumbSchema items={[
         { name: 'בית', path: '/' },
