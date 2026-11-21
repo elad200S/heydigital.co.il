@@ -137,7 +137,11 @@ async function main() {
   const browser = process.env.VERCEL
     ? await chromium.launch({
         executablePath: await sparticuzChromium.executablePath(),
-        args: sparticuzChromium.args,
+        // --single-process is in @sparticuz/chromium's recommended args for
+        // Puppeteer/Lambda, but it breaks Playwright's CDP connection
+        // (newPage() fails with "Target closed" right after launch) — drop
+        // it, keep the rest (sandboxing/zygote/graphics flags).
+        args: sparticuzChromium.args.filter((a) => a !== '--single-process'),
       })
     : await chromium.launch({
         args: ['--no-sandbox', '--disable-dev-shm-usage', '--use-gl=swiftshader'],
