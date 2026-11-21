@@ -26,6 +26,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { preview } from 'vite';
 import { chromium } from 'playwright';
+import sparticuzChromium from '@sparticuz/chromium';
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DIST = join(ROOT, 'dist');
@@ -123,13 +124,24 @@ async function main() {
   console.log(`[prerender-static] ${routes.length} indexable routes to snapshot.`);
 
   const previewServer = await startPreviewServer();
-  // --no-sandbox/--disable-dev-shm-usage: required in most containerized CI
-  // build environments (no user-namespace sandboxing permission, tiny /dev/shm).
-  // --use-gl=swiftshader: keeps the homepage's WebGL canvas (EnergyCore.tsx)
-  // rendering via software GL instead of crashing/blanking without a real GPU.
-  const browser = await chromium.launch({
-    args: ['--no-sandbox', '--disable-dev-shm-usage', '--use-gl=swiftshader'],
-  });
+
+  // Vercel's build container has no apt/sudo, so Playwright's own downloaded
+  // Chromium can't run there — it's missing OS shared libs (libnspr4 etc.)
+  // that only a normal desktop/dev Linux box has. @sparticuz/chromium ships a
+  // Chromium build with its graphics stack (swiftshader/ANGLE, so the
+  // homepage's WebGL canvas in EnergyCore.tsx still renders) and no such
+  // system-library dependency — the standard fix for headless Chromium on
+  // Vercel/Lambda-style containers. Locally (Windows/macOS/a normal Linux
+  // dev box) that binary can't run at all, so there we use Playwright's own
+  // bundled browser exactly as before.
+  const browser = process.env.VERCEL
+    ? await chromium.launch({
+        executablePath: await sparticuzChromium.executablePath(),
+        args: sparticuzChromium.args,
+      })
+    : await chromium.launch({
+        args: ['--no-sandbox', '--disable-dev-shm-usage', '--use-gl=swiftshader'],
+      });
 
   const failures = [];
   let written = 0;
