@@ -1,4 +1,5 @@
-import SolutionPageLayout, { SolutionPageData } from '@/components/SolutionPageLayout';
+import WebsiteShowcaseLayout from '@/components/WebsiteShowcaseLayout';
+import type { SolutionPageData } from '@/components/SolutionPageLayout';
 import webDevHero from '@/assets/web-development-hero.webp';
 
 const data: SolutionPageData = {
@@ -76,6 +77,6 @@ const data: SolutionPageData = {
   },
 };
 
-const WebDevelopment = () => <SolutionPageLayout data={data} />;
+const WebDevelopment = () => <WebsiteShowcaseLayout data={data} />;
 
 export default WebDevelopment;
