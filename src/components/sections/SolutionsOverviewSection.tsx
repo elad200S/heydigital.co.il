@@ -296,9 +296,6 @@ const SolutionsOverviewSection = () => {
       <div className="container">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
           <div className="text-center md:text-right flex-1">
-            <p className="font-mono text-xs uppercase tracking-[0.14em] text-primary mb-3 text-center">
-              <ScrambleText text="מה אנחנו בונים" />
-            </p>
             <RevealText className="text-4xl md:text-5xl font-bold text-foreground">
               אתרים, קידום ואוטומציה לעסקים
             </RevealText>

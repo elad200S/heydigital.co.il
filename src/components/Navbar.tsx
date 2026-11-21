@@ -59,7 +59,7 @@ const DesktopDropdownItem = ({ item, pathname }: { item: NavItem; pathname: stri
       <Link
         to={item.href}
         className={cn(
-          'relative flex items-center gap-1 py-2 text-sm transition-all duration-200 after:absolute after:bottom-0 after:right-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-200 hover:after:w-full',
+          'relative flex items-center gap-1 py-2 text-sm transition-colors duration-200 after:absolute after:bottom-0 after:right-0 after:h-px after:w-0 after:bg-primary after:transition-[width] after:duration-200 hover:after:w-full',
           pathname.startsWith(item.href) ? 'text-primary font-medium after:w-full' : 'text-muted-foreground hover:text-foreground'
         )}
       >
@@ -208,7 +208,7 @@ const MobileMenuPortal = ({
                 onClose();
                 onOpenPopup();
               }}
-              className="mt-2 rounded-full bg-primary px-4 py-4 text-base font-medium text-primary-foreground transition-all active:scale-[0.97]"
+              className="mt-2 rounded-full bg-primary px-4 py-4 text-base font-medium text-primary-foreground transition-transform active:scale-[0.97]"
             >
               שיחת אסטרטגיה →
             </button>
@@ -316,7 +316,7 @@ const Navbar = () => {
                   key={item.href}
                   to={item.href}
                   className={cn(
-                    'relative text-sm transition-all duration-200 after:absolute after:bottom-0 after:right-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-200 hover:after:w-full',
+                    'relative text-sm transition-colors duration-200 after:absolute after:bottom-0 after:right-0 after:h-px after:w-0 after:bg-primary after:transition-[width] after:duration-200 hover:after:w-full',
                     location.pathname === item.href ? 'font-medium text-primary after:w-full' : 'text-muted-foreground hover:text-foreground'
                   )}
                 >
@@ -353,7 +353,7 @@ const Navbar = () => {
                 transition={{ type: 'spring', stiffness: 420, damping: 26 }}
               >
                 שיחת אסטרטגיה
-                <span className="h-2 w-2 flex-shrink-0 animate-pulse rounded-full bg-primary-foreground/80" />
+                <span className="h-2 w-2 flex-shrink-0 rounded-full bg-primary-foreground/80" />
               </motion.button>
             </motion.div>
           </div>

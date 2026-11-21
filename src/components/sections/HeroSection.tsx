@@ -41,7 +41,6 @@ const duplicatedTicker = [...TICKER_ITEMS, ...TICKER_ITEMS];
 const HeroSection = () => {
   const { openPopup } = useContactPopup();
   const sectionRef   = useRef<HTMLElement>(null);
-  const eyebrowRef   = useRef<HTMLDivElement>(null);
   const subtitleRef  = useRef<HTMLDivElement>(null);
   const ctaRef       = useRef<HTMLDivElement>(null);
   const orbRef       = useRef<HTMLDivElement>(null);
@@ -81,7 +80,7 @@ const HeroSection = () => {
   // Set hidden states before paint
   useLayoutEffect(() => {
     const lines = lineRefs.current.filter(Boolean) as HTMLSpanElement[];
-    gsap.set([...lines, eyebrowRef.current, subtitleRef.current, ctaRef.current], { opacity: 0, y: 32 });
+    gsap.set([...lines, subtitleRef.current, ctaRef.current], { opacity: 0, y: 32 });
     gsap.set(orbRef.current, { opacity: 0, x: -40 });
   }, []);
 
@@ -93,8 +92,7 @@ const HeroSection = () => {
       const tl = gsap.timeline({ delay: 0.15 });
 
       tl.to(orbRef.current,      { opacity: 1, x: 0, duration: 1.4, ease: 'power3.out' }, 0)
-        .to(eyebrowRef.current,  { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.4)
-        .to(lines,               { opacity: 1, y: 0, duration: 0.9, stagger: 0.1, ease: 'power3.out' }, 0.6)
+        .to(lines,               { opacity: 1, y: 0, duration: 0.9, stagger: 0.1, ease: 'power3.out' }, 0.4)
         .to(subtitleRef.current, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 1.1)
         .to(ctaRef.current,      { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 1.3);
 
@@ -133,32 +131,6 @@ const HeroSection = () => {
 
           {/* Text column — right in RTL */}
           <div className="flex-1 flex flex-col items-start text-right z-10">
-
-            {/* Eyebrow badge */}
-            <div ref={eyebrowRef} className="mb-10">
-              <span
-                className="inline-flex items-center gap-2.5 font-mono text-[0.7rem] tracking-[0.14em] uppercase"
-                style={{
-                  border: '1px solid hsl(174,78%,43%,0.3)',
-                  borderRadius: 100,
-                  padding: '7px 18px',
-                  color: 'hsl(174,78%,58%)',
-                  background: 'hsl(174,78%,43%,0.08)',
-                  boxShadow: '0 0 22px hsl(174,78%,43%,0.1), inset 0 0 12px hsl(174,78%,43%,0.04)',
-                }}
-              >
-                <span
-                  style={{
-                    width: 7, height: 7, borderRadius: '50%',
-                    background: 'hsl(174,78%,50%)',
-                    boxShadow: '0 0 8px hsl(174,78%,50%)',
-                    display: 'inline-block',
-                    animation: 'pulse 2s ease-in-out infinite',
-                  }}
-                />
-                סטודיו אוטומציה ובינה מלאכותית
-              </span>
-            </div>
 
             {/* Headline — line-by-line reveal */}
             <h1

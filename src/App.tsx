@@ -163,7 +163,7 @@ lenis.on('scroll', ScrollTrigger.update);
 const pageVariants: import('framer-motion').Variants = {
   initial: { opacity: 0 },
   animate: { opacity: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
-  exit:    { opacity: 0, transition: { duration: 0.22, ease: 'easeIn' } },
+  exit:    { opacity: 0, transition: { duration: 0.22, ease: 'easeOut' } },
 };
 
 const ADMIN_ROUTES = ['/login', '/portal', '/dashboard', '/auth'];
