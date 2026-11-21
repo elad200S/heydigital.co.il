@@ -43,7 +43,7 @@ const ToolsSection = () => {
     const el = scrollRef.current;
     if (!el) return;
     let scrollPos = 0;
-    const speed = 1.1;
+    const speed = 0.45;
     const animate = () => {
       if (!isPaused.current && el) {
         scrollPos += speed;

@@ -149,8 +149,9 @@ const queryClient = new QueryClient();
 // still just as smooth, without that risk — while this smoothing applies to
 // mouse-wheel/trackpad scrolling everywhere on desktop.
 const lenis = new Lenis({
-  duration: 1.2,
+  duration: 1.45,
   easing: (t: number) => 1 - Math.pow(1 - t, 4),
+  wheelMultiplier: 0.75,
 });
 
 gsap.registerPlugin(ScrollTrigger);

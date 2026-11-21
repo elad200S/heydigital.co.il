@@ -42,10 +42,10 @@ const Index = () => {
           <AutomationShowcaseSection />
           <CinematicReveal index={5}><ToolsSection /></CinematicReveal>
           <CinematicReveal index={6}><AutomationAnimation /></CinematicReveal>
-          {/* Not wrapped in CinematicReveal on purpose — a transform on an ancestor
-              redefines the containing block that position:sticky offsets resolve
-              against, which breaks the stacking-cards effect inside. */}
-          <SolutionsOverviewSection />
+          {/* No longer needs a sticky-safe exemption — SolutionsOverviewSection
+              is a plain two-card grid now, not a position:sticky stack, so it
+              gets the same entrance treatment as every other section here. */}
+          <CinematicReveal index={7}><SolutionsOverviewSection /></CinematicReveal>
 
           <CinematicReveal index={8}><AboutSection /></CinematicReveal>
           <CinematicReveal index={9}><FAQSection /></CinematicReveal>

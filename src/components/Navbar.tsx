@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 interface NavChild {
   label: string;
   href: string;
+  group: string;
 }
 
 interface NavItem {
@@ -17,20 +18,37 @@ interface NavItem {
   children?: NavChild[];
 }
 
+// Two pillars only (a third, AI video/social, is intentionally not here yet).
+// `group` clusters these under a shared label everywhere they render — see
+// `groupChildren` below — instead of the old flat 7-item list, which read
+// as "a dozen unrelated services" rather than two coherent offerings.
+const PILLAR_WEB = 'אתרים ונוכחות דיגיטלית';
+const PILLAR_AUTOMATION = 'אוטומציות למערכת CRM';
+
 const solutions: NavChild[] = [
-  { label: 'סוכני AI חכמים', href: '/solutions/ai-agents' },
-  { label: 'אוטומציה עסקית', href: '/solutions/business-automation' },
-  { label: 'אוטומציית WhatsApp', href: '/solutions/whatsapp-automation' },
-  { label: 'אוטומציית CRM', href: '/solutions/crm-automation' },
-  { label: 'אוטומציית תהליכי עבודה', href: '/solutions/workflow-automation' },
-  { label: 'בניית אתרים', href: '/solutions/web-development' },
-  { label: 'קידום אתרים (SEO)', href: '/solutions/seo-marketing' },
+  { label: 'בניית אתרים', href: '/solutions/web-development', group: PILLAR_WEB },
+  { label: 'קידום אתרים (SEO)', href: '/solutions/seo-marketing', group: PILLAR_WEB },
+  { label: 'אוטומציית CRM', href: '/solutions/crm-automation', group: PILLAR_AUTOMATION },
+  { label: 'סוכני AI חכמים', href: '/solutions/ai-agents', group: PILLAR_AUTOMATION },
+  { label: 'אוטומציית WhatsApp', href: '/solutions/whatsapp-automation', group: PILLAR_AUTOMATION },
+  { label: 'אוטומציית תהליכי עבודה', href: '/solutions/workflow-automation', group: PILLAR_AUTOMATION },
+  { label: 'אוטומציה עסקית', href: '/solutions/business-automation', group: PILLAR_AUTOMATION },
 ];
+
+/** Groups already-adjacent children by `group`, preserving first-seen order. */
+const groupChildren = (children: NavChild[]) => {
+  const order: string[] = [];
+  const byGroup = new Map<string, NavChild[]>();
+  for (const child of children) {
+    if (!byGroup.has(child.group)) { byGroup.set(child.group, []); order.push(child.group); }
+    byGroup.get(child.group)!.push(child);
+  }
+  return order.map((group) => ({ group, items: byGroup.get(group)! }));
+};
 
 const navItems: NavItem[] = [
   { label: 'בית', href: '/' },
   { label: 'פתרונות', href: '/solutions', children: solutions },
-  { label: 'SEO', href: '/solutions/seo-marketing' },
   { label: 'אודות', href: '/about' },
   { label: 'צור קשר', href: '/contact' },
 ];
@@ -68,24 +86,29 @@ const DesktopDropdownItem = ({ item, pathname }: { item: NavItem; pathname: stri
       </Link>
 
       {open && item.children && (
-        <div className="absolute top-full right-0 mt-1 w-56 rounded-lg border border-border bg-popover py-2 shadow-lg animate-fade-in">
+        <div className="absolute top-full right-0 mt-1 w-64 rounded-lg border border-border bg-popover py-2 shadow-lg animate-fade-in">
           <Link
             to={item.href}
             className="mb-1 block border-b border-border px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-muted"
           >
             כל ה{item.label}
           </Link>
-          {item.children.map((child) => (
-            <Link
-              key={child.href}
-              to={child.href}
-              className={cn(
-                'block px-4 py-2.5 text-sm transition-colors hover:bg-muted',
-                pathname === child.href ? 'text-primary font-medium' : 'text-foreground'
-              )}
-            >
-              {child.label}
-            </Link>
+          {groupChildren(item.children).map(({ group, items }, gi) => (
+            <div key={group} className={cn(gi > 0 && 'mt-1 border-t border-border/60 pt-1')}>
+              <div className="px-4 pb-1 pt-2 text-xs font-medium text-muted-foreground/70">{group}</div>
+              {items.map((child) => (
+                <Link
+                  key={child.href}
+                  to={child.href}
+                  className={cn(
+                    'block px-4 py-2.5 text-sm transition-colors hover:bg-muted',
+                    pathname === child.href ? 'text-primary font-medium' : 'text-foreground'
+                  )}
+                >
+                  {child.label}
+                </Link>
+              ))}
+            </div>
           ))}
         </div>
       )}
@@ -162,18 +185,23 @@ const MobileMenuPortal = ({
 
                     {openDropdown === item.href && (
                       <div className="flex flex-col gap-1 pr-4 pb-2 pt-1">
-                        {item.children.map((child) => (
-                          <button
-                            key={child.href}
-                            type="button"
-                            onClick={() => onNavigate(child.href)}
-                            className={cn(
-                              'flex min-h-12 w-full items-center rounded-lg px-4 py-3 text-right text-base transition-colors active:bg-muted/50',
-                              pathname === child.href ? 'font-medium text-primary' : 'text-muted-foreground'
-                            )}
-                          >
-                            {child.label}
-                          </button>
+                        {groupChildren(item.children).map(({ group, items }, gi) => (
+                          <div key={group} className={cn(gi > 0 && 'mt-2 border-t border-border/60 pt-2')}>
+                            <div className="px-4 pb-1 text-xs font-medium text-muted-foreground/70">{group}</div>
+                            {items.map((child) => (
+                              <button
+                                key={child.href}
+                                type="button"
+                                onClick={() => onNavigate(child.href)}
+                                className={cn(
+                                  'flex min-h-12 w-full items-center rounded-lg px-4 py-3 text-right text-base transition-colors active:bg-muted/50',
+                                  pathname === child.href ? 'font-medium text-primary' : 'text-muted-foreground'
+                                )}
+                              >
+                                {child.label}
+                              </button>
+                            ))}
+                          </div>
                         ))}
                       </div>
                     )}
