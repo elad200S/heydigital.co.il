@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Bot, Zap, MessageCircle, GitBranch, Workflow, Globe, Search } from 'lucide-react';
+import { ArrowLeft, Bot, Zap, MessageCircle, GitBranch, Workflow, Globe, Search, Clapperboard } from 'lucide-react';
 import { useContactPopup } from '@/contexts/ContactPopupContext';
 import { SEOHead, BreadcrumbSchema } from '@/lib/seo';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/sections/Footer';
 import Section from '@/components/Section';
 
-// Two pillars (a third, AI video/social, is intentionally not here yet).
-// Grouping these under two headings — instead of one flat list of seven near-
-// identical cards — is the point: the automation items are five facets of
-// one offering, not five separate ones competing for attention.
+// Three pillars. Grouping items under headings — instead of one flat list of
+// near-identical cards — is the point: the automation items are five facets
+// of one offering, not five separate ones competing for attention.
 const pillars = [
   {
     id: 'websites',
@@ -71,6 +70,20 @@ const pillars = [
         description: 'חיבור מערכות, ייעול תהליכים ובניית זרימות עבודה אוטומטיות שמחליפות עשרות שעות של עבודה ידנית בשבוע.',
         href: '/solutions/business-automation',
         audiences: ['עסקים קטנים', 'סטארטאפים', 'צוותי תפעול'],
+      },
+    ],
+  },
+  {
+    id: 'video-social',
+    name: 'סרטוני AI וסושיאל',
+    tagline: 'תוכן קבוע לרשתות החברתיות, מופק בעזרת בינה מלאכותית — בלי צוות צילום בשטח.',
+    items: [
+      {
+        icon: Clapperboard,
+        title: 'סרטוני AI וסושיאל',
+        description: 'הפקת סרטונים קצרים מבוססי בינה מלאכותית ותוכן שוטף לאינסטגרם, טיקטוק ופייסבוק, לפי לוח פרסום קבוע.',
+        href: '/solutions/ai-video-social',
+        audiences: ['עסקים בלי צוות תוכן', 'מותגים שרוצים נוכחות סדירה', 'עסקים עם אתר ואוטומציות'],
       },
     ],
   },

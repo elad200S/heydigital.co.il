@@ -18,12 +18,13 @@ interface NavItem {
   children?: NavChild[];
 }
 
-// Two pillars only (a third, AI video/social, is intentionally not here yet).
-// `group` clusters these under a shared label everywhere they render — see
-// `groupChildren` below — instead of the old flat 7-item list, which read
-// as "a dozen unrelated services" rather than two coherent offerings.
+// Three pillars. `group` clusters these under a shared label everywhere
+// they render — see `groupChildren` below — instead of a flat list of
+// near-identical items, which read as "a dozen unrelated services" rather
+// than a few coherent offerings.
 const PILLAR_WEB = 'אתרים ונוכחות דיגיטלית';
 const PILLAR_AUTOMATION = 'אוטומציות למערכת CRM';
+const PILLAR_VIDEO = 'סרטוני AI וסושיאל';
 
 const solutions: NavChild[] = [
   { label: 'בניית אתרים', href: '/solutions/web-development', group: PILLAR_WEB },
@@ -33,6 +34,7 @@ const solutions: NavChild[] = [
   { label: 'אוטומציית WhatsApp', href: '/solutions/whatsapp-automation', group: PILLAR_AUTOMATION },
   { label: 'אוטומציית תהליכי עבודה', href: '/solutions/workflow-automation', group: PILLAR_AUTOMATION },
   { label: 'אוטומציה עסקית', href: '/solutions/business-automation', group: PILLAR_AUTOMATION },
+  { label: 'סרטוני AI וסושיאל', href: '/solutions/ai-video-social', group: PILLAR_VIDEO },
 ];
 
 /** Groups already-adjacent children by `group`, preserving first-seen order. */
