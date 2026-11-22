@@ -101,6 +101,7 @@ const BlogLandingPageConversionGuide = lazy(() => import("./pages/blog/LandingPa
 const BlogSmartAiAgentVsBot = lazy(() => import("./pages/blog/SmartAiAgentVsBot"));
 const BlogDoctorWebsiteGuide = lazy(() => import("./pages/blog/DoctorWebsiteGuide"));
 const BlogGoogleAdsSmallBusiness = lazy(() => import("./pages/blog/GoogleAdsSmallBusiness"));
+const BlogBusinessSystemsIntegration = lazy(() => import("./pages/blog/BusinessSystemsIntegration"));
 // Industries
 const Industries = lazy(() => import("./pages/Industries"));
 const IndustryAgencies = lazy(() => import("./pages/industries/Agencies"));
@@ -261,6 +262,7 @@ const RoutesWithTransition = () => {
           <Route path="/blog/smart-ai-agent-vs-bot" element={<BlogSmartAiAgentVsBot />} />
           <Route path="/blog/doctor-website-guide" element={<BlogDoctorWebsiteGuide />} />
           <Route path="/blog/google-ads-small-business" element={<BlogGoogleAdsSmallBusiness />} />
+          <Route path="/blog/business-systems-integration" element={<BlogBusinessSystemsIntegration />} />
           <Route path="/industries" element={<Industries />} />
           <Route path="/industries/agencies" element={<IndustryAgencies />} />
           <Route path="/industries/coaches" element={<IndustryCoaches />} />
