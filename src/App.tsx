@@ -384,7 +384,11 @@ const App = () => {
           <EngagementProvider>
             <TooltipProvider>
               {showIntro && <IntroScreen onVisible={handleIntroVisible} onComplete={handleIntroComplete} />}
-              <div style={{ opacity: introDone ? 1 : 0, transition: 'opacity 0.3s ease-out' }}>
+              {/* data-app-ready: tooling hook only (static prerendering) — no visual/behavioral effect */}
+              <div
+                data-app-ready={introDone ? 'true' : 'false'}
+                style={{ opacity: introDone ? 1 : 0, transition: 'opacity 0.3s ease-out' }}
+              >
                 <Toaster />
                 <Sonner />
                 <AppInner />
