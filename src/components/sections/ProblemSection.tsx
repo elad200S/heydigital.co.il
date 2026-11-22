@@ -54,7 +54,10 @@ const StatsRow = () => {
           <div
             className="text-5xl md:text-6xl font-bold tabular-nums leading-none mb-3 relative"
             style={{
-              color: 'hsl(160,84%,52%)',
+              // Darkened from 52% lightness (measured ~1.4:1 against the light bg,
+              // far under the 3:1 WCAG floor for large bold text) to 30%, which clears
+              // 3:1. Glow shadow below is decorative and kept at the original hue/value.
+              color: 'hsl(160,84%,30%)',
               textShadow: '0 0 40px hsl(160,84%,39%,0.5)',
               letterSpacing: '-0.03em',
             }}

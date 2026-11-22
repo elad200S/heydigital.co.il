@@ -331,7 +331,10 @@ const SolutionPageLayout = ({ data }: { data: SolutionPageData }) => {
                       style={{
                         background: 'hsl(var(--background))',
                         border: '2px solid hsl(160,84%,39%)',
-                        color: 'hsl(160,84%,39%)',
+                        // Darkened from 39% (contrast ~2.4:1 as small bold text against
+                        // the light bg) to 26%, clearing the 4.5:1 floor; border/glow
+                        // kept at the original value since those aren't text.
+                        color: 'hsl(160,84%,26%)',
                         boxShadow: '0 0 14px hsl(160,84%,39%,0.18)',
                       }}>
                       {String(i + 1).padStart(2, '0')}
@@ -349,7 +352,7 @@ const SolutionPageLayout = ({ data }: { data: SolutionPageData }) => {
                 <div key={i} className="flex items-start gap-4">
                   <div className="flex flex-col items-center flex-shrink-0">
                     <div className="w-9 h-9 rounded-full flex items-center justify-center font-mono font-bold text-xs"
-                      style={{ border: '2px solid hsl(160,84%,39%)', color: 'hsl(160,84%,39%)', background: 'hsl(var(--background))' }}>
+                      style={{ border: '2px solid hsl(160,84%,39%)', color: 'hsl(160,84%,26%)', background: 'hsl(var(--background))' }}>
                       {String(i + 1).padStart(2, '0')}
                     </div>
                     {i < data.process.steps.length - 1 && (

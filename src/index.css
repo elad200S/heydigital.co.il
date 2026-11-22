@@ -39,8 +39,11 @@
     --foreground: 174 86% 8%;          /* dark forest green #032824 */
     --foreground-muted: 174 20% 35%;
 
-    /* Primary - Base turquoise (#18C6B5, for headings + buttons) */
-    --primary: 174 78% 43%;
+    /* Primary - Base turquoise, darkened from the brand book's #18C6B5 (174 78% 43%) to
+       174 78% 25% so it clears WCAG AA (4.5:1) as text/icon color on the light background —
+       the original value measured only ~2:1. Same hue/saturation, just darker. Glow/tint
+       tokens below keep the original brighter value since they're decorative, not text. */
+    --primary: 174 78% 25%;
     --primary-foreground: 43 28% 95%;
     --primary-glow: 174 78% 43% / 0.15;
     --primary-light: 174 40% 92%;
@@ -50,8 +53,9 @@
     --secondary-foreground: 43 28% 95%;
     --secondary-light: 174 30% 90%;
 
-    /* Accent - Orange (#FF861F) — sparing use only: single points, badges, small highlights */
-    --accent: 28 100% 56%;
+    /* Accent - Orange, darkened from the brand book's #FF861F (28 100% 56%) to 28 100% 34%
+       for the same reason — the original measured ~2.2:1 as text/icon color on light bg. */
+    --accent: 28 100% 34%;
     --accent-foreground: 43 28% 95%;
     --accent-light: 28 60% 93%;
 
