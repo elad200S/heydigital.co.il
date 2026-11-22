@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Globe, Search, Bot, MessageCircle, GitBranch, Workflow, Zap } from 'lucide-react';
+import { ArrowLeft, Globe, Search, Bot, MessageCircle, GitBranch, Workflow, Zap, Clapperboard } from 'lucide-react';
 import RevealText from '@/components/RevealText';
 import Section from '@/components/Section';
 
-// Two pillars (a third, AI video/social, is intentionally not here yet).
-// This replaces an 8-card scroll-jacked stack that consumed roughly 7x the
-// viewport height in pure scroll distance for one homepage section — the
-// single biggest contributor to the site feeling like disconnected blocks
-// with no flow. Two cards, no pinning, read in one glance instead.
+// Three pillars, mirroring the groups on /solutions. This replaces an 8-card
+// scroll-jacked stack that consumed roughly 7x the viewport height in pure
+// scroll distance for one homepage section — the single biggest contributor
+// to the site feeling like disconnected blocks with no flow. Cards read in
+// one glance instead, no pinning.
 const pillars = [
   {
     id: 'websites',
@@ -34,6 +34,17 @@ const pillars = [
       { label: 'אוטומציית WhatsApp', icon: MessageCircle },
       { label: 'תהליכי עבודה', icon: Workflow },
       { label: 'אוטומציה עסקית', icon: Zap },
+    ],
+  },
+  {
+    id: 'video-social',
+    title: 'סרטוני AI וסושיאל',
+    description: 'תוכן קבוע לרשתות החברתיות, מופק בעזרת בינה מלאכותית — סרטונים קצרים ופוסטים לאינסטגרם, טיקטוק ופייסבוק, בלי צוות צילום בשטח.',
+    href: '/solutions/ai-video-social',
+    icon: Clapperboard,
+    accent: 'hsl(330,75%,58%)',
+    items: [
+      { label: 'סרטוני AI וסושיאל', icon: Clapperboard },
     ],
   },
 ];
@@ -104,7 +115,7 @@ const SolutionsOverviewSection = () => (
       </Link>
     </div>
 
-    <div className="max-w-5xl mx-auto grid gap-5 md:grid-cols-2">
+    <div className="max-w-5xl mx-auto grid gap-5 md:grid-cols-3">
       {pillars.map((pillar) => (
         <PillarCard key={pillar.id} pillar={pillar} />
       ))}
