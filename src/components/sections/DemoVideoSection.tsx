@@ -76,7 +76,6 @@ const DemoVideoSection = () => {
       <div className="max-w-3xl mx-auto" dir="rtl">
         {/* Title */}
         <div className="text-center mb-10">
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-primary mb-3">הדגמה חיה</p>
           <h2 className="text-4xl md:text-5xl font-bold text-foreground">כך זה יראה אצלך</h2>
           <p className="text-muted-foreground mt-4 text-lg">
             מהכניסה לאתר ועד קבלת הודעת ווצאפ — תוך שניות

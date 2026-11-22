@@ -1,4 +1,5 @@
-import SolutionPageLayout, { SolutionPageData } from '@/components/SolutionPageLayout';
+import WebsiteShowcaseLayout from '@/components/WebsiteShowcaseLayout';
+import type { SolutionPageData } from '@/components/SolutionPageLayout';
 
 const data: SolutionPageData = {
   slug: 'solutions/seo-marketing',
@@ -73,6 +74,6 @@ const data: SolutionPageData = {
   },
 };
 
-const SeoMarketing = () => <SolutionPageLayout data={data} />;
+const SeoMarketing = () => <WebsiteShowcaseLayout data={data} />;
 
 export default SeoMarketing;

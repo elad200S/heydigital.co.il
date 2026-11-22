@@ -131,6 +131,9 @@ const WebDevelopment = lazy(() => import("./pages/solutions/WebDevelopment"));
 // Solutions - SEO & organic marketing
 const SeoMarketing = lazy(() => import("./pages/solutions/SeoMarketing"));
 
+// Solutions - AI video & social
+const AIVideoSocial = lazy(() => import("./pages/solutions/AIVideoSocial"));
+
 // Legacy service pages
 const Chatbots = lazy(() => import("./pages/services/Chatbots"));
 const CRM = lazy(() => import("./pages/services/CRM"));
@@ -150,8 +153,9 @@ const queryClient = new QueryClient();
 // still just as smooth, without that risk — while this smoothing applies to
 // mouse-wheel/trackpad scrolling everywhere on desktop.
 const lenis = new Lenis({
-  duration: 1.2,
+  duration: 1.45,
   easing: (t: number) => 1 - Math.pow(1 - t, 4),
+  wheelMultiplier: 0.75,
 });
 
 gsap.registerPlugin(ScrollTrigger);
@@ -164,7 +168,7 @@ lenis.on('scroll', ScrollTrigger.update);
 const pageVariants: import('framer-motion').Variants = {
   initial: { opacity: 0 },
   animate: { opacity: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
-  exit:    { opacity: 0, transition: { duration: 0.22, ease: 'easeIn' } },
+  exit:    { opacity: 0, transition: { duration: 0.22, ease: 'easeOut' } },
 };
 
 const ADMIN_ROUTES = ['/login', '/portal', '/dashboard', '/auth'];
@@ -191,6 +195,7 @@ const RoutesWithTransition = () => {
           <Route path="/solutions/workflow-automation" element={<WorkflowAutomation />} />
           <Route path="/solutions/web-development" element={<WebDevelopment />} />
           <Route path="/solutions/seo-marketing" element={<SeoMarketing />} />
+          <Route path="/solutions/ai-video-social" element={<AIVideoSocial />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/5-automation-processes" element={<AutomationProcesses />} />
           <Route path="/blog/ai-agent-for-business" element={<AIAgentForBusiness />} />

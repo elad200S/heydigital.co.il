@@ -25,6 +25,7 @@ const footerNav = [
       { label: 'אוטומציית תהליכי עבודה', href: '/solutions/workflow-automation' },
       { label: 'בניית אתרים', href: '/solutions/web-development' },
       { label: 'קידום אתרים (SEO)', href: '/solutions/seo-marketing' },
+      { label: 'סרטוני AI וסושיאל', href: '/solutions/ai-video-social' },
     ],
   },
 

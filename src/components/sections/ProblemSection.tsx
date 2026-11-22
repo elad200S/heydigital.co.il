@@ -54,7 +54,10 @@ const StatsRow = () => {
           <div
             className="text-5xl md:text-6xl font-bold tabular-nums leading-none mb-3 relative"
             style={{
-              color: 'hsl(160,84%,52%)',
+              // Darkened from 52% lightness (measured ~1.4:1 against the light bg,
+              // far under the 3:1 WCAG floor for large bold text) to 30%, which clears
+              // 3:1. Glow shadow below is decorative and kept at the original hue/value.
+              color: 'hsl(160,84%,30%)',
               textShadow: '0 0 40px hsl(160,84%,39%,0.5)',
               letterSpacing: '-0.03em',
             }}
@@ -210,10 +213,6 @@ const ProblemSection = () => {
   return (
     <Section id="problem">
       <div ref={sectionRef} className="max-w-3xl mx-auto text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.14em] text-primary mb-4 text-center inline-flex items-center gap-2 justify-center w-full">
-          <span aria-hidden="true" className="inline-block w-1.5 h-1.5 rounded-sm bg-accent" />
-          האמת המספרית
-        </p>
         <RevealText className="text-4xl md:text-5xl font-bold text-foreground mb-8 text-center">
           מרגיש שהעסק עובד אבל לא באמת מסודר?
         </RevealText>

@@ -43,7 +43,7 @@ const ToolsSection = () => {
     const el = scrollRef.current;
     if (!el) return;
     let scrollPos = 0;
-    const speed = 1.1;
+    const speed = 0.45;
     const animate = () => {
       if (!isPaused.current && el) {
         scrollPos += speed;
@@ -59,7 +59,6 @@ const ToolsSection = () => {
   return (
     <Section id="tools">
       <div className="max-w-4xl mx-auto text-center mb-10">
-        <p className="font-mono text-xs uppercase tracking-[0.14em] text-primary mb-3">אינטגרציות</p>
         <RevealText className="text-4xl md:text-5xl font-bold text-foreground mb-4">
           מתחבר למערכות שכבר יש לך
         </RevealText>

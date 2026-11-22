@@ -49,14 +49,69 @@ export interface SolutionPageData {
   };
 }
 
+const STATUS_DOT_COLORS = ['#10b981', '#06b6d4', '#f59e0b', '#a78bfa'];
+
+/** Dark terminal-chrome readout — the "live system" visual anchor for every
+ *  automation pillar page. Content is the page's own `whatWeDeliver` items,
+ *  never invented copy. Rows reveal in sequence once `active` (hero flipped
+ *  into view), matching the same chrome/mono language used in
+ *  AutomationShowcaseSection on the homepage. */
+const TerminalReadout = ({ items, active }: { items: string[]; active: boolean }) => (
+  <div className="w-full rounded-lg overflow-hidden border border-white/10" style={{ background: 'hsl(220,15%,9%)' }}>
+    <div className="flex items-center gap-2 px-4 py-2 border-b border-white/10" dir="ltr" style={{ background: 'hsl(220,15%,11%)' }}>
+      <div className="flex gap-1.5">
+        <div className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
+        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
+        <div className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
+      </div>
+      <span className="text-[10px] font-mono text-white/40 ml-2">system.status</span>
+    </div>
+    <div className="p-4 space-y-2.5" dir="rtl">
+      {items.map((item, i) => {
+        const color = STATUS_DOT_COLORS[i % STATUS_DOT_COLORS.length];
+        return (
+          <div
+            key={i}
+            className="flex items-center gap-2.5 transition-all"
+            style={{
+              opacity: active ? 1 : 0,
+              transform: active ? 'translateY(0)' : 'translateY(6px)',
+              transitionDuration: '420ms',
+              transitionDelay: `${i * 150}ms`,
+            }}
+          >
+            <div style={{ width: 7, height: 7, borderRadius: '50%', flexShrink: 0, background: color, boxShadow: `0 0 8px ${color}` }} />
+            <span className="text-[11px] text-white/80 font-mono flex-1 truncate">{item}</span>
+            <span className="text-[10px] font-mono" style={{ color: '#10b981' }}>✓</span>
+          </div>
+        );
+      })}
+    </div>
+    <div className="px-4 py-2 border-t border-white/10 flex items-center gap-2" style={{ background: 'hsl(220,15%,11%)' }}>
+      <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+      <span className="text-[10px] text-green-400 font-mono">מערכת פעילה</span>
+    </div>
+  </div>
+);
+
+/** Process timeline rendered as a running pipeline — numbered nodes joined by
+ *  an animated dashed connector, instead of a static circle row. */
+const PipelineArrow = () => (
+  <svg className="hidden md:block flex-shrink-0 w-10 h-5 text-primary/50" viewBox="0 0 40 20" overflow="visible">
+    <path
+      d="M0 10h30" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 3" fill="none" strokeLinecap="round"
+      style={{ animation: 'pipeline-dash 0.9s linear infinite' }}
+    />
+    <path d="M26 6l8 4-8 4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 const SolutionPageLayout = ({ data }: { data: SolutionPageData }) => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const { openPopup } = useContactPopup();
   const faqItems = data?.faq?.items ?? [];
   const hasFaq = faqItems.length > 0;
   const backMessages = data.hero.heroBackMessages ?? [];
-  const [msgIndex, setMsgIndex] = useState(0);
-  const [msgVisible, setMsgVisible] = useState(true);
   const [isSpinning, setIsSpinning] = useState(false);
   const heroImageRef = useRef<HTMLDivElement>(null);
 
@@ -75,18 +130,6 @@ const SolutionPageLayout = ({ data }: { data: SolutionPageData }) => {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    if (backMessages.length < 2) return;
-    const interval = setInterval(() => {
-      setMsgVisible(false);
-      setTimeout(() => {
-        setMsgIndex(i => (i + 1) % backMessages.length);
-        setMsgVisible(true);
-      }, 400);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, [backMessages.length]);
 
   return (
     <>
@@ -156,19 +199,11 @@ const SolutionPageLayout = ({ data }: { data: SolutionPageData }) => {
                         fetchPriority="high"
                         decoding="async"
                       />
-                      <div className="hero-3d-back flex items-center justify-center p-8">
-                        {backMessages.length > 0 && (
-                          <p
-                            className="text-center text-lg font-semibold leading-relaxed transition-opacity duration-400"
-                            style={{
-                              color: 'hsl(160 84% 55%)',
-                              opacity: msgVisible ? 1 : 0,
-                              direction: 'rtl',
-                            }}
-                          >
-                            {backMessages[msgIndex]}
-                          </p>
-                        )}
+                      {/* Back face: a live-feeling terminal readout instead of a static
+                          text card — reinforces "this is a running system", built from
+                          the page's own deliverables so it's real content, not invented. */}
+                      <div className="hero-3d-back flex items-center justify-center p-5">
+                        <TerminalReadout items={data.whatWeDeliver.items.slice(0, 4)} active={isSpinning} />
                       </div>
                     </div>
                   </div>
@@ -287,22 +322,27 @@ const SolutionPageLayout = ({ data }: { data: SolutionPageData }) => {
         <Section id="process">
           <div className="max-w-5xl">
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-10 text-center">{data.process.title}</h2>
-            {/* Desktop timeline */}
-            <div className="hidden md:flex items-start relative">
-              <div className="absolute top-5 right-5 left-5 h-px bg-border/60" style={{ zIndex: 0 }} />
+            {/* Desktop — running pipeline: nodes joined by an animated dashed connector */}
+            <div className="hidden md:flex items-center justify-center">
               {data.process.steps.map((step, i) => (
-                <div key={i} className="flex-1 flex flex-col items-center text-center relative z-10 px-2">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center font-mono font-bold text-xs mb-3 flex-shrink-0"
-                    style={{
-                      background: 'hsl(var(--background))',
-                      border: '2px solid hsl(160,84%,39%)',
-                      color: 'hsl(160,84%,39%)',
-                      boxShadow: '0 0 14px hsl(160,84%,39%,0.18)',
-                    }}>
-                    {String(i + 1).padStart(2, '0')}
+                <div key={i} className="flex items-center">
+                  <div className="flex flex-col items-center text-center w-32 lg:w-36">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center font-mono font-bold text-xs mb-3 flex-shrink-0"
+                      style={{
+                        background: 'hsl(var(--background))',
+                        border: '2px solid hsl(160,84%,39%)',
+                        // Darkened from 39% (contrast ~2.4:1 as small bold text against
+                        // the light bg) to 26%, clearing the 4.5:1 floor; border/glow
+                        // kept at the original value since those aren't text.
+                        color: 'hsl(160,84%,26%)',
+                        boxShadow: '0 0 14px hsl(160,84%,39%,0.18)',
+                      }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </div>
+                    <h3 className="text-sm font-semibold text-foreground mb-1">{step.label}</h3>
+                    <p className="text-xs text-muted-foreground">{step.description}</p>
                   </div>
-                  <h3 className="text-sm font-semibold text-foreground mb-1">{step.label}</h3>
-                  <p className="text-xs text-muted-foreground">{step.description}</p>
+                  {i < data.process.steps.length - 1 && <PipelineArrow />}
                 </div>
               ))}
             </div>
@@ -312,7 +352,7 @@ const SolutionPageLayout = ({ data }: { data: SolutionPageData }) => {
                 <div key={i} className="flex items-start gap-4">
                   <div className="flex flex-col items-center flex-shrink-0">
                     <div className="w-9 h-9 rounded-full flex items-center justify-center font-mono font-bold text-xs"
-                      style={{ border: '2px solid hsl(160,84%,39%)', color: 'hsl(160,84%,39%)', background: 'hsl(var(--background))' }}>
+                      style={{ border: '2px solid hsl(160,84%,39%)', color: 'hsl(160,84%,26%)', background: 'hsl(var(--background))' }}>
                       {String(i + 1).padStart(2, '0')}
                     </div>
                     {i < data.process.steps.length - 1 && (
@@ -327,6 +367,9 @@ const SolutionPageLayout = ({ data }: { data: SolutionPageData }) => {
               ))}
             </div>
           </div>
+          <style>{`
+            @keyframes pipeline-dash { from { stroke-dashoffset: 14; } to { stroke-dashoffset: 0; } }
+          `}</style>
         </Section>
 
         {/* FAQ */}

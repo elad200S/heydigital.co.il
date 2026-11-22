@@ -10,7 +10,6 @@ const ProcessSection = lazy(() => import('@/components/sections/ProcessSection')
 const DemoVideoSection = lazy(() => import('@/components/sections/DemoVideoSection'));
 const AutomationShowcaseSection = lazy(() => import('@/components/sections/AutomationShowcaseSection'));
 const ToolsSection = lazy(() => import('@/components/sections/ToolsSection'));
-const AutomationAnimation = lazy(() => import('@/components/sections/AutomationAnimation'));
 const SolutionsOverviewSection = lazy(() => import('@/components/sections/SolutionsOverviewSection'));
 const AboutSection = lazy(() => import('@/components/sections/AboutSection'));
 const FAQSection = lazy(() => import('@/components/sections/FAQSection'));
@@ -36,20 +35,28 @@ const Index = () => {
 
         <CinematicReveal index={1}><ProblemSection /></CinematicReveal>
 
+        {/* Reordered so the narrative doesn't repeat "watch an automation run" three
+            times in a row (DemoVideo, AutomationShowcase and the now-removed
+            AutomationAnimation all showed the same beat back-to-back). Arc is now:
+            pain (Problem) -> proof it works on your own site (DemoVideo) -> how we
+            build it for you (Process) -> breadth of real examples (AutomationShowcase)
+            -> compatibility (Tools) -> explore the two offerings (SolutionsOverview).
+            AutomationAnimation's "form -> webhook -> Make -> sub-actions" diagram was
+            the most redundant of the three (same message, generic/abstract, and least
+            distinctive visually) and was cut rather than merged. */}
         <Suspense fallback={null}>
-          <CinematicReveal index={2}><ProcessSection /></CinematicReveal>
-          <CinematicReveal index={3}><DemoVideoSection /></CinematicReveal>
+          <CinematicReveal index={2}><DemoVideoSection /></CinematicReveal>
+          <CinematicReveal index={3}><ProcessSection /></CinematicReveal>
           <AutomationShowcaseSection />
           <CinematicReveal index={5}><ToolsSection /></CinematicReveal>
-          <CinematicReveal index={6}><AutomationAnimation /></CinematicReveal>
-          {/* Not wrapped in CinematicReveal on purpose — a transform on an ancestor
-              redefines the containing block that position:sticky offsets resolve
-              against, which breaks the stacking-cards effect inside. */}
-          <SolutionsOverviewSection />
+          {/* No longer needs a sticky-safe exemption — SolutionsOverviewSection
+              is a plain two-card grid now, not a position:sticky stack, so it
+              gets the same entrance treatment as every other section here. */}
+          <CinematicReveal index={6}><SolutionsOverviewSection /></CinematicReveal>
 
-          <CinematicReveal index={8}><AboutSection /></CinematicReveal>
-          <CinematicReveal index={9}><FAQSection /></CinematicReveal>
-          <CinematicReveal index={10}><ContactSection /></CinematicReveal>
+          <CinematicReveal index={7}><AboutSection /></CinematicReveal>
+          <CinematicReveal index={8}><FAQSection /></CinematicReveal>
+          <CinematicReveal index={9}><ContactSection /></CinematicReveal>
           <Footer />
         </Suspense>
 

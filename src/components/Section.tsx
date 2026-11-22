@@ -42,8 +42,11 @@ const Section = forwardRef<HTMLElement, SectionProps>(
             ease: 'none',
             scrollTrigger: {
               trigger: el,
-              start: 'top 94%',
-              end: 'top 48%',
+              // Narrowed from 94%->48% (a 46-point scroll window that left content
+              // visibly washed out for a long stretch of normal scrolling) to resolve
+              // to full opacity meaningfully sooner.
+              start: 'top 88%',
+              end: 'top 62%',
               scrub: 1.2,
             },
           }

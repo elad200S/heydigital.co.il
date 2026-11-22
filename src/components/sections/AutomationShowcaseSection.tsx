@@ -214,7 +214,6 @@ const AutomationShowcaseSection = () => {
       <div className="container">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="font-mono text-xs uppercase tracking-[0.14em] text-primary mb-3">הדגמה חיה</p>
             <RevealText className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               4 תרחישים מהשטח
             </RevealText>
