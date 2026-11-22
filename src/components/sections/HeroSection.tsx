@@ -125,6 +125,13 @@ const HeroSection = () => {
       {/* Top ambient glow */}
       <div className="absolute inset-0 bg-gradient-to-b from-primary/6 via-transparent to-transparent pointer-events-none" />
 
+      {/* Bottom bridge — dissolves the dark hero into the light section below
+          it instead of cutting hard at the section boundary. */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-40 md:h-56 pointer-events-none"
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--background)))' }}
+      />
+
       {/* ── Main content ── */}
       <div className="container flex-1 flex items-center">
         <div className="w-full flex flex-col md:flex-row items-center gap-10 py-24 md:py-0 md:gap-0">

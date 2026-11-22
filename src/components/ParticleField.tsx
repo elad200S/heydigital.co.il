@@ -20,6 +20,7 @@ const ParticleField = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
@@ -28,6 +29,31 @@ const ParticleField = () => {
     let rafId = 0;
     let paused = false;
     const mouse = { x: -9999, y: -9999 };
+
+    // The hero and footer sit on the dark brand background
+    // (--background-secondary); everything between them is the light cream
+    // --background. The same low-alpha green that reads clearly on dark reads
+    // as almost nothing on cream — which is why this field looked like it
+    // "stopped" after the hero, even though it was rendering the whole time.
+    // Track which kind of section is in view and switch to a darker, more
+    // saturated tone over light backgrounds so the field stays visible the
+    // whole way down instead of only inside the two dark sections.
+    let onDark = true;
+    const darkVisible = new Set<Element>();
+    const darkObserver = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) darkVisible.add(e.target);
+          else darkVisible.delete(e.target);
+        }
+        onDark = darkVisible.size > 0;
+      },
+      { threshold: 0.15 }
+    );
+    const hero = document.getElementById('hero');
+    const footer = document.querySelector('footer');
+    if (hero) darkObserver.observe(hero);
+    if (footer) darkObserver.observe(footer);
 
     const init = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -55,6 +81,14 @@ const ParticleField = () => {
       if (paused) return;
 
       ctx.clearRect(0, 0, W, H);
+
+      // Dots: soft green glow on the dark hero/footer; a darker, more
+      // saturated tone (same hue family) over the light cream sections so
+      // it stays readable instead of washing out.
+      const dotColor    = onDark ? '16, 185, 129' : '6, 95, 70';
+      const alphaMul    = onDark ? 1 : 1.6;
+      const lineColor   = onDark ? '16, 185, 129' : '6, 95, 70';
+      const lineAlphaMul = onDark ? 1 : 1.3;
 
       // Update + draw particles
       for (let i = 0; i < particles.length; i++) {
@@ -85,7 +119,7 @@ const ParticleField = () => {
         // Draw dot
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(16, 185, 129, ${p.alpha})`;
+        ctx.fillStyle = `rgba(${dotColor}, ${Math.min(p.alpha * alphaMul, 0.9)})`;
         ctx.fill();
       }
 
@@ -96,11 +130,11 @@ const ParticleField = () => {
           const dy = particles[i].y - particles[j].y;
           const d2 = dx * dx + dy * dy;
           if (d2 < CONNECT_DIST * CONNECT_DIST) {
-            const alpha = (1 - Math.sqrt(d2) / CONNECT_DIST) * 0.28;
+            const alpha = (1 - Math.sqrt(d2) / CONNECT_DIST) * 0.28 * lineAlphaMul;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(16, 185, 129, ${alpha})`;
+            ctx.strokeStyle = `rgba(${lineColor}, ${Math.min(alpha, 0.5)})`;
             ctx.lineWidth = 0.6;
             ctx.stroke();
           }
@@ -123,6 +157,7 @@ const ParticleField = () => {
       window.removeEventListener('resize',           onResize);
       window.removeEventListener('mousemove',        onMove);
       document.removeEventListener('visibilitychange', onVis);
+      darkObserver.disconnect();
     };
   }, []);
 

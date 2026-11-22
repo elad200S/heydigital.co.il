@@ -105,7 +105,13 @@ const Footer = () => {
   };
 
   return (
-    <footer className="border-t border-background/10" style={{ background: 'hsl(var(--background-secondary))' }}>
+    <footer className="relative border-t border-background/10" style={{ background: 'hsl(var(--background-secondary))' }}>
+      {/* Top bridge — the light section above dissolves into the dark footer
+          instead of cutting hard at the border. */}
+      <div
+        className="absolute inset-x-0 top-0 h-32 md:h-40 pointer-events-none"
+        style={{ background: 'linear-gradient(to bottom, hsl(var(--background)), transparent)' }}
+      />
 
       <div ref={ref} style={style} className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 md:gap-8">
