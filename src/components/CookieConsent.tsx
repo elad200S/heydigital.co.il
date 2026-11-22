@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Settings } from 'lucide-react';
 import {
   Dialog,
@@ -40,6 +40,29 @@ const CookieConsent = () => {
     analytics: false,
     marketing: false,
   });
+  const bannerRef = useRef<HTMLDivElement>(null);
+
+  // The banner is fixed to the bottom edge, which otherwise covers whatever page
+  // content (footer links, CTA buttons) happens to sit there. Reserve exactly its
+  // own height as page bottom padding while it's visible, instead of overlapping.
+  useEffect(() => {
+    if (!isVisible) {
+      document.body.style.paddingBottom = '';
+      return;
+    }
+    const el = bannerRef.current;
+    if (!el) return;
+    const applyPadding = () => {
+      document.body.style.paddingBottom = `${el.offsetHeight}px`;
+    };
+    applyPadding();
+    const observer = new ResizeObserver(applyPadding);
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      document.body.style.paddingBottom = '';
+    };
+  }, [isVisible]);
 
   useEffect(() => {
     const consent = localStorage.getItem('cookie-consent');
@@ -96,7 +119,7 @@ const CookieConsent = () => {
   return (
     <>
       {/* Fixed Bottom Banner */}
-      <div className="fixed bottom-0 left-0 w-full z-50 bg-card border-t border-border shadow-lg" dir="rtl">
+      <div ref={bannerRef} className="fixed bottom-0 left-0 w-full z-50 bg-card border-t border-border shadow-lg" dir="rtl">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             {/* Text Content */}
