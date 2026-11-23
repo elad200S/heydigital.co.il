@@ -6,7 +6,6 @@ import HeroSection from '@/components/sections/HeroSection';
 import ProblemSection from '@/components/sections/ProblemSection';
 
 const ProcessSection = lazy(() => import('@/components/sections/ProcessSection'));
-const DemoVideoSection = lazy(() => import('@/components/sections/DemoVideoSection'));
 const AutomationShowcaseSection = lazy(() => import('@/components/sections/AutomationShowcaseSection'));
 const ToolsSection = lazy(() => import('@/components/sections/ToolsSection'));
 const SolutionsOverviewSection = lazy(() => import('@/components/sections/SolutionsOverviewSection'));
@@ -54,7 +53,6 @@ const Index = () => {
             the most redundant of the three (same message, generic/abstract, and least
             distinctive visually) and was cut rather than merged. */}
         <Suspense fallback={null}>
-          <DemoVideoSection />
           <ProcessSection />
           <AutomationShowcaseSection />
           <ToolsSection />

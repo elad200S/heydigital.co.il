@@ -27,7 +27,11 @@ const CURSOR_POS = [
 
 const STEP_ACTIVATE_PHASE = [0, 1, 3, 6];
 
-const DemoVideoSection = () => {
+const EmbeddedWrapper = ({ children }: { children: React.ReactNode; id?: string }) => (
+  <div id="demo">{children}</div>
+);
+
+const DemoVideoSection = ({ embedded = false }: { embedded?: boolean }) => {
   const [phase, setPhase] = useState(0);
   const [formData, setFormData] = useState({ name: '', phone: '', business: '' });
   const [wsEntered, setWsEntered] = useState(false);
@@ -71,16 +75,20 @@ const DemoVideoSection = () => {
   const submitClick = phase === 5;
   const cursorPos = CURSOR_POS[phase] ?? CURSOR_POS[0];
 
+  const Wrapper = embedded ? EmbeddedWrapper : Section;
+
   return (
-    <Section id="demo">
-      <div className="max-w-3xl mx-auto" dir="rtl">
+    <Wrapper id="demo">
+      <div className={embedded ? '' : 'max-w-3xl mx-auto'} dir="rtl">
         {/* Title */}
-        <div className="text-center mb-10">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground">כך זה יראה אצלך</h2>
-          <p className="text-muted-foreground mt-4 text-lg">
-            מהכניסה לאתר ועד קבלת הודעת ווצאפ — תוך שניות
-          </p>
-        </div>
+        {!embedded && (
+          <div className="text-center mb-10">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground">כך זה יראה אצלך</h2>
+            <p className="text-muted-foreground mt-4 text-lg">
+              מהכניסה לאתר ועד קבלת הודעת ווצאפ — תוך שניות
+            </p>
+          </div>
+        )}
 
         {/* Browser mockup */}
         <div
@@ -346,7 +354,7 @@ const DemoVideoSection = () => {
         @keyframes slideUp { from { opacity: 0; transform: translateY(16px) } to { opacity: 1; transform: translateY(0) } }
         @keyframes blink { 0%, 100% { opacity: 1 } 50% { opacity: 0 } }
       `}</style>
-    </Section>
+    </Wrapper>
   );
 };
 

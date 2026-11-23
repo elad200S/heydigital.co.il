@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState, useCallback } from 'react';
 import Section from '@/components/Section';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import RevealText from '@/components/RevealText';
+
+const DemoVideoSection = lazy(() => import('@/components/sections/DemoVideoSection'));
 
 const STATS = [
   { value: 87, suffix: '%', label: 'מהלידים נאבדים\nללא מעקב ברור' },
@@ -40,7 +42,7 @@ const StatsRow = () => {
   }, [triggered]);
 
   return (
-    <div ref={ref} className="grid grid-cols-3 gap-3 mb-12">
+    <div ref={ref} className="grid grid-cols-3 gap-3 mb-8 max-w-3xl mx-auto">
       {STATS.map((stat, i) => (
         <div
           key={i}
@@ -212,19 +214,20 @@ const ProblemSection = () => {
 
   return (
     <Section id="problem">
-      <div ref={sectionRef} className="max-w-3xl mx-auto text-center">
+      <div className="max-w-6xl mx-auto text-center">
         <RevealText className="text-4xl md:text-5xl font-bold text-foreground mb-8 text-center">
           מרגיש שהעסק עובד אבל לא באמת מסודר?
         </RevealText>
 
         <StatsRow />
 
+        <div ref={sectionRef} className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-start">
         {/* ── Terminal window ── */}
         <div ref={terminalRef} style={{ ...terminalStyle,
           background: '#0d1117',
           borderRadius: 12,
           border: '1px solid #30363d',
-          minHeight: 320,
+          minHeight: 430,
           overflow: 'hidden',
           fontFamily: "'Courier New', Courier, monospace",
           fontSize: 14,
@@ -353,6 +356,12 @@ const ProblemSection = () => {
               </div>
             )}
           </div>
+        </div>
+
+        {/* ── Demo (was a separate section) ── */}
+        <Suspense fallback={null}>
+          <DemoVideoSection embedded />
+        </Suspense>
         </div>
       </div>
 
