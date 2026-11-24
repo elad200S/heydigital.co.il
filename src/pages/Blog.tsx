@@ -15,6 +15,13 @@ const categories = [
 
 const articles = [
   {
+    title: 'WooCommerce vs Shopify — מה עדיף לחנות ישראלית?',
+    category: 'בניית אתרים',
+    excerpt: 'WooCommerce vs Shopify ב-2026: Shopify עולה 39$-399$ לחודש וכולל אחסון ומערכת קופה מובנית, ול-WooCommerce יש יותר חנויות פעילות בעולם (4.08 מיליון לפי StoreLeads) אבל דורש אחסון ותחזוקה נפרדים — מה מתאים לחנות ישראלית?',
+    readTime: '12 דקות קריאה',
+    href: '/blog/woocommerce-vs-shopify-israel',
+  },
+  {
     title: 'חיבור מערכות לעסק — CRM, וואטסאפ ויומן ביחד',
     category: 'אוטומציה',
     excerpt: 'חיבור מערכות לעסק בין CRM, וואטסאפ ויומן: עובדי ידע מבזבזים כ-12 שעות בשבוע על חיפוש מידע מפוזר לפי Forrester, וטווחי מחירים אמיתיים לחיבור בישראל ב-2026 — ₪79 עד ₪2,500 לחודש בהתאם למורכבות.',
