@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, useEffect, type MutableRefObject } from 'react';
 
-const SUPABASE_CHAT_URL = 'https://wotfxbniypocfsgpawak.supabase.co/functions/v1/chat';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndvdGZ4Ym5peXBvY2ZzZ3Bhd2FrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzNjUyNzQsImV4cCI6MjA5Njk0MTI3NH0._fL3RSiTsq6XoOPIAKw-FnMRFVYskCNxolefjEUelec';
+const SUPABASE_CHAT_URL = 'https://dgsuukvywkxoecrpwddh.supabase.co/functions/v1/chat';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRnc3V1a3Z5d2t4b2VjcnB3ZGRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY5OTQ2OTEsImV4cCI6MjA4MjU3MDY5MX0.0TTLLjD6Zp-0M4hpe9b6BZIG5wtkw1npd5sZ7EXm2cg';
 
 async function fetchAIResponse(history: { role: string; content: string }[]): Promise<string> {
   try {
