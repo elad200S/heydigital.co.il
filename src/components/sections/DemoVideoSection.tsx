@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 import Section from '@/components/Section';
 
+const CHAT_QUERY = 'אין לי שום פעילות בדיגיטל ואין לי סדר בעסק. אני חייב חברה שתעזור לי בנושאים האלה. על מי אתה ממליץ?';
+const CHAT_PHASES = 3; // phases 0-2 = ChatGPT search, then the original flow
+
 const PHASE_DURATIONS = [
+  3200, // chat: typing the search
+  900,  // chat: sent, thinking
+  3800, // chat: answer recommends us, cursor clicks the link
   1500, // 0: idle — cursor in center
   800,  // 1: cursor moves to button
   400,  // 2: button click
@@ -14,6 +20,9 @@ const PHASE_DURATIONS = [
 ];
 
 const CURSOR_POS = [
+  { left: '55%', top: '40%' },
+  { left: '75%', top: '88%' },
+  { left: '65%', top: '60%' },
   { left: '55%', top: '40%' },  // 0: idle
   { left: '9%',  top: '6%'  },  // 1: to navbar button (top-left)
   { left: '9%',  top: '6%'  },  // 2: click
@@ -35,6 +44,9 @@ const DemoVideoSection = ({ embedded = false }: { embedded?: boolean }) => {
   const [phase, setPhase] = useState(0);
   const [formData, setFormData] = useState({ name: '', phone: '', business: '' });
   const [wsEntered, setWsEntered] = useState(false);
+  const [chatText, setChatText] = useState('');
+  const [linkClick, setLinkClick] = useState(false);
+  const p = phase - CHAT_PHASES; // phase within the original site flow (negative while in chat)
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
@@ -45,6 +57,7 @@ const DemoVideoSection = ({ embedded = false }: { embedded?: boolean }) => {
         if (next === 0) {
           setFormData({ name: '', phone: '', business: '' });
           setWsEntered(false);
+          setChatText('');
         }
         advance(next);
       }, PHASE_DURATIONS[current]);
@@ -54,7 +67,25 @@ const DemoVideoSection = ({ embedded = false }: { embedded?: boolean }) => {
   }, []);
 
   useEffect(() => {
-    if (phase !== 4) return;
+    if (phase !== 0) return;
+    let i = 0;
+    const id = setInterval(() => {
+      i += 1;
+      setChatText(CHAT_QUERY.slice(0, i));
+      if (i >= CHAT_QUERY.length) clearInterval(id);
+    }, 26);
+    return () => clearInterval(id);
+  }, [phase]);
+
+  useEffect(() => {
+    setLinkClick(false);
+    if (phase !== 2) return;
+    const t = setTimeout(() => setLinkClick(true), 2600);
+    return () => clearTimeout(t);
+  }, [phase]);
+
+  useEffect(() => {
+    if (p !== 4) return;
     const t1 = setTimeout(() => setFormData(p => ({ ...p, name: 'ישראל ישראלי' })), 350);
     const t2 = setTimeout(() => setFormData(p => ({ ...p, phone: '052-1234567' })), 1100);
     const t3 = setTimeout(() => setFormData(p => ({ ...p, business: 'עורך דין' })), 1800);
@@ -62,17 +93,18 @@ const DemoVideoSection = ({ embedded = false }: { embedded?: boolean }) => {
   }, [phase]);
 
   useEffect(() => {
-    if (phase !== 6) return;
+    if (p !== 6) return;
     const t = setTimeout(() => setWsEntered(true), 80);
     return () => clearTimeout(t);
   }, [phase]);
 
-  const activeStep = STEP_ACTIVATE_PHASE.reduce((acc, threshold, i) => (phase >= threshold ? i : acc), 0);
-  const showPopup = phase >= 3 && phase <= 5;
-  const showWs = phase === 6 || phase === 7;
-  const buttonGlow = phase === 1 || phase === 2;
-  const buttonClick = phase === 2;
-  const submitClick = phase === 5;
+  const activeStep = STEP_ACTIVATE_PHASE.reduce((acc, threshold, i) => (p >= threshold ? i : acc), 0);
+  const showPopup = p >= 3 && p <= 5;
+  const inChat = phase < CHAT_PHASES;
+  const showWs = p === 6 || p === 7;
+  const buttonGlow = p === 1 || p === 2;
+  const buttonClick = p === 2;
+  const submitClick = p === 5;
   const cursorPos = CURSOR_POS[phase] ?? CURSOR_POS[0];
 
   const Wrapper = embedded ? EmbeddedWrapper : Section;
@@ -109,7 +141,7 @@ const DemoVideoSection = ({ embedded = false }: { embedded?: boolean }) => {
               className="flex-1 mx-3 px-3 py-1 rounded-md text-xs text-center font-mono"
               style={{ background: 'hsl(220,15%,8%)', color: 'hsl(215,20%,50%)' }}
             >
-              heydigital.co.il
+              {inChat ? 'chatgpt.com' : 'heydigital.co.il'}
             </div>
           </div>
 
@@ -256,7 +288,7 @@ const DemoVideoSection = ({ embedded = false }: { embedded?: boolean }) => {
                           }}
                         >
                           <span>{value}</span>
-                          {phase === 4 && !value && (
+                          {p === 4 && !value && (
                             <span
                               style={{ color: 'hsl(160,84%,39%)', animation: 'blink 0.9s step-end infinite' }}
                             >
@@ -325,10 +357,81 @@ const DemoVideoSection = ({ embedded = false }: { embedded?: boolean }) => {
               </div>
             )}
 
+            {/* ChatGPT-style search — the story starts here */}
+            {inChat && (
+              <div
+                className="absolute inset-0 flex flex-col select-none"
+                dir="rtl"
+                style={{ background: 'hsl(220,8%,11%)', zIndex: 80, animation: 'fadeIn 0.35s ease-out' }}
+              >
+                <div className="flex-1 overflow-hidden px-5 pt-5 flex flex-col gap-3">
+                  {phase === 0 ? (
+                    <div className="flex-1 flex items-center justify-center text-xl font-medium" style={{ color: 'hsl(210,15%,90%)' }}>
+                      במה אפשר לעזור?
+                    </div>
+                  ) : (
+                    <>
+                      <div
+                        className="self-start max-w-[85%] rounded-2xl px-4 py-2.5 text-xs leading-relaxed"
+                        style={{ background: 'hsl(220,8%,20%)', color: 'hsl(210,15%,92%)', animation: 'slideUp 0.3s ease-out' }}
+                      >
+                        {CHAT_QUERY}
+                      </div>
+                      {phase === 1 && (
+                        <div className="flex gap-1.5 px-1 pt-1">
+                          {[0, 1, 2].map(i => (
+                            <span
+                              key={i}
+                              className="w-2 h-2 rounded-full"
+                              style={{ background: 'hsl(215,10%,55%)', animation: `blink 1s ease-in-out ${i * 0.2}s infinite` }}
+                            />
+                          ))}
+                        </div>
+                      )}
+                      {phase === 2 && (
+                        <div className="text-xs leading-relaxed space-y-3" style={{ color: 'hsl(210,15%,88%)', animation: 'slideUp 0.35s ease-out' }}>
+                          <p>מובן, זה מצב נפוץ. כדאי לחפש חברה אחת שמכסה גם נוכחות דיגיטלית וגם סדר בעסק. הנה המלצה:</p>
+                          <div
+                            className="rounded-xl border px-4 py-3 transition-all duration-200"
+                            style={{ borderColor: linkClick ? 'hsl(160,84%,45%)' : 'hsl(160,84%,39%,0.5)', background: linkClick ? 'hsl(160,84%,39%,0.2)' : 'hsl(160,84%,39%,0.08)', transform: linkClick ? 'scale(0.98)' : 'scale(1)' }}
+                          >
+                            <div className="text-sm font-semibold" style={{ color: 'hsl(160,84%,50%)' }}>HEY Digital</div>
+                            <div className="mt-1" style={{ color: 'hsl(210,15%,80%)' }}>
+                              אתר, אוטומציה ו-CRM במקום אחד — ופגישת ייעוץ חינם
+                            </div>
+                            <div className="mt-1 text-[11px] font-mono underline" style={{ color: 'hsl(200,80%,65%)' }}>www.heydigital.co.il</div>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+                {/* Input bar */}
+                <div className="px-5 pb-4">
+                  <div
+                    className="flex items-center gap-3 rounded-full px-4 py-2.5 text-xs"
+                    style={{ background: 'hsl(220,8%,18%)', border: '1px solid hsl(220,8%,26%)', color: 'hsl(210,15%,92%)', minHeight: 40 }}
+                  >
+                    <span className="flex-1 truncate">
+                      {phase === 0 ? chatText : ''}
+                      {phase === 0 && <span style={{ animation: 'blink 0.9s step-end infinite' }}>|</span>}
+                      {phase !== 0 && <span style={{ color: 'hsl(215,10%,50%)' }}>שאל כל דבר</span>}
+                    </span>
+                    <span
+                      className="w-6 h-6 rounded-full flex items-center justify-center text-[11px] flex-shrink-0"
+                      style={{ background: chatText ? 'hsl(210,15%,92%)' : 'hsl(220,8%,30%)', color: 'hsl(220,8%,11%)' }}
+                    >
+                      ↑
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Cursor */}
             <div
-              className="absolute pointer-events-none z-50 transition-all duration-700 ease-in-out"
-              style={{ left: cursorPos.left, top: cursorPos.top, transform: 'translate(-2px, -2px)' }}
+              className="absolute pointer-events-none transition-all duration-700 ease-in-out"
+              style={{ left: cursorPos.left, top: cursorPos.top, transform: 'translate(-2px, -2px)', zIndex: 90, opacity: phase === 0 ? 0 : 1 }}
             >
               <svg width="18" height="22" viewBox="0 0 18 22" fill="none">
                 <path
