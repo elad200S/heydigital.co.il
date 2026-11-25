@@ -4,6 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
 
 const MAKE_WEBHOOK_URL = "https://hook.us2.make.com/mkf9676ndwn4v1s2cm6tllxyrlqxi2nj";
+const CRM_LEAD_CAPTURE_URL = "https://app.hey-digital-crm.co.il/api/lead-capture";
 const RATE_LIMIT_KEY = 'eh_contact_last_submit';
 const RATE_LIMIT_MS = 60000;
 
@@ -86,6 +87,19 @@ const Contact = () => {
         setIsSubmitting(false);
         return;
       }
+
+      // Best-effort: also creates the lead in the CRM and notifies by email.
+      // Never blocks the form — the lead is already saved above either way.
+      fetch(CRM_LEAD_CAPTURE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          full_name: trimmedName,
+          phone: normalizedPhone,
+          email: trimmedEmail || undefined,
+          company_name: trimmedBusiness || undefined,
+        }),
+      }).catch((e) => console.error('CRM lead-capture failed:', e));
 
       const payload: Record<string, string> = {
         full_name: formData.name.trim(),

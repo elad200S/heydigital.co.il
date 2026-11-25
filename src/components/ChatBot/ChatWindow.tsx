@@ -121,6 +121,13 @@ const ChatWindow = ({ messages, isLoading, onSendMessage, onClose, maxInputLengt
       if (error) console.error('DB insert error (chatbot lead):', error);
     });
 
+    // Best-effort: also creates the lead in the CRM and notifies by email.
+    fetch('https://app.hey-digital-crm.co.il/api/lead-capture', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ full_name: name, phone: phone.replace(/-/g, ''), company_name: 'בוט אתר' }),
+    }).catch((e) => console.error('CRM lead-capture failed (chatbot):', e));
+
     trackLead('chatbot');
 
     // Also open WhatsApp with pre-filled message
