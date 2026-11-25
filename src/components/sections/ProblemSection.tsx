@@ -221,13 +221,13 @@ const ProblemSection = () => {
 
         <StatsRow />
 
-        <div ref={sectionRef} className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-start">
+        <div ref={sectionRef} className="grid lg:grid-cols-[2fr_3fr] gap-6 lg:gap-8 items-start">
         {/* ── Terminal window ── */}
         <div ref={terminalRef} style={{ ...terminalStyle,
           background: '#0d1117',
           borderRadius: 12,
           border: '1px solid #30363d',
-          minHeight: 430,
+          minHeight: 480,
           overflow: 'hidden',
           fontFamily: "'Courier New', Courier, monospace",
           fontSize: 14,

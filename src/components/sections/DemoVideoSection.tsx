@@ -7,7 +7,7 @@ const CHAT_PHASES = 3; // phases 0-2 = ChatGPT search, then the original flow
 const PHASE_DURATIONS = [
   3200, // chat: typing the search
   900,  // chat: sent, thinking
-  3800, // chat: answer recommends us, cursor clicks the link
+  5000, // chat: answer recommends us, cursor clicks the link
   1500, // 0: idle — cursor in center
   800,  // 1: cursor moves to button
   400,  // 2: button click
@@ -22,7 +22,7 @@ const PHASE_DURATIONS = [
 const CURSOR_POS = [
   { left: '55%', top: '40%' },
   { left: '75%', top: '88%' },
-  { left: '65%', top: '60%' },
+  { left: '60%', top: '70%' },
   { left: '55%', top: '40%' },  // 0: idle
   { left: '9%',  top: '6%'  },  // 1: to navbar button (top-left)
   { left: '9%',  top: '6%'  },  // 2: click
@@ -34,7 +34,7 @@ const CURSOR_POS = [
   { left: '55%', top: '40%' },  // 8: reset
 ];
 
-const STEP_ACTIVATE_PHASE = [0, 1, 3, 6];
+const STEPS = ['חיפוש ב-ChatGPT', 'כניסה לאתר', 'השארת פרטים', 'הודעת וואטסאפ'];
 
 const EmbeddedWrapper = ({ children }: { children: React.ReactNode; id?: string }) => (
   <div id="demo">{children}</div>
@@ -80,7 +80,7 @@ const DemoVideoSection = ({ embedded = false }: { embedded?: boolean }) => {
   useEffect(() => {
     setLinkClick(false);
     if (phase !== 2) return;
-    const t = setTimeout(() => setLinkClick(true), 2600);
+    const t = setTimeout(() => setLinkClick(true), 3800);
     return () => clearTimeout(t);
   }, [phase]);
 
@@ -98,7 +98,7 @@ const DemoVideoSection = ({ embedded = false }: { embedded?: boolean }) => {
     return () => clearTimeout(t);
   }, [phase]);
 
-  const activeStep = STEP_ACTIVATE_PHASE.reduce((acc, threshold, i) => (p >= threshold ? i : acc), 0);
+  const activeStep = p < 0 ? 0 : p < 3 ? 1 : p < 6 ? 2 : 3;
   const showPopup = p >= 3 && p <= 5;
   const inChat = phase < CHAT_PHASES;
   const showWs = p === 6 || p === 7;
@@ -146,7 +146,7 @@ const DemoVideoSection = ({ embedded = false }: { embedded?: boolean }) => {
           </div>
 
           {/* Content area */}
-          <div className="relative overflow-hidden" style={{ height: 390 }}>
+          <div className="relative overflow-hidden" style={{ height: 430 }}>
             {/* Subtle grid background */}
             <div
               className="absolute inset-0 opacity-[0.04]"
@@ -357,71 +357,83 @@ const DemoVideoSection = ({ embedded = false }: { embedded?: boolean }) => {
               </div>
             )}
 
-            {/* ChatGPT-style search — the story starts here */}
+            {/* ChatGPT-style search — simplified dark ChatGPT look, big and readable */}
             {inChat && (
               <div
                 className="absolute inset-0 flex flex-col select-none"
                 dir="rtl"
-                style={{ background: 'hsl(220,8%,11%)', zIndex: 80, animation: 'fadeIn 0.35s ease-out' }}
+                style={{ background: '#212121', zIndex: 80, animation: 'fadeIn 0.35s ease-out', fontFamily: 'system-ui, -apple-system, "Segoe UI", sans-serif' }}
               >
-                <div className="flex-1 overflow-hidden px-5 pt-5 flex flex-col gap-3">
+                {/* Top bar */}
+                <div className="flex items-center px-5 flex-shrink-0 gap-2" style={{ height: 46, color: '#ececec' }}>
+                  <span className="text-base font-semibold">ChatGPT</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#b4b4b4" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
+                </div>
+
+                {/* Conversation */}
+                <div className="flex-1 overflow-hidden px-6 pb-2 flex flex-col gap-5 mx-auto w-full" style={{ maxWidth: 600 }}>
                   {phase === 0 ? (
-                    <div className="flex-1 flex items-center justify-center text-xl font-medium" style={{ color: 'hsl(210,15%,90%)' }}>
+                    <div className="flex-1 flex items-center justify-center text-[26px] font-medium" style={{ color: '#ececec' }}>
                       במה אפשר לעזור?
                     </div>
                   ) : (
                     <>
+                      {/* User message */}
                       <div
-                        className="self-start max-w-[85%] rounded-2xl px-4 py-2.5 text-xs leading-relaxed"
-                        style={{ background: 'hsl(220,8%,20%)', color: 'hsl(210,15%,92%)', animation: 'slideUp 0.3s ease-out' }}
+                        className="self-start rounded-3xl px-5 py-3 text-[15px] leading-relaxed"
+                        style={{ background: '#2f2f2f', color: '#ececec', maxWidth: '85%', animation: 'slideUp 0.3s ease-out' }}
                       >
                         {CHAT_QUERY}
                       </div>
-                      {phase === 1 && (
-                        <div className="flex gap-1.5 px-1 pt-1">
-                          {[0, 1, 2].map(i => (
-                            <span
-                              key={i}
-                              className="w-2 h-2 rounded-full"
-                              style={{ background: 'hsl(215,10%,55%)', animation: `blink 1s ease-in-out ${i * 0.2}s infinite` }}
-                            />
-                          ))}
-                        </div>
-                      )}
-                      {phase === 2 && (
-                        <div className="text-xs leading-relaxed space-y-3" style={{ color: 'hsl(210,15%,88%)', animation: 'slideUp 0.35s ease-out' }}>
-                          <p>מובן, זה מצב נפוץ. כדאי לחפש חברה אחת שמכסה גם נוכחות דיגיטלית וגם סדר בעסק. הנה המלצה:</p>
-                          <div
-                            className="rounded-xl border px-4 py-3 transition-all duration-200"
-                            style={{ borderColor: linkClick ? 'hsl(160,84%,45%)' : 'hsl(160,84%,39%,0.5)', background: linkClick ? 'hsl(160,84%,39%,0.2)' : 'hsl(160,84%,39%,0.08)', transform: linkClick ? 'scale(0.98)' : 'scale(1)' }}
-                          >
-                            <div className="text-sm font-semibold" style={{ color: 'hsl(160,84%,50%)' }}>HEY Digital</div>
-                            <div className="mt-1" style={{ color: 'hsl(210,15%,80%)' }}>
-                              אתר, אוטומציה ו-CRM במקום אחד — ופגישת ייעוץ חינם
+
+                      {/* Assistant message */}
+                      <div className="min-w-0">
+                        {phase === 1 && (
+                          <span
+                            className="inline-block rounded-full"
+                            style={{ width: 12, height: 12, background: '#ececec', animation: 'blink 1s ease-in-out infinite' }}
+                          />
+                        )}
+                        {phase === 2 && (
+                          <div className="text-[15px] leading-relaxed space-y-3.5" style={{ color: '#ececec', animation: 'slideUp 0.35s ease-out' }}>
+                            <p>מובן, זה מצב נפוץ. כדאי לחפש חברה אחת שמכסה גם נוכחות דיגיטלית וגם סדר בעסק. הנה המלצה:</p>
+                            <div
+                              className="rounded-2xl border-2 px-5 py-4 transition-all duration-200"
+                              style={{
+                                borderColor: '#10b981',
+                                background: linkClick ? '#1f4034' : '#1b2f28',
+                                boxShadow: linkClick ? '0 0 34px rgba(16,185,129,0.55)' : '0 0 22px rgba(16,185,129,0.28)',
+                                transform: linkClick ? 'scale(0.98)' : 'scale(1)',
+                              }}
+                            >
+                              <div className="text-xl font-bold" style={{ color: '#34d399' }}>HEY Digital</div>
+                              <div className="mt-1 text-sm" style={{ color: '#d6d6d6' }}>
+                                אתר, אוטומציה ו-CRM במקום אחד — ופגישת ייעוץ חינם
+                              </div>
+                              <div className="mt-2 text-sm font-mono underline" style={{ color: '#7ab7ff' }}>www.heydigital.co.il</div>
                             </div>
-                            <div className="mt-1 text-[11px] font-mono underline" style={{ color: 'hsl(200,80%,65%)' }}>www.heydigital.co.il</div>
                           </div>
-                        </div>
-                      )}
+                        )}
+                      </div>
                     </>
                   )}
                 </div>
-                {/* Input bar */}
-                <div className="px-5 pb-4">
+
+                {/* Composer */}
+                <div className="px-6 pb-5 mx-auto w-full flex-shrink-0" style={{ maxWidth: 600 }}>
                   <div
-                    className="flex items-center gap-3 rounded-full px-4 py-2.5 text-xs"
-                    style={{ background: 'hsl(220,8%,18%)', border: '1px solid hsl(220,8%,26%)', color: 'hsl(210,15%,92%)', minHeight: 40 }}
+                    className="flex items-center gap-3 rounded-full px-4 py-2 text-[15px]"
+                    style={{ background: '#303030', color: '#ececec', minHeight: 52 }}
                   >
                     <span className="flex-1 truncate">
-                      {phase === 0 ? chatText : ''}
+                      {phase === 0 ? chatText : <span style={{ color: '#8e8e8e' }}>שאל כל דבר</span>}
                       {phase === 0 && <span style={{ animation: 'blink 0.9s step-end infinite' }}>|</span>}
-                      {phase !== 0 && <span style={{ color: 'hsl(215,10%,50%)' }}>שאל כל דבר</span>}
                     </span>
                     <span
-                      className="w-6 h-6 rounded-full flex items-center justify-center text-[11px] flex-shrink-0"
-                      style={{ background: chatText ? 'hsl(210,15%,92%)' : 'hsl(220,8%,30%)', color: 'hsl(220,8%,11%)' }}
+                      className="rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{ width: 34, height: 34, background: phase === 0 && chatText ? '#fff' : '#4a4a4a', color: '#212121' }}
                     >
-                      ↑
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5M6 11l6-6 6 6" /></svg>
                     </span>
                   </div>
                 </div>
@@ -446,10 +458,25 @@ const DemoVideoSection = ({ embedded = false }: { embedded?: boolean }) => {
           </div>
         </div>
 
-        {/* Caption */}
-        <p className="text-center text-xs mt-4" style={{ color: 'hsl(215,20%,45%)' }}>
-          הדגמה מדמה את חוויית הלקוח האמיתית — מהכניסה לאתר ועד קבלת ההודעה
-        </p>
+        {/* Step indicator */}
+        <div className="flex items-center justify-center gap-2 mt-5 flex-wrap">
+          {STEPS.map((label, i) => (
+            <div key={label} className="flex items-center gap-2">
+              <div
+                className="flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-500"
+                style={{
+                  background: i === activeStep ? 'hsl(160,84%,39%)' : 'transparent',
+                  color: i === activeStep ? '#fff' : 'hsl(215,15%,40%)',
+                  border: `1px solid ${i === activeStep ? 'hsl(160,84%,39%)' : 'hsl(215,15%,75%)'}`,
+                }}
+              >
+                <span className="font-bold">{i + 1}</span>
+                {label}
+              </div>
+              {i < STEPS.length - 1 && <span style={{ color: 'hsl(215,15%,60%)' }}>←</span>}
+            </div>
+          ))}
+        </div>
       </div>
 
       <style>{`
