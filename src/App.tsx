@@ -103,6 +103,7 @@ const BlogDoctorWebsiteGuide = lazy(() => import("./pages/blog/DoctorWebsiteGuid
 const BlogGoogleAdsSmallBusiness = lazy(() => import("./pages/blog/GoogleAdsSmallBusiness"));
 const BlogBusinessSystemsIntegration = lazy(() => import("./pages/blog/BusinessSystemsIntegration"));
 const BlogWoocommerceVsShopifyIsrael = lazy(() => import("./pages/blog/WoocommerceVsShopifyIsrael"));
+const BlogFacebookAdsBusiness2026 = lazy(() => import("./pages/blog/FacebookAdsBusiness2026"));
 // Industries
 const Industries = lazy(() => import("./pages/Industries"));
 const IndustryAgencies = lazy(() => import("./pages/industries/Agencies"));
@@ -270,6 +271,7 @@ const RoutesWithTransition = () => {
           <Route path="/blog/google-ads-small-business" element={<BlogGoogleAdsSmallBusiness />} />
           <Route path="/blog/business-systems-integration" element={<BlogBusinessSystemsIntegration />} />
           <Route path="/blog/woocommerce-vs-shopify-israel" element={<BlogWoocommerceVsShopifyIsrael />} />
+          <Route path="/blog/facebook-ads-business-2026" element={<BlogFacebookAdsBusiness2026 />} />
           <Route path="/industries" element={<Industries />} />
           <Route path="/industries/agencies" element={<IndustryAgencies />} />
           <Route path="/industries/coaches" element={<IndustryCoaches />} />

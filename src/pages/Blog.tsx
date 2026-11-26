@@ -15,6 +15,13 @@ const categories = [
 
 const articles = [
   {
+    title: 'פרסום בפייסבוק לעסקים — מה עובד ב-2026?',
+    category: 'שיווק דיגיטלי',
+    excerpt: 'פרסום בפייסבוק לעסקים ב-2026: עלות קליק ממוצעת של כ-0.60$-0.62$ וכ-8.23 מיליון משתמשים בישראל לפי NapoleonCat, אבל Advantage+ שינה את הדרך הנכונה להריץ קמפיין — מה עובד בפועל ומה לא.',
+    readTime: '12 דקות קריאה',
+    href: '/blog/facebook-ads-business-2026',
+  },
+  {
     title: 'WooCommerce vs Shopify — מה עדיף לחנות ישראלית?',
     category: 'בניית אתרים',
     excerpt: 'WooCommerce vs Shopify ב-2026: Shopify עולה 39$-399$ לחודש וכולל אחסון ומערכת קופה מובנית, ול-WooCommerce יש יותר חנויות פעילות בעולם (4.08 מיליון לפי StoreLeads) אבל דורש אחסון ותחזוקה נפרדים — מה מתאים לחנות ישראלית?',
