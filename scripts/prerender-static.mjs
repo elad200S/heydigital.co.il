@@ -149,39 +149,58 @@ async function main() {
 
   const failures = [];
   let written = 0;
+  let done = 0;
+
+  // Sequential, one browser context at a time, used to take ~25-30 min on a
+  // loaded Vercel build machine for ~95 routes with zero progress output in
+  // between — indistinguishable from a real hang in the build log. Running a
+  // small pool concurrently cuts wall time substantially and logging after
+  // every route means a stuck run is now visible (the log just stops).
+  const CONCURRENCY = 4;
+
+  async function snapshotRoute(route) {
+    const url = route === '/' ? `${BASE_URL}/` : `${BASE_URL}${route}/`;
+    const context = await browser.newContext(); // fresh, no storage/cookies
+    try {
+      const page = await context.newPage();
+      await page.goto(url, { waitUntil: 'load', timeout: 30000 });
+      await page.waitForSelector('[data-app-ready="true"]', { timeout: 20000 });
+      await page.waitForSelector('h1', { timeout: 5000 });
+      // let any in-flight lazy chunk / fetch settle before snapshotting
+      await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
+
+      const html = dedupeHead(await page.content());
+      const text = stripForValidation(html);
+      const hasH1 = /<h1[\s>]/i.test(html);
+      const hasEnoughText = text.length > 200;
+
+      if (!hasH1 || !hasEnoughText) {
+        failures.push({ route, reason: !hasH1 ? 'no <h1> in rendered output' : `only ${text.length} chars of text` });
+        return;
+      }
+
+      const outPath = route === '/' ? join(DIST, 'index.html') : join(DIST, route.replace(/^\//, ''), 'index.html');
+      mkdirSync(dirname(outPath), { recursive: true });
+      writeFileSync(outPath, html);
+      written++;
+    } catch (err) {
+      failures.push({ route, reason: err instanceof Error ? err.message : String(err) });
+    } finally {
+      await context.close();
+      done++;
+      console.log(`[prerender-static] ${done}/${routes.length} done — ${route}`);
+    }
+  }
 
   try {
-    for (const route of routes) {
-      const url = route === '/' ? `${BASE_URL}/` : `${BASE_URL}${route}/`;
-      const context = await browser.newContext(); // fresh, no storage/cookies
-      const page = await context.newPage();
-      try {
-        await page.goto(url, { waitUntil: 'load', timeout: 30000 });
-        await page.waitForSelector('[data-app-ready="true"]', { timeout: 20000 });
-        await page.waitForSelector('h1', { timeout: 5000 });
-        // let any in-flight lazy chunk / fetch settle before snapshotting
-        await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
-
-        const html = dedupeHead(await page.content());
-        const text = stripForValidation(html);
-        const hasH1 = /<h1[\s>]/i.test(html);
-        const hasEnoughText = text.length > 200;
-
-        if (!hasH1 || !hasEnoughText) {
-          failures.push({ route, reason: !hasH1 ? 'no <h1> in rendered output' : `only ${text.length} chars of text` });
-          continue;
-        }
-
-        const outPath = route === '/' ? join(DIST, 'index.html') : join(DIST, route.replace(/^\//, ''), 'index.html');
-        mkdirSync(dirname(outPath), { recursive: true });
-        writeFileSync(outPath, html);
-        written++;
-      } catch (err) {
-        failures.push({ route, reason: err instanceof Error ? err.message : String(err) });
-      } finally {
-        await context.close();
+    const queue = [...routes];
+    const workers = Array.from({ length: CONCURRENCY }, async () => {
+      while (queue.length > 0) {
+        const route = queue.shift();
+        if (route !== undefined) await snapshotRoute(route);
       }
-    }
+    });
+    await Promise.all(workers);
   } finally {
     await browser.close();
     await new Promise((resolve) => previewServer.httpServer.close(resolve));
