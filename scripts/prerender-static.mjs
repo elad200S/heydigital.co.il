@@ -158,14 +158,16 @@ async function main() {
   // every route means a stuck run is now visible (the log just stops).
   const CONCURRENCY = 4;
 
-  async function snapshotRoute(route) {
+  // One attempt at snapshotting a route. Throws on any failure (timeout,
+  // missing h1, too little text) — caller decides whether to retry.
+  async function attemptSnapshot(route) {
     const url = route === '/' ? `${BASE_URL}/` : `${BASE_URL}${route}/`;
     const context = await browser.newContext(); // fresh, no storage/cookies
     try {
       const page = await context.newPage();
       await page.goto(url, { waitUntil: 'load', timeout: 30000 });
-      await page.waitForSelector('[data-app-ready="true"]', { timeout: 20000 });
-      await page.waitForSelector('h1', { timeout: 5000 });
+      await page.waitForSelector('[data-app-ready="true"]', { timeout: 30000 });
+      await page.waitForSelector('h1', { timeout: 10000 });
       // let any in-flight lazy chunk / fetch settle before snapshotting
       await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
 
@@ -173,20 +175,35 @@ async function main() {
       const text = stripForValidation(html);
       const hasH1 = /<h1[\s>]/i.test(html);
       const hasEnoughText = text.length > 200;
-
-      if (!hasH1 || !hasEnoughText) {
-        failures.push({ route, reason: !hasH1 ? 'no <h1> in rendered output' : `only ${text.length} chars of text` });
-        return;
-      }
+      if (!hasH1) throw new Error('no <h1> in rendered output');
+      if (!hasEnoughText) throw new Error(`only ${text.length} chars of text`);
 
       const outPath = route === '/' ? join(DIST, 'index.html') : join(DIST, route.replace(/^\//, ''), 'index.html');
       mkdirSync(dirname(outPath), { recursive: true });
       writeFileSync(outPath, html);
-      written++;
-    } catch (err) {
-      failures.push({ route, reason: err instanceof Error ? err.message : String(err) });
     } finally {
       await context.close();
+    }
+  }
+
+  // A loaded Vercel build machine (2 vCPU, CONCURRENCY contexts competing for
+  // it) occasionally makes a single route miss its timeout even though
+  // nothing is actually wrong with it — one retry absorbs that without
+  // masking a route that's genuinely broken (which fails twice in a row).
+  async function snapshotRoute(route) {
+    try {
+      await attemptSnapshot(route);
+      written++;
+    } catch (firstErr) {
+      try {
+        await attemptSnapshot(route);
+        written++;
+        console.log(`[prerender-static] ${route} failed once, succeeded on retry`);
+      } catch (secondErr) {
+        const err = secondErr instanceof Error ? secondErr : firstErr;
+        failures.push({ route, reason: err instanceof Error ? err.message : String(err) });
+      }
+    } finally {
       done++;
       console.log(`[prerender-static] ${done}/${routes.length} done — ${route}`);
     }
